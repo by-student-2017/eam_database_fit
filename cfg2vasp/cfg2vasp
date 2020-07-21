@@ -1,0 +1,61 @@
+#! /bin/csh -f
+set filename = `echo $1:r` 
+cp ${filename}.cfg tmp.cfg
+echo "title: from ${filename}.cfg"  > tmp.vasp
+#
+set element_list = (H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr Rf Df Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og)
+#
+set mass_list = (1.00794 4.00260 6.941 9.01218 10.81 12.0107 14.007 16.00 18.9984 20.180 22.99 24.305 26.98 28.1 30.97 32.1 35.45 39.95 39.10 40.08 44.955912 47.867 50.9415 51.9961 54.938045 55.845 58.933195 58.6934 63.546 65.38 69.723 72.63 74.92160 78.96 79.904 83.798 85.4678 87.62 88.90585 91.224 92.90638 95.96 98 101.07 102.90550 106.42 107.8682 112.411 114.818 118.710 121.760 127.60 126.90447 131.293 132.9054519 137.33 138.90547 140.116 140.90765 144.242 145 150.36 151.964 157.25 158.92535 162.500 164.93032 167.259 168.93421 173.054 174.9668 178.49 180.94788 183.84 186.207 190.23 192.217 195.084 196.966569 200.59 204.3833 207.2 208.98040 209 210 222 223 226 227 232.0381 231.03588 238.02891 237 244 243 247 247 251 252 257 258 259 262 261.11 268 271 270 269 278 281 281 285 286 289 289 293 294 294)
+#
+set element_flag = (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0)
+#
+set lattice_unit = `awk 'NR==2{printf "%20.10f", $3}' tmp.cfg`
+set HO11 = `awk 'NR==3{printf "%20.10f", $3}' tmp.cfg`
+set HO12 = `awk 'NR==4{printf "%20.10f", $3}' tmp.cfg`
+set HO13 = `awk 'NR==5{printf "%20.10f", $3}' tmp.cfg`
+set HO21 = `awk 'NR==6{printf "%20.10f", $3}' tmp.cfg`
+set HO22 = `awk 'NR==7{printf "%20.10f", $3}' tmp.cfg`
+set HO23 = `awk 'NR==8{printf "%20.10f", $3}' tmp.cfg`
+set HO31 = `awk 'NR==9{printf "%20.10f", $3}' tmp.cfg`
+set HO32 = `awk 'NR==10{printf "%20.10f", $3}' tmp.cfg`
+set HO33 = `awk 'NR==11{printf "%20.10f", $3}' tmp.cfg`
+#
+echo ${lattice_unit} >> tmp.vasp
+echo ${HO11}" "${HO12}" " ${HO13} | awk '{printf "%20.10f %20.10f %20.10f \n", $1, $2, $3}' >> tmp.vasp
+echo ${HO21}" "${HO22}" " ${HO23} | awk '{printf "%20.10f %20.10f %20.10f \n", $1, $2, $3}' >> tmp.vasp
+echo ${HO31}" "${HO32}" " ${HO33} | awk '{printf "%20.10f %20.10f %20.10f \n", $1, $2, $3}' >> tmp.vasp
+#echo ${HO11}" "${HO12}" " ${HO13}
+#echo ${HO21}" "${HO22}" " ${HO23}
+#echo ${HO31}" "${HO32}" " ${HO33}
+#
+set ntype = `awk '{if(m<$5 && NR>=17) m=$5} END{printf "%i", m}' tmp.cfg`
+#echo ${ntype}
+#
+set elements = ""
+set nelements = ""
+set i = 1
+while (${i} <= ${ntype})
+  set line = `awk -v i=${i} '{if($5==i){print NR}}' tmp.cfg | head -1`
+  set element = `awk -v line=${line} '{if(NR==(line-1)){printf "%s", $1}}' tmp.cfg`
+  set elements = `echo ${elements}" "${element}`
+  set nelement = `awk -v i=${i} '{if($5==i){print $0}}' tmp.cfg | wc -l`
+  set nelements = `echo ${nelements}" "${nelement}`
+  @ i ++
+end
+echo "   "${elements} >> tmp.vasp
+echo "   "${nelements} >> tmp.vasp
+#echo ${elements}
+#echo ${nelements}
+#
+echo "Direct" >> tmp.vasp
+#echo "Direct"
+#
+set i = 1
+while ($i <= ${ntype})
+  awk -v i=${i} '{if($5==i){printf "%16.9f     %16.9f     %16.9f \n", $1, $2, $3}}' tmp.cfg >> tmp.vasp
+  @ i ++
+end
+
+rm -f -r tmp.cfg
+mv tmp.vasp ${filename}.vasp
+

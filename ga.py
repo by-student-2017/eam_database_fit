@@ -1,0 +1,202 @@
+import random
+from deap import creator, base, tools, algorithms
+import numpy
+import numpy as np
+import commands
+import sys
+#----------------------------------------------------------------------
+file_tmp = 'EAM_code.tmp'
+file_inp = 'EAM_code'
+
+lammps_adress = "lmp"
+cif2cell_adress = "cif2cell"
+pwscf_adress = "mpirun -np 2 pw.x"
+commands.getoutput("setenv OMP_NUM_THREADS 1")
+
+output_file_name = "ga_files"
+commands.getoutput("cp data.in data.in.origin")
+commands.getoutput("rm -f -r "+output_file_name)
+commands.getoutput("mkdir "+output_file_name)
+
+target = [2] # dummy data
+y_str = [0] # dummy data
+
+# fitting parameters
+x0 = [2.556162,
+      1.554485,
+     21.175871,
+     21.175871,
+      8.127620,
+      4.334731,
+      0.396620,
+      0.548085,
+      0.308782,
+      0.756515,
+     -2.170269,
+     -0.263788,
+      1.088878,
+     -0.817603,
+     -2.190000,
+      0.561830,
+     -2.100595,
+      0.310490,
+     -2.186568] # initial data
+b1 = np.array([
+    [2.488746,3.499723],
+    [0.544323,3.487340],
+    [7.132600,37.234847],
+    [7.132600,37.234847],
+    [7.105782,10.228708],
+    [3.789750,5.455311],
+    [0.137518,0.882435],
+    [0.225930,1.394592],
+    [0.137640,0.5],
+    [0.275280,1.00],
+    [-5.103845,-0.896473],
+    [-2.149952,-0.044291],
+    [-0.529378,1.615343],
+    [-4.432406,-0.689950],
+    [-5.14,-0.90],
+    [0.608587,3.010561],
+    [-2.488244,0.776222],
+    [0.373601,1.450000],
+    [-5.141526,-0.835530]]) # boundary
+
+count = 0
+#----------------------------------------------------------------------
+creator.create("FitnessMax", base.Fitness, weights=(-1.0,))
+creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
+
+toolbox = base.Toolbox()
+
+n_gene = 19 # number of parameters
+min_ind = numpy.ones(n_gene) * -1.0
+max_ind = numpy.ones(n_gene) *  1.0
+for i in range(n_gene):
+  min_ind[i] = b1[i][0]
+  max_ind[i] = b1[i][1]
+  #print min_ind[i], max_ind[i]
+#----------------------------------------------------------------------
+def create_ind_uniform(min_ind, max_ind):
+  ind = []
+  for min, max in zip(min_ind, max_ind):
+    ind.append(random.uniform(min, max))
+  return ind
+#----------------------------------------------------------------------
+toolbox.register("create_ind", create_ind_uniform, min_ind, max_ind)
+toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.create_ind)
+toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+#----------------------------------------------------------------------
+#def evalOneMax(individual):
+#  return sum(individual),
+#----------------------------------------------------------------------
+def evalOneMax(individual):
+  
+  print "------------------------"
+  global count
+  count += 1
+  print count
+
+  global no_flag
+  no_flag = 0
+
+  fi = open(file_tmp,'r')
+  text = fi.read().replace('re',str(individual[0]).replace("[","").replace("]",""))
+  text = text.replace('fe',str(individual[1]).replace("[","").replace("]",""))
+  text = text.replace('rhoe1',str(individual[2]).replace("[","").replace("]",""))
+  text = text.replace('rhoe2',str(individual[3]).replace("[","").replace("]",""))
+  text = text.replace('alpha',str(individual[4]).replace("[","").replace("]",""))
+  text = text.replace('beta',str(individual[5]).replace("[","").replace("]",""))
+  text = text.replace('Ap',str(individual[6]).replace("[","").replace("]",""))
+  text = text.replace('Bp',str(individual[7]).replace("[","").replace("]",""))
+  text = text.replace('kappa',str(individual[8]).replace("[","").replace("]",""))
+  text = text.replace('lambda',str(individual[9]).replace("[","").replace("]",""))
+  text = text.replace('Fn0',str(individual[10]).replace("[","").replace("]",""))
+  text = text.replace('Fn1',str(individual[11]).replace("[","").replace("]",""))
+  text = text.replace('Fn2',str(individual[12]).replace("[","").replace("]",""))
+  text = text.replace('Fn3',str(individual[13]).replace("[","").replace("]",""))
+  text = text.replace('F0',str(individual[14]).replace("[","").replace("]",""))
+  text = text.replace('F2',str(individual[15]).replace("[","").replace("]",""))
+  text = text.replace('F3',str(individual[16]).replace("[","").replace("]",""))
+  text = text.replace('eta',str(individual[17]).replace("[","").replace("]",""))
+  text = text.replace('Fep',str(individual[18]).replace("[","").replace("]",""))
+  fi.close
+
+  with open(file_inp,'w') as f:
+    print >> f, text
+
+  commands.getoutput("./gen_eam < EAM.input")
+  commands.getoutput(lammps_adress+" < in.lmp")
+  commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
+  commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
+  commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
+  commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-run-type=scf -o pw.in") 
+  commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
+  commands.getoutput("mv data.in.restart data.in")
+
+  lammps_get_data = "grep \"Total Energy\" log.lammps | tail -1 | awk '{printf \"%20.10f\",$4}'"
+  y_str[0] = commands.getoutput(lammps_get_data)
+
+  pwscf_get_data = "grep \"!    total energy   \" pw.out | tail -1 | awk '{printf \"%20.10f\",$5*13.6058}'"
+  target[0] = commands.getoutput(pwscf_get_data)
+
+  potential_get_data = "grep \"Cu\" ./potentials/energy_data_for_isolated_atom  | awk '{printf \"%20.10f\",$2}'"
+  target[1] = commands.getoutput(potential_get_data)
+
+  natom_get_data = "grep \"number of atoms/cell\" pw.out  | awk '{printf \"%20.10f\",$5}'"
+  target[2] = commands.getoutput(natom_get_data) 
+
+  print "lammps: ", y_str[0]
+
+  pwe = float(target[0]) - float(target[1])*float(target[2])
+  print "PWscf:  ", pwe
+
+  y = ((float(y_str[0])-pwe)/pwe)**2
+
+  print "Evaluate: ", y
+  print "Parameters: ", individual
+  print "------------------------"
+
+  return y,
+#----------------------------------------------------------------------
+def cxTwoPointCopy(ind1, ind2):
+  size = len(ind1)
+  cxpoint1 = random.randint(1, size)
+  cxpoint2 = random.randint(1, size-1)
+  if (cxpoint2 >= cxpoint1):
+    cxpoint2 += 1
+  else:
+    cxpoint1, cxpoint2 = cxpoint2, cxpoint1
+
+  ind1[cxpoint1:cxpoint2], ind2[cxpoint2:cxpoint2] = ind2[cxpoint1:cxpoint2].copy(), ind1[cxpoint1:cxpoint2].copy()
+
+  return ind1, ind2
+#----------------------------------------------------------------------
+def mutUniformDbl(individual, min_ind, max_ind, indpb):
+  size = len(individual)
+  for i, min, max in zip(xrange(size), min_ind, max_ind):
+    if (random.random() < indpb):
+      individual[i] = random.uniform(min, max)
+  return indivisual,
+#----------------------------------------------------------------------
+toolbox.register("evaluate", evalOneMax)
+toolbox.register("mate", tools.cxTwoPoint)
+toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
+toolbox.register("select", tools.selTournament, tournsize=3)
+#----------------------------------------------------------------------
+def main():
+  random.seed(64)
+  pop = toolbox.population(n=300)
+  hof = tools.HallOfFame(1, similar=numpy.array_equal)
+  stats = tools.Statistics(lambda ind: ind.fitness.values)
+  stats.register("avg", numpy.mean)
+  stats.register("std", numpy.std)
+  stats.register("min", numpy.min)
+  stats.register("max", numpy.max)
+  algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=50000, stats=stats, halloffame=hof)
+  return pop, stats, hof
+#----------------------------------------------------------------------
+if (__name__ == "__main__"):
+  main()
+#----------------------------------------------------------------------
+

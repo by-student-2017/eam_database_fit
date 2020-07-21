@@ -1,0 +1,5 @@
+
+1) chmod +x cfg2vasp
+2) ./cfg2vasp run.600.cfg
+
+
