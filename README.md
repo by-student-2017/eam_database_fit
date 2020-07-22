@@ -41,7 +41,7 @@
 ## fit parameter by genetic algorithm
 1. cd ~
 2. sudo apt update
-3. sudo apt install -y git python-pip
+3. sudo apt install -y git python-pip csh gfortran
 4. git clone https://github.com/by-student-2017/eam_database_ga_fit.git
 5. cd ~/eam_database_ga_fit
 6. gfortran create.f -o gen_eam
@@ -55,7 +55,7 @@
 ## fit parameter by baysian method
 1. cd ~
 2. sudo apt update
-3. sudo apt install -y git python-pip
+3. sudo apt install -y git python-pip csh gfortran
 4. git clone https://github.com/by-student-2017/eam_database_ga_fit.git
 5. cd ~/eam_database_ga_fit
 6. gfortran create.f -o gen_eam
@@ -99,7 +99,21 @@
 
 ## fit parameter by genetic algorithm
 	!apt update
-	!apt install -y git python2-pip
+	!apt install -y git python-pip csh gfortran
+	%cd /content
+	!git clone https://github.com/by-student-2017/eam_database_ga_fit.git
+	%cd /content/eam_database_ga_fit
+	!gfortran create.f -o gen_eam
+	!pip2 install -U deap --user
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	!python2 ga_gc.py
+
+
+## fit parameter by gbaysian method
+	!apt update
+	!apt install -y git python-pip csh gfortran
 	%cd /content
 	!git clone https://github.com/by-student-2017/eam_database_ga_fit.git
 	%cd /content/eam_database_ga_fit
