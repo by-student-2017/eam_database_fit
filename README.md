@@ -38,7 +38,7 @@
 11. sudo make install
 
 
-## Run
+## fit parameter by genetic algorithm
 1. cd ~
 2. sudo apt update
 3. sudo apt install -y git python-pip
@@ -50,6 +50,20 @@
 9. gedit EAM.input
 10. gedit EAM_code
 11. python ga.py
+
+
+## fit parameter by baysian method
+1. cd ~
+2. sudo apt update
+3. sudo apt install -y git python-pip
+4. git clone https://github.com/by-student-2017/eam_database_ga_fit.git
+5. cd ~/eam_database_ga_fit
+6. gfortran create.f -o gen_eam
+7. pip install bayesian-optimization==1.1.0
+8. gedit data.in
+9. gedit EAM.input
+10. gedit EAM_code
+11. python baysian.py
 
 
 # Google Colaboratory
@@ -83,15 +97,15 @@
 	os.environ['PATH'] = "/content/q-e-qe-6.4.1/bin:"+os.environ['PATH']
 
 
-## Run
+## fit parameter by genetic algorithm
 	!apt update
 	!apt install -y git python2-pip
 	%cd /content
 	!git clone https://github.com/by-student-2017/eam_database_ga_fit.git
 	%cd /content/eam_database_ga_fit
 	!gfortran create.f -o gen_eam
-	!pip install -U deap --user
+	!pip2 install bayesian-optimization==1.1.0
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
-	!python2 ga.py
+	!python2 baysian_gc.py
