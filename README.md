@@ -53,7 +53,7 @@
 1. cd ~
 2. sudo apt update
 3. sudo apt install -y git python-pip csh gfortran
-4. git clone https://github.com/by-student-2017/eam_database_ga_fit.git
+4. git clone https://github.com/by-student-2017/eam_database_fit.git
 5. cd ~/eam_database_ga_fit
 6. gfortran create.f -o gen_eam
 7. pip install -U deap --user
@@ -67,7 +67,7 @@
 1. cd ~
 2. sudo apt update
 3. sudo apt install -y git python-pip csh gfortran
-4. git clone https://github.com/by-student-2017/eam_database_ga_fit.git
+4. git clone https://github.com/by-student-2017/eam_database_fit.git
 5. cd ~/eam_database_ga_fit
 6. gfortran create.f -o gen_eam
 7. pip install bayesian-optimization==1.1.0
@@ -125,7 +125,7 @@
 	!apt update
 	!apt install -y git python-pip csh gfortran
 	%cd /content
-	!git clone https://github.com/by-student-2017/eam_database_ga_fit.git
+	!git clone https://github.com/by-student-2017/eam_database_fit.git
 	%cd /content/eam_database_ga_fit
 	!gfortran create.f -o gen_eam
 	!pip2 install -U deap --user
@@ -139,7 +139,7 @@
 	!apt update
 	!apt install -y git python-pip csh gfortran
 	%cd /content
-	!git clone https://github.com/by-student-2017/eam_database_ga_fit.git
+	!git clone https://github.com/by-student-2017/eam_database_fit.git
 	%cd /content/eam_database_ga_fit
 	!gfortran create.f -o gen_eam
 	!pip2 install bayesian-optimization==1.1.0
