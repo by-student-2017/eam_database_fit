@@ -5,6 +5,17 @@
 
 
 # Ubuntu 18.04 LTS or Debian 10.0
+## cif2cell-informal
+1. sudo apt install -y git python python-setuptools python-dev
+2. git clone https://github.com/by-student-2017/cif2cell-informal.git
+3. cd cif2cell-informal
+4. tar zxvf PyCifRW-3.3.tar.gz
+5. cd PyCifRW-3.3
+6. sudo python setup.py install
+7. cd ..
+8. sudo python setup.py install
+
+
 ## Install (lammps)
 1. cd ~
 2. sudo apt update
@@ -67,6 +78,19 @@
 
 
 # Google Colaboratory
+## Install (cif2cell-informal)
+	!apt update
+	!apt install -y git python python-setuptools python-dev
+	%cd /content
+	!git clone https://github.com/by-student-2017/cif2cell-informal.git
+	%cd cif2cell-informal
+	!tar zxvf PyCifRW-3.3.tar.gz
+	%cd PyCifRW-3.3
+	!python2 setup.py install
+	%cd /content/cif2cell-informal
+	!python2 setup.py install
+
+
 ## Install (lammps)
 	!apt update
 	!apt install -y gcc g++ build-essential gfortran libopenblas-dev libfftw3-dev libopenmpi-dev wget
