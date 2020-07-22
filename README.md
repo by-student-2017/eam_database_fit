@@ -1,7 +1,4 @@
-# eam_database_fit
-
-
-# fit parameter on genetic algorithm
+eam_database_fit
 
 
 # Ubuntu 18.04 LTS or Debian 10.0
