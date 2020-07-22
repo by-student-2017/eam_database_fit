@@ -5,7 +5,7 @@
 
 
 # Ubuntu 18.04 LTS or Debian 10.0
-## cif2cell-informal
+## Install (cif2cell-informal)
 1. sudo apt install -y git python python-setuptools python-dev
 2. git clone https://github.com/by-student-2017/cif2cell-informal.git
 3. cd cif2cell-informal
