@@ -1,4 +1,4 @@
-# eam_database_ga_fit
+# eam_database_fit
 
 
 # fit parameter on genetic algorithm
@@ -49,7 +49,7 @@
 11. sudo make install
 
 
-## fit parameter by genetic algorithm
+## fit parameters by genetic algorithm
 1. cd ~
 2. sudo apt update
 3. sudo apt install -y git python-pip csh gfortran
@@ -63,7 +63,7 @@
 11. python ga.py
 
 
-## fit parameter by baysian method
+## fit parameters by baysian method
 1. cd ~
 2. sudo apt update
 3. sudo apt install -y git python-pip csh gfortran
@@ -121,7 +121,7 @@
 	os.environ['PATH'] = "/content/q-e-qe-6.4.1/bin:"+os.environ['PATH']
 
 
-## fit parameter by genetic algorithm
+## fit parameters by genetic algorithm
 	!apt update
 	!apt install -y git python-pip csh gfortran
 	%cd /content
@@ -135,7 +135,7 @@
 	!python2 ga_gc.py
 
 
-## fit parameter by gbaysian method
+## fit parameters by baysian method
 	!apt update
 	!apt install -y git python-pip csh gfortran
 	%cd /content
