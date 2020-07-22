@@ -15,7 +15,7 @@ commands.getoutput("setenv OMP_NUM_THREADS 1")
 num_core = commands.getoutput("grep 'core id' /proc/cpuinfo | sort -u | wc -l")
 #pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
 #pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
-pwscf_adress = "mpirun -np --allow-run-as-root 2 pw.x"
+pwscf_adress = "mpirun -np 2 --allow-run-as-root pw.x"
 
 commands.getoutput("chmod +x ./cfg2vasp/cfg2vasp")
 commands.getoutput("cp data.in data.in.origin")
@@ -157,13 +157,13 @@ def evalOneMax(individual):
   print "diff: ", diffe
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
-  y = abs(diffe)
+  y = 0.001/abs(diffe)
 
   print "Evaluate: ", y
   print "Parameters: ", individual
   print "------------------------"
 
-  return y,
+  return y
 #----------------------------------------------------------------------
 def cxTwoPointCopy(ind1, ind2):
   size = len(ind1)
