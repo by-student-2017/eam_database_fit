@@ -69,7 +69,7 @@ b1 = np.array([
 
 count = 0
 #----------------------------------------------------------------------
-creator.create("FitnessMax", base.Fitness, weights=(-1.0,))
+creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
@@ -157,13 +157,13 @@ def evalOneMax(individual):
   print "diff: ", diffe
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
-  y = abs(diffe)
+  y = 0.001/abs(diffe)
 
   print "Evaluate: ", y
   print "Parameters: ", individual
   print "------------------------"
 
-  return y,
+  return y
 #----------------------------------------------------------------------
 def cxTwoPointCopy(ind1, ind2):
   size = len(ind1)
