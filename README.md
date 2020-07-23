@@ -51,7 +51,7 @@ eam_database_fit
 2. sudo apt update
 3. sudo apt install -y git python-pip python-scipy csh gfortran
 4. git clone https://github.com/by-student-2017/eam_database_fit.git
-5. cd ~/eam_database_ga_fit
+5. cd ~/eam_database_fit
 6. gfortran create.f -o gen_eam
 
 
@@ -136,7 +136,7 @@ eam_database_fit
 	!apt install -y git python-pip python-scipy csh gfortran
 	%cd /content
 	!git clone https://github.com/by-student-2017/eam_database_fit.git
-	%cd /content/eam_database_ga_fit
+	%cd /content/eam_database_fit
 	!gfortran create.f -o gen_eam
 
 
