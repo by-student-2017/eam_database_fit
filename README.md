@@ -87,6 +87,11 @@ eam_database_fit
   (or python bfgs.py)
 
 
+You could get config data (confige_potfit) for potfit.
+## clean confige_potfit
+1. echo -n > confige_potfit
+
+
 # Google Colaboratory
 ## Install (cif2cell-informal)
 	!apt update
