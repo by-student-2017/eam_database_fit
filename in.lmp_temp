@@ -17,7 +17,7 @@ replicate       1 1 1
 # ----- Potential settings (EAM)----
 # -----(DYNAMO, eam_database)
 pair_style      eam/alloy
-pair_coeff      * * Cu.set Cu
+pair_coeff      * * Xx.set Xx
 
 neighbor        0.3 bin
 neigh_modify    delay 0 every 1 check yes
