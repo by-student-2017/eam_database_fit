@@ -87,8 +87,8 @@ eam_database_fit
   (or python bfgs.py)
 
 
-You could get config data (config_potfit) for potfit.
-## clean config_potfit method
+You could get config data (config_potfit) for potfit ( https://www.potfit.net/wiki/doku.php ).
+## clean config_potfit
 1. echo -n > config_potfit
 
 
@@ -182,6 +182,6 @@ You could get config data (config_potfit) for potfit.
 	or !python2 bfgs_gc.py
 
 
-You could get config data (config_potfit) for potfit.
-## clean config_potfit method
+You could get config data (config_potfit) for potfit ( https://www.potfit.net/wiki/doku.php ).
+## clean config_potfit
 	echo -n > config_potfit
