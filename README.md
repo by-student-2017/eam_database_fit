@@ -88,7 +88,7 @@ eam_database_fit
 
 
 You could get config data (config_potfit) for potfit.
-## clean confige_potfit
+## clean config_potfit method
 1. echo -n > config_potfit
 
 
@@ -183,5 +183,5 @@ You could get config data (config_potfit) for potfit.
 
 
 You could get config data (config_potfit) for potfit.
-## clean confige_potfit
+## clean config_potfit method
 	echo -n > config_potfit
