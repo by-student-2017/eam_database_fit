@@ -46,32 +46,45 @@ eam_database_fit
 11. sudo make install
 
 
-## fit parameters by genetic algorithm
+## set fitting 
 1. cd ~
 2. sudo apt update
-3. sudo apt install -y git python-pip csh gfortran
+3. sudo apt install -y git python-pip python-scipy csh gfortran
 4. git clone https://github.com/by-student-2017/eam_database_fit.git
 5. cd ~/eam_database_ga_fit
 6. gfortran create.f -o gen_eam
-7. pip install -U deap --user
-8. gedit data.in
-9. gedit EAM.input
-10. gedit EAM_code
-11. python ga.py
+
+
+## fit parameters by genetic algorithm
+1. cd ~/eam_database_ga_fit
+2. pip install -U deap --user
+3. gedit EAM.input
+4. chmod +x setinp
+5. ./setinp
+6. python ga.py
 
 
 ## fit parameters by baysian method
-1. cd ~
-2. sudo apt update
-3. sudo apt install -y git python-pip csh gfortran
-4. git clone https://github.com/by-student-2017/eam_database_fit.git
-5. cd ~/eam_database_ga_fit
-6. gfortran create.f -o gen_eam
-7. pip install bayesian-optimization==1.1.0
-8. gedit data.in
-9. gedit EAM.input
-10. gedit EAM_code
-11. python baysian.py
+1. cd ~/eam_database_ga_fit
+2. pip install bayesian-optimization==1.1.0
+3. gedit EAM.input
+4. chmod +x setinp
+5. ./setinp
+6. python ga.py
+
+
+## fit parameters by other methods
+1. cd ~/eam_database_ga_fit
+2. gedit EAM.input
+3. chmod +x setinp
+4. ./setinp
+5. python nm.py
+
+
+  (or python powell.py)
+
+
+  (or python bfgs.py)
 
 
 # Google Colaboratory
@@ -118,30 +131,42 @@ eam_database_fit
 	os.environ['PATH'] = "/content/q-e-qe-6.4.1/bin:"+os.environ['PATH']
 
 
-## fit parameters by genetic algorithm
+## set fitting
 	!apt update
-	!apt install -y git python-pip csh gfortran
+	!apt install -y git python-pip python-scipy csh gfortran
 	%cd /content
 	!git clone https://github.com/by-student-2017/eam_database_fit.git
 	%cd /content/eam_database_ga_fit
 	!gfortran create.f -o gen_eam
+
+
+## fit parameters by genetic algorithm
 	!pip2 install -U deap --user
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
+	!chmod +x setinp
+	!./setinp
 	!python2 ga_gc.py
 
 
 ## fit parameters by baysian method
-	!apt update
-	!apt install -y git python-pip csh gfortran
-	%cd /content
-	!git clone https://github.com/by-student-2017/eam_database_fit.git
-	%cd /content/eam_database_ga_fit
-	!gfortran create.f -o gen_eam
 	!pip2 install bayesian-optimization==1.1.0
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
-	os.environ["MKL_NUM_THREADS"] = "1"
-	!python2 baysian_gc.py
+	!chmod +x setinp
+	!./setinp
+	!python2 ga_gc.py
 
+
+
+## fit parameters by other methods
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	!chmod +x setinp
+	!./setinp
+	!python2 nm_gc.py
+	
+	or !python2 powell_gc.py
+	
+	or !python2 bfgs_gc.py

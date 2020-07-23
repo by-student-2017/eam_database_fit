@@ -22,10 +22,11 @@ Steps:
    that can be used with the LAMMPS pair_style eam/alloy command
 
 
-fit parameter on genetic algorithm
+fit parameters by genetic algorithm
 
 Steps:
 
+0) sudo apt install -y python-pip
 1) gfortran create.f -o gen_eam
 2) pip install -U deap --user
 3) gedit data.in
@@ -33,3 +34,49 @@ Steps:
 5) gedit EAM_code
 6) python ga.py
 
+
+fit parameters by baysian method
+
+Steps:
+
+0) sudo apt install -y python-pip
+1) gfortran create.f -o gen_eam
+2) pip install bayesian-optimization==1.1.0
+3) gedit data.in
+4) gedit EAM.input
+5) gedit EAM_code
+6) python baysian.py
+
+
+fit parameters by bfgs method
+
+Steps:
+
+0) sudo apt install -y python-scipy
+1) gfortran create.f -o gen_eam
+2) gedit data.in
+3) gedit EAM.input
+4) gedit EAM_code
+5) python bfgs.py
+
+Memo
+b1 = np.array([
+    [2.488746,3.499723],
+    [0.544323,3.487340],
+    [7.132600,37.234847],
+    [7.132600,37.234847],
+    [7.105782,10.228708],
+    [3.789750,5.455311],
+    [0.137518,0.882435],
+    [0.225930,1.394592],
+    [0.137640,0.5],
+    [0.275280,1.00],
+    [-5.103845,-0.896473],
+    [-2.149952,-0.044291],
+    [-0.529378,1.615343],
+    [-4.432406,-0.689950],
+    [-5.14,-0.90],
+    [0.608587,3.010561],
+    [-2.488244,0.776222],
+    [0.373601,1.450000],
+    [-5.141526,-0.835530]]) # boundary
