@@ -87,9 +87,9 @@ eam_database_fit
   (or python bfgs.py)
 
 
-You could get config data (confige_potfit) for potfit.
+You could get config data (config_potfit) for potfit.
 ## clean confige_potfit
-1. echo -n > confige_potfit
+1. echo -n > config_potfit
 
 
 # Google Colaboratory
@@ -180,3 +180,8 @@ You could get config data (confige_potfit) for potfit.
 	or !python2 powell_gc.py
 	
 	or !python2 bfgs_gc.py
+
+
+You could get config data (config_potfit) for potfit.
+## clean confige_potfit
+	echo -n > config_potfit
