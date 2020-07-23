@@ -56,7 +56,7 @@ eam_database_fit
 
 
 ## fit parameters by genetic algorithm
-1. cd ~/eam_database_ga_fit
+1. cd ~/eam_database_fit
 2. pip install -U deap --user
 3. gedit EAM.input
 4. chmod +x setinp
@@ -65,7 +65,7 @@ eam_database_fit
 
 
 ## fit parameters by baysian method
-1. cd ~/eam_database_ga_fit
+1. cd ~/eam_database_fit
 2. pip install bayesian-optimization==1.1.0
 3. gedit EAM.input
 4. chmod +x setinp
@@ -74,7 +74,7 @@ eam_database_fit
 
 
 ## fit parameters by other methods
-1. cd ~/eam_database_ga_fit
+1. cd ~/eam_database_fit
 2. gedit EAM.input
 3. chmod +x setinp
 4. ./setinp
@@ -142,6 +142,7 @@ eam_database_fit
 
 ## fit parameters by genetic algorithm
 	!pip2 install -U deap --user
+	%cd /content/eam_database_fit
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
@@ -152,17 +153,21 @@ eam_database_fit
 
 ## fit parameters by baysian method
 	!pip2 install bayesian-optimization==1.1.0
+	%cd /content/eam_database_fit
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
 	!chmod +x setinp
 	!./setinp
-	!python2 ga_gc.py
+	!python2 baysian_gc.py
 
 
 
 ## fit parameters by other methods
+	%cd /content/eam_database_fit
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
 	!chmod +x setinp
 	!./setinp
 	!python2 nm_gc.py
