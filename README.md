@@ -71,7 +71,7 @@ eam_database_fit
 3. cp EAM.input_temp EAM.input
 4. sed -i 's/Xx/Cu/g' EAM.input
 5. ./setinp
-6. python ga.py
+6. python baysian.py
 
 
 ## fit parameters by other methods
