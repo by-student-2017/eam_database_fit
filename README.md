@@ -53,13 +53,14 @@ eam_database_fit
 4. git clone https://github.com/by-student-2017/eam_database_fit.git
 5. cd ~/eam_database_fit
 6. gfortran create.f -o gen_eam
+7. chmod +x setinp
 
 
 ## fit parameters by genetic algorithm
 1. cd ~/eam_database_fit
 2. pip install -U deap --user
-3. gedit EAM.input
-4. chmod +x setinp
+3. cp EAM.input_temp EAM.input
+4. sed -i 's/Xx/Cu/g' EAM.input
 5. ./setinp
 6. python ga.py
 
@@ -67,16 +68,16 @@ eam_database_fit
 ## fit parameters by baysian method
 1. cd ~/eam_database_fit
 2. pip install bayesian-optimization==1.1.0
-3. gedit EAM.input
-4. chmod +x setinp
+3. cp EAM.input_temp EAM.input
+4. sed -i 's/Xx/Cu/g' EAM.input
 5. ./setinp
 6. python ga.py
 
 
 ## fit parameters by other methods
 1. cd ~/eam_database_fit
-2. gedit EAM.input
-3. chmod +x setinp
+2. cp EAM.input_temp EAM.input
+3. sed -i 's/Xx/Cu/g' EAM.input
 4. ./setinp
 5. python nm.py
 
@@ -85,11 +86,6 @@ eam_database_fit
 
 
   (or python bfgs.py)
-
-
-You could get config data (config_potfit) for potfit ( https://www.potfit.net/wiki/doku.php ).
-## clean config_potfit
-1. echo -n > config_potfit
 
 
 # Google Colaboratory
@@ -143,7 +139,8 @@ You could get config data (config_potfit) for potfit ( https://www.potfit.net/wi
 	!git clone https://github.com/by-student-2017/eam_database_fit.git
 	%cd /content/eam_database_fit
 	!gfortran create.f -o gen_eam
-
+	!chmod +x setinp
+	
 
 ## fit parameters by genetic algorithm
 	!pip2 install -U deap --user
@@ -151,7 +148,8 @@ You could get config data (config_potfit) for potfit ( https://www.potfit.net/wi
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
-	!chmod +x setinp
+	!cp EAM.input_temp EAM.input
+	!sed -i 's/Xx/Cu/g' EAM.input
 	!./setinp
 	!python2 ga_gc.py
 
@@ -162,7 +160,8 @@ You could get config data (config_potfit) for potfit ( https://www.potfit.net/wi
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
-	!chmod +x setinp
+	!cp EAM.input_temp EAM.input
+	!sed -i 's/Xx/Cu/g' EAM.input
 	!./setinp
 	!python2 baysian_gc.py
 
@@ -173,15 +172,11 @@ You could get config data (config_potfit) for potfit ( https://www.potfit.net/wi
 	import os
 	os.environ["OMP_NUM_THREADS"] = "1,1"
 	os.environ["MKL_NUM_THREADS"] = "1"
-	!chmod +x setinp
+	!cp EAM.input_temp EAM.input
+	!sed -i 's/Xx/Cu/g' EAM.input
 	!./setinp
 	!python2 nm_gc.py
 	
 	or !python2 powell_gc.py
 	
 	or !python2 bfgs_gc.py
-
-
-You could get config data (config_potfit) for potfit ( https://www.potfit.net/wiki/doku.php ).
-## clean config_potfit
-	echo -n > config_potfit

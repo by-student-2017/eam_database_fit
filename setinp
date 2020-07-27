@@ -25,5 +25,10 @@ sed -i "s/natom/${natom}/g" EAM_code.tmp
 sed -i "s/mass/${mass}/g" EAM_code.tmp
 #
 cp data.in.${str} data.in
+#
 cp in.lmp_temp in.lmp
 sed -i "s/Xx/${satom}/g" in.lmp
+#
+cp in.lmp_fix_temp in.lmp_fix
+sed -i "s/Xx/${satom}/g" in.lmp_fix
+#

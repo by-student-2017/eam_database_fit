@@ -15,12 +15,17 @@ num_core = commands.getoutput("grep 'core id' /proc/cpuinfo | sort -u | wc -l")
 #pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
 pwscf_adress = "mpirun -np 2 pw.x"
 
+satom = commands.getoutput("grep \"atomtype\" EAM.input | sed -e \"s/.*=//\" -e \"s/'//g\"")
+
 commands.getoutput("chmod +x ./cfg2vasp/cfg2vasp")
 commands.getoutput("chmod +x pwscf2force")
 commands.getoutput("cp data.in data.in.origin")
 commands.getoutput("mkdir cfg")
 commands.getoutput("mkdir work")
 commands.getoutput("echo -n > energy.dat")
+
+temp_K = commands.getoutput("awk '{if($2==\"temp\"){print $4}}' in.lmp")
+print "Lammps MD: "+temp_K+" K"
 
 target = [0,0,0] # dummy data
 y_str = [0] # dummy data
@@ -108,6 +113,8 @@ def f(x):
   commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
   commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
   commands.getoutput("./pwscf2force >> config_potfit")
+  commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps  -o data_fix.in")
+  commands.getoutput(lammps_adress+" < in.lmp_fix")
   commands.getoutput("mv data.in.restart data.in")
 
   lammps_get_data = "grep \"Total Energy\" log.lammps | tail -1 | awk '{printf \"%20.10f\",$4}'"
@@ -116,7 +123,7 @@ def f(x):
   pwscf_get_data = "grep \"!    total energy   \" pw.out | tail -1 | awk '{printf \"%20.10f\",$5*13.6058}'"
   target[0] = commands.getoutput(pwscf_get_data)
 
-  potential_get_data = "grep \"Cu\" ./potentials/energy_data_for_isolated_atom_reference | awk '{printf \"%20.10f\",$2}'"
+  potential_get_data = "grep "+str(satom)+" ./potentials/energy_data_for_isolated_atom_reference | awk '{printf \"%20.10f\",$2}'"
   target[1] = commands.getoutput(potential_get_data)
 
   natom_get_data = "grep \"number of atoms/cell\" pw.out | awk '{printf \"%20.10f\",$5}'"
