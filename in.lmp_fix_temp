@@ -11,6 +11,7 @@ units           metal
 atom_style      atomic
 dimension       3
 boundary        p p p
+box             tilt large
 read_data       data_fix.in
 replicate       1 1 1
 
