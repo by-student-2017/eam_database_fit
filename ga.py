@@ -153,7 +153,7 @@ def evalOneMax(individual):
   pwscf_get_data = "grep \"!    total energy   \" pw.out | tail -1 | awk '{printf \"%20.10f\",$5*13.6058}'"
   target[0] = commands.getoutput(pwscf_get_data)
 
-  potential_get_data = "grep "+str(satom)+" ./potentials/energy_data_for_isolated_atom_reference | awk '{printf \"%20.10f\",$2}'"
+  potential_get_data = "grep "+str(satom)+" ./potentials/energy_data_for_isolated_atom_reference | head -1 | awk '{printf \"%20.10f\",$2}'"
   target[1] = commands.getoutput(potential_get_data)
 
   natom_get_data = "grep \"number of atoms/cell\" pw.out | awk '{printf \"%20.10f\",$5}'"

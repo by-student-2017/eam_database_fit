@@ -127,7 +127,7 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
   target[0] = commands.getoutput(pwscf_get_data)
 
 
-  potential_get_data = "grep "+str(satom)+" ./potentials/energy_data_for_isolated_atom_reference | awk '{printf \"%20.10f\",$2}'"
+  potential_get_data = "grep "+str(satom)+" ./potentials/energy_data_for_isolated_atom_reference | head -1 | awk '{printf \"%20.10f\",$2}'"
   target[1] = commands.getoutput(potential_get_data)
 
   natom_get_data = "grep \"number of atoms/cell\" pw.out | awk '{printf \"%20.10f\",$5}'"
