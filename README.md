@@ -53,7 +53,6 @@ eam_database_fit
 4. git clone https://github.com/by-student-2017/eam_database_fit.git
 5. cd ~/eam_database_fit
 6. gfortran create.f -o gen_eam
-7. chmod +x setinp
 
 
 ## fit parameters by genetic algorithm
@@ -61,8 +60,7 @@ eam_database_fit
 2. pip install -U deap --user
 3. cp EAM.input_temp EAM.input
 4. sed -i 's/Xx/Cu/g' EAM.input
-5. ./setinp
-6. python ga.py
+5. python ga.py
 
 
 ## fit parameters by baysian method
@@ -70,16 +68,14 @@ eam_database_fit
 2. pip install bayesian-optimization==1.1.0
 3. cp EAM.input_temp EAM.input
 4. sed -i 's/Xx/Cu/g' EAM.input
-5. ./setinp
-6. python baysian.py
+5. python baysian.py
 
 
 ## fit parameters by other methods
 1. cd ~/eam_database_fit
 2. cp EAM.input_temp EAM.input
 3. sed -i 's/Xx/Cu/g' EAM.input
-4. ./setinp
-5. python nm.py
+4. python nm.py
 
 
   (or python powell.py)
@@ -139,7 +135,6 @@ eam_database_fit
 	!git clone https://github.com/by-student-2017/eam_database_fit.git
 	%cd /content/eam_database_fit
 	!gfortran create.f -o gen_eam
-	!chmod +x setinp
 	
 
 ## fit parameters by genetic algorithm
@@ -150,7 +145,6 @@ eam_database_fit
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp EAM.input_temp EAM.input
 	!sed -i 's/Xx/Cu/g' EAM.input
-	!./setinp
 	!python2 ga_gc.py
 
 
@@ -162,7 +156,6 @@ eam_database_fit
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp EAM.input_temp EAM.input
 	!sed -i 's/Xx/Cu/g' EAM.input
-	!./setinp
 	!python2 baysian_gc.py
 
 
@@ -174,7 +167,6 @@ eam_database_fit
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp EAM.input_temp EAM.input
 	!sed -i 's/Xx/Cu/g' EAM.input
-	!./setinp
 	!python2 nm_gc.py
 	
 	or !python2 powell_gc.py

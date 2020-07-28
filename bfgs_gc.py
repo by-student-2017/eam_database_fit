@@ -19,7 +19,9 @@ satom = commands.getoutput("grep \"atomtype\" EAM.input | sed -e \"s/.*=//\" -e 
 
 commands.getoutput("chmod +x ./cfg2vasp/cfg2vasp")
 commands.getoutput("chmod +x pwscf2force")
-commands.getoutput("cp data.in data.in.origin")
+commands.getoutput("chmod +x setinp")
+commands.getoutput("./setinp")
+#commands.getoutput("cp data.in data.in.origin")
 commands.getoutput("mkdir cfg")
 commands.getoutput("mkdir work")
 commands.getoutput("echo -n > energy.dat")
