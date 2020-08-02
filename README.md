@@ -49,7 +49,7 @@ eam_database_fit
 ## set fitting 
 1. cd ~
 2. sudo apt update
-3. sudo apt install -y git python-pip python-scipy csh gfortran
+3. sudo apt install -y git python-pip python-scipy csh gfortran gnuplot
 4. git clone https://github.com/by-student-2017/eam_database_fit.git
 5. cd ~/eam_database_fit
 6. gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
@@ -84,6 +84,10 @@ eam_database_fit
 3. cp EAM.input_temp EAM.input
 4. sed -i 's/Xx/Cu/g' EAM.input
 5. python baysian.py
+
+
+## plot F, rho or z2r
+1. gnuplot png.gp
 
 
 # Google Colaboratory
@@ -146,7 +150,7 @@ eam_database_fit
 
 ## set fitting
 	!apt update
-	!apt install -y git python-pip python-scipy csh gfortran
+	!apt install -y git python-pip python-scipy csh gfortran gnuplot
 	%cd /content
 	!git clone https://github.com/by-student-2017/eam_database_fit.git
 	%cd /content/eam_database_fit
@@ -176,4 +180,5 @@ eam_database_fit
 	!python2 baysian_gc.py
 
 
-
+## plot F, rho or z2r
+	!gnuplot png.gp
