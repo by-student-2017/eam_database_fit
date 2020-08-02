@@ -174,8 +174,8 @@ def evalOneMax(individual):
   rhoin  = float(x[2])*0.85
   rhoout = float(x[2])*1.15
   print "---------------"
-  print "F boundary, r: "+str(rhoin)
-  print "F boundary, r: "+str(rhoout)
+  print "F boundary 1, rho: "+str(rhoin)
+  print "F boundary 2, rho: "+str(rhoout)
   commands.getoutput("cp "+satom+"_Zhou04.eam.alloy"+" Xx_Zhou04.eam.alloy")
   commands.getoutput("./plot")
   rhoin1  = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoin)+"){print $2}}' | tail -2 | head -1")
