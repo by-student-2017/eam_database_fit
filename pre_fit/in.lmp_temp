@@ -1,0 +1,43 @@
+# Monte Carlo relaxation of perturbed 3d lattice
+clear
+
+# ----- condition settings -----
+variable        temp         index 1500.0 # K
+
+timestep        1.0 # fs
+
+# ----- Structure settings -----
+units           metal
+atom_style      atomic
+dimension       3
+boundary        p p p
+box             tilt large
+read_data       data.in
+replicate       1 1 1
+
+# ----- Potential settings (EAM)----
+# -----(DYNAMO, eam_database)
+pair_style      eam/alloy
+pair_coeff      * * Xx_Zhou04.eam.alloy Xx
+#pair_coeff      * * Xx.set Xx
+
+neighbor        0.3 bin
+neigh_modify    delay 0 every 1 check yes
+
+variable        e equal etotal
+
+# ----- Output setting -----
+thermo_style    custom step etotal temp lx vol press
+thermo          1
+dump            d1 all cfg 1 cfg/run.*.cfg mass type xs ys zs id type
+dump_modify     d1 element Xx
+
+# ----- Equilibriation -----
+velocity        all create ${temp} 123456
+fix             f1 all npt temp ${temp} ${temp} 100 iso 0.0 0.1 1000
+run             50
+
+print           "Total Energy = $e [eV]"
+
+# ----- Output restart data -----
+write_data data.in.restart

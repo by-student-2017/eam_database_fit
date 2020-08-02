@@ -1,0 +1,167 @@
+# Monte Carlo relaxation of perturbed 3d lattice
+clear
+
+# ----- condition settings -----
+variable        temp         index 0.001 # K
+
+timestep        1.0 # fs
+
+# ----- Structure settings -----
+units           metal
+atom_style      atomic
+dimension       3
+boundary        p p p
+box             tilt large
+read_data       data_fix.in
+replicate       1 1 1
+
+# ----- Potential settings (MEAM)-----
+# -----HEA (Co-Ni-Cr-Fe-Mn)
+#pair_style      meam/c
+#pair_coeff      * * ./potentials/meam/CoNiCrFeMn.HEA.library.meam Co Ni Cr Fe Mn ./meam/CoNiCrFeMn.HEA.meam Co Ni Cr Fe
+# -----(Al-Si-Mg-Cu-Fe)
+#pair_style      meam/c
+#pair_coeff      * * ./potentials/meam/Jelinek_2012_meamf AlS SiS MgS CuS FeS ./meam/Jelinek_2012_meam.alsimgcufe AlS SiS MgS CuS
+# -----(Fe-Mn-Si-C)
+#pair_style      meam/c
+#pair_coeff      * * ./potentials/meam/CFeMnSi.library.meam Fe Mn Si C ./meam/CFeMnSi.meam Fe Mn Si C
+# -----(Mg-Al-Zn)
+#pair_style      meam/c
+#pair_coeff      * * ./potentials/meam/MgAlZn.library.meam Mg Al Zn ./meam/MgAlZn.parameter.meam Mg Al Zn
+# -----(Fe-Ti-C)
+#pair_style      meam/c
+#pair_coeff      * * ./potentials/meam/FeTiC.library.meam Fe Ti C ./meam/FeTiC.meam Fe Ti C
+# -----(V-Ni-Ti)
+#pair_style      meam/c
+#pair_coeff      * * ./potentials/meam/VNiTi.library.meam V Ni Ti ./meam/VNiTi.meam V Ni Ti
+# -----(AgTaO3)
+#pair_style      meam/c
+#pair_coeff      * * ./potentials/meam/AgTaO3.library.meam Ag Ta O ./meam/AgTaO3.meam Ag Ta O
+#
+# ----- Potential settings (EAM)-----
+#pair_style      eam/alloy
+#pair_coeff      * * ./potentials/eam/FeNiCrCoCu-heafixed.setfl Co Ni Cr Fe
+# -----(Cu-Ag-Au)
+#pair_style      eam/alloy
+#pair_coeff      * * ./potentials/eam/CuAgAu_Zhou04.eam.alloy Cu Ag Au
+# -----(Fe-Cu-Ni)
+#pair_style      eam/alloy
+#pair_coeff      * * ./potentials/eam/FeCuNi.eam.alloy Fe Cu Ni
+# -----(Al-Mn-Pd)
+#pair_style      eam/alloy
+#pair_coeff      * * ./potentials/eam/AlMnPd_Schopf_2012.lammps.EAM_CORRECT Al Mn Pd
+# -----(Ni-Al-Co)
+#pair_style      eam/alloy
+#pair_coeff      * * ./potentials/eam/Mishin_updated-Ni-Al-Co-2013.eam.alloy Ni Al Co
+# -----(Nb-Ti-Al)
+#pair_style      eam/alloy
+#pair_coeff      * * ./potentials/eam/Farkas_Nb-Ti-Al_1996.eam.alloy Nb Ti Al
+# -----(Ni-Al-H)
+#pair_style      eam/alloy
+#pair_coeff      * * ./potentials/eam/NiAlH_jea.eam.alloy H
+# -----(Pd-Ag-H)
+#pair_style      eam/alloy
+#pair_coeff      * * ./potentials/eam/PdAgH_HybridPd3Ag.eam.alloy H
+# -----(W-H-He)
+#pair_style      eam/alloy
+#pair_coeff      * * ./potentials/eam/potential-WHHe-EAM1.eam.alloy W H He
+# -----(Fe-Ni-Cr) (FCC)
+#pair_style      eam/fs
+#pair_coeff      * * ./potentials/eam/Fe-Ni-Cr_fcc.eam.fs Fe Ni Cr
+# -----(EAM potentials - Google Sites)
+# pair_style      eam/fs
+# pair_coeff      * * ./potentials/eam/Google_Sites/Cu.lammps.eam Cu Cu Cu
+#
+#pair_style       eam/fs
+#pair_coeff       * * ./potentials/eam/Google_Sites/Ca.lammps.eam Ca
+#
+#i -----(Fe-Cr-W)
+#pair_style      hybrid/overlay eam/alloy eam/fs
+#pair_coeff      * * eam/alloy ./potentials/eam/FeCrW_d.eam.alloy Fe Cr W
+#pair_coeff      * * eam/fs    ./potentials/eam/FeCrW_s.eam.fs Fe Cr W
+# -----(Ag-Au-Cu-Ni-Pd-Pt)
+#pair_style      eam
+#pair_coeff      1 * ./potentials/eam/DYNAMO/cuu6.txt
+#pair_coeff      2 * ./potentials/eam/DYNAMO/agu6.txt
+#pair_coeff      3 * ./potentials/eam/DYNAMO/auu6.txt
+#------
+#pair_style       eam/alloy
+#pair_coeff       * * ./potentials/eam/V_Olsson_CMS2009.eam.alloy V      
+#
+#pair_style      eam/alloy
+#pair_coeff      * * ./potentials/eam/Be_Agrawal.eam.alloy Be
+#
+#pair_style       eam/alloy
+#pair_coeff       * * ./potentials/eam/Nb.eam.alloy Nb
+#
+#pair_style       eam/alloy
+#pair_coeff       * * ./potentials/eam/WRe.eam.alloy Re
+#
+#pair_style       eam/fs
+#pair_coeff       * * ./potentials/eam/Li_v2.eam.fs Li 
+#
+#pair_style       eam/fs
+#pair_coeff       * * ./potentials/eam/Na_v2.eam.fs Na
+#
+#pair_style       eam/fs
+#pair_coeff       * * ./potentials/eam/K_v2.eam.fs K
+#
+#pair_style        eam/fs
+#pair_coeff        * * ./potentials/eam/Al90Sm10_MendelevM_2014.eam.fs Sm
+#
+pair_style        eam/fs
+pair_coeff        * * ./potentials/eam/Ru.eam.fs Ru
+#
+# ----- Potential settings (ADP)-----
+#pair_style      adp
+#pair_coeff      * * ./potentials/adp/Si_Au_Al.adp.txt Si
+#
+#pair_style      adp
+#pair_coeff      * * ./potentials/adp/Mg_H.adp.alloy.txt H
+#
+# ----- Potential settings (EIM)-----
+#pair_style      eim
+#pair_coeff      * * Li Na K Rb Cs F Cl Br Id ./potentials/eim/BrClCsFIKLiNaRb.ffield.eim F Li Na
+#
+# ----- Potential settings (COMB)-----
+#pair_style      comb3 polar_off
+#pair_coeff      * * ./potentials/comb3/ffield.comb3.NiAlO Ni Al O
+#fix             q2 all qeq/comb 10 1.0e-3 # file fq.out
+# -----(OCuNCHTiZnZr)
+#pair_style      comb3 polar_off
+#pair_coeff      * * ./potentials/comb3/ffield.comb3.OCuNCHTiZnZr Cu Zn O
+#fix             q2 all qeq/comb 10 1.0e-3 # file fq.out
+#
+# ----- Potential settings (BOP)-----
+#pair_style      bop
+#pair_coeff      * * ./potentials/bop/CdZnTe_v2.bop.table Cd Zn Te
+#comm_modify cutoff 14.70
+#
+# ----- Potential settings (SW)-----
+#pair_style      sw
+#pair_coeff      * * ./potentials/sw/InGaN.psw In Ga N
+# -----(Cd-Te-Zn-Se-Hg-S)
+#pair_style      sw
+#pair_coeff      * * ./potentials/sw/CdTeZnSeHgS0.sw Cd Te Zn
+#
+# ----- Potential settings (tersoff)-----
+#pair_style      tersoff
+#pair_coeff      * * ./potentials/tersoff/BNC.tersoff B N C
+
+neighbor        0.3 bin
+neigh_modify    delay 0 every 1 check yes
+
+variable        e equal etotal
+
+# ----- Output setting -----
+#thermo_style    custom step etotal temp lx vol press
+#thermo          1
+#dump            d1 all cfg 1 cfg/run.*.cfg mass type xs ys zs id type
+#dump_modify     d1 element Zn
+
+# ----- Equilibriation -----
+#velocity        all create ${temp} 123456
+fix             f1 all nvt temp ${temp} ${temp} 100
+run             1
+
+print           "Total Energy = $e [eV]"

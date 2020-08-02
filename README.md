@@ -52,7 +52,22 @@ eam_database_fit
 3. sudo apt install -y git python-pip python-scipy csh gfortran
 4. git clone https://github.com/by-student-2017/eam_database_fit.git
 5. cd ~/eam_database_fit
-6. gfortran create.f -o gen_eam
+6. gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
+  (gfortran create.f -o gen_eam) (old version)
+7. gfortran -o plot plot.f
+
+
+## fit parameters by other methods
+1. cd ~/eam_database_fit
+2. cp EAM.input_temp EAM.input
+3. sed -i 's/Xx/Cu/g' EAM.input
+4. python nm.py
+
+
+  (or python powell.py)
+
+
+  (or python bfgs.py)
 
 
 ## fit parameters by genetic algorithm
@@ -69,19 +84,6 @@ eam_database_fit
 3. cp EAM.input_temp EAM.input
 4. sed -i 's/Xx/Cu/g' EAM.input
 5. python baysian.py
-
-
-## fit parameters by other methods
-1. cd ~/eam_database_fit
-2. cp EAM.input_temp EAM.input
-3. sed -i 's/Xx/Cu/g' EAM.input
-4. python nm.py
-
-
-  (or python powell.py)
-
-
-  (or python bfgs.py)
 
 
 # Google Colaboratory
@@ -128,14 +130,29 @@ eam_database_fit
 	os.environ['PATH'] = "/content/q-e-qe-6.4.1/bin:"+os.environ['PATH']
 
 
+## fit parameters by other methods
+	%cd /content/eam_database_fit
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	!cp EAM.input_temp EAM.input
+	!sed -i 's/Xx/Cu/g' EAM.input
+	!python2 nm_gc.py
+	
+	or !python2 powell_gc.py
+	
+	or !python2 bfgs_gc.py
+
+
 ## set fitting
 	!apt update
 	!apt install -y git python-pip python-scipy csh gfortran
 	%cd /content
 	!git clone https://github.com/by-student-2017/eam_database_fit.git
 	%cd /content/eam_database_fit
-	!gfortran create.f -o gen_eam
-	
+	!gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
+	!gfortran -o plot plot.f
+
 
 ## fit parameters by genetic algorithm
 	!pip2 install -U deap --user
@@ -160,15 +177,3 @@ eam_database_fit
 
 
 
-## fit parameters by other methods
-	%cd /content/eam_database_fit
-	import os
-	os.environ["OMP_NUM_THREADS"] = "1,1"
-	os.environ["MKL_NUM_THREADS"] = "1"
-	!cp EAM.input_temp EAM.input
-	!sed -i 's/Xx/Cu/g' EAM.input
-	!python2 nm_gc.py
-	
-	or !python2 powell_gc.py
-	
-	or !python2 bfgs_gc.py

@@ -1,0 +1,29 @@
+
+settings:
+1) sudo apt install -y python-scipy csh gfortran
+2) gfortran create.f -o gen_eam
+
+Run:
+1) gedit in.lmp_temp 
+2) gedit in.lmp_ref_fix
+3) cp EAM.input_temp EAM.input
+4) sed -i 's/Xx/Cu/g' EAM.input
+5) gedit pre_fit.py
+  edit initial parameters (x0 = [...])
+6) python pre_fit.py
+
+
+Restart:
+1) gedit in.lmp_temp
+2) gedit pre_fit.py
+  copy & paste x0 = [...]
+3) python pre_fit.py
+
+
+Add data:
+1) cd data
+2) cd material_project_cif
+  add cif file
+3) cd ..
+4) chmod +x setdata
+5) ./setdata

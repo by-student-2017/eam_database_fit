@@ -16,6 +16,7 @@ pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
 #pwscf_adress = "mpirun -np 2 pw.x"
 
 satom = commands.getoutput("grep \"atomtype\" EAM.input | sed -e \"s/.*=//\" -e \"s/'//g\"")
+print satom
 
 commands.getoutput("chmod +x ./cfg2vasp/cfg2vasp")
 commands.getoutput("chmod +x pwscf2force")
@@ -52,6 +53,7 @@ x0 = [2.556162,
      -2.100595,
       0.310490,
      -2.186568] # initial data
+
 b1 = np.array([
     [2.000000,4.200000],
     [0.400000,4.200000],
@@ -107,7 +109,7 @@ def f(x):
   with open(file_inp,'w') as f:
     print >> f, text
 
-  commands.getoutput("./gen_eam < EAM.input")
+  commands.getoutput("./Zhou04_EAM_2 < EAM.input")
   commands.getoutput(lammps_adress+" < in.lmp")
   commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
   commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
@@ -142,15 +144,30 @@ def f(x):
   print "diff/atom: ", diffea
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
-  y = abs(diffea)**2
+  rhoin  = float(x[2])*0.85
+  rhoout = float(x[2])*1.15
+  print "---------------"
+  print "F boundary, r: "+str(rhoin)
+  print "F boundary, r: "+str(rhoout)
+  commands.getoutput("cp "+satom+"_Zhou04.eam.alloy"+" Xx_Zhou04.eam.alloy")
+  commands.getoutput("./plot")
+  rhoin1  = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoin)+"){print $2}}' | tail -2 | head -1")
+  rhoin2  = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoin)+"){print $2}}' | head -2 | tail -1")
+  rhoout1 = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoout)+"){print $2}}' | tail -2 | head -1")
+  rhoout2 = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoout)+"){print $2}}' | head -2 | tail -1")
+  print "F near boundary, F: "+str(rhoin1)+" | "+str(rhoin2)+" | diff "+str(float(rhoin1) - float(rhoin2))
+  print "F near boundary, F: "+str(rhoout1)+" | "+str(rhoout2)+" | diff "+str(float(rhoout1) - float(rhoout2))
+  print "---------------"
+
+  y = abs(diffea)**2 + 1000*abs(float(rhoin1) - float(rhoin2))**2 + 1000*abs(float(rhoout1) - float(rhoout2))**2
 
   print "Evaluate: ", y
-  print "Parameters: ", x
+  #print "Parameters: ", x
+  print "Parameters: x0 = "+"[ "+str(x[0])+","+str(x[1])+","+str(x[2])+","+str(x[3])+","+str(x[4])+","+str(x[5])+","+str(x[6])+","+str(x[7])+","+str(x[8])+","+str(x[9])+","+str(x[10])+","+str(x[11])+","+str(x[12])+","+str(x[13])+","+str(x[14])+","+str(x[15])+","+str(x[16])+","+str(x[17])+","+str(x[18])+" ]"
   print "------------------------"
 
   return y
 #----------------------------------------------------------------------
-#res = optimize.minimize(f,x0,method='Nelder-Mead',bounds=b1)
-#res = optimize.minimize(f,x0,method='TNC',bounds=b1)
-#res = optimize.minimize(f,x0,method='Powell',bounds=b1)
+#res = optimize.minimize(f,x0,method='Nelder-Mead')
+#res = optimize.minimize(f,x0,method='Powell')
 res = optimize.minimize(f,x0,method='BFGS',bounds=b1)

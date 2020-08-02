@@ -27,7 +27,8 @@ fit parameters by genetic algorithm
 Steps:
 
 0) sudo apt install -y python-pip
-1) gfortran create.f -o gen_eam
+1) gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
+  (gfortran create.f -o gen_eam) (old version)
 2) pip install -U deap --user
 3) gedit data.in
 4) gedit EAM.input
@@ -40,7 +41,8 @@ fit parameters by baysian method
 Steps:
 
 0) sudo apt install -y python-pip
-1) gfortran create.f -o gen_eam
+1) gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
+  (gfortran create.f -o gen_eam) (old version)
 2) pip install bayesian-optimization==1.1.0
 3) gedit data.in
 4) gedit EAM.input
@@ -53,7 +55,8 @@ fit parameters by bfgs method
 Steps:
 
 0) sudo apt install -y python-scipy
-1) gfortran create.f -o gen_eam
+1) gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
+  (gfortran create.f -o gen_eam) (old version)
 2) gedit data.in
 3) gedit EAM.input
 4) gedit EAM_code

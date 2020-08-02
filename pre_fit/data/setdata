@@ -1,0 +1,10 @@
+#! /bin/csh -f 
+
+cd ./material_project_cif
+set cif_list = `ls`
+set atom_list = `echo ${cif_list} | sed "s/.cif//g"`
+#
+foreach atom (${atom_list})
+  cif2cell ${atom}.cif --no-reduce -p lammps  -o data.in
+  mv data.in ../data.in.${atom}
+end

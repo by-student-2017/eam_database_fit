@@ -108,7 +108,7 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
   with open(file_inp,'w') as f:
     print >> f, text
 
-  commands.getoutput("./gen_eam < EAM.input")
+  commands.getoutput("./Zhou04_EAM_2 < EAM.input")
   commands.getoutput(lammps_adress+" < in.lmp")
   commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
   commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
@@ -144,7 +144,22 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
   print "diff/atom: ", diffea
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
-  y = 0.001/abs(diffea)
+  rhoin  = float(x[2])*0.85
+  rhoout = float(x[2])*1.15
+  print "---------------"
+  print "F boundary, r: "+str(rhoin)
+  print "F boundary, r: "+str(rhoout)
+  commands.getoutput("cp "+satom+"_Zhou04.eam.alloy"+" Xx_Zhou04.eam.alloy")
+  commands.getoutput("./plot")
+  rhoin1  = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoin)+"){print $2}}' | tail -2 | head -1")
+  rhoin2  = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoin)+"){print $2}}' | head -2 | tail -1")
+  rhoout1 = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoout)+"){print $2}}' | tail -2 | head -1")
+  rhoout2 = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoout)+"){print $2}}' | head -2 | tail -1")
+  print "F near boundary, F: "+str(rhoin1)+" | "+str(rhoin2)+" | diff "+str(float(rhoin1) - float(rhoin2))
+  print "F near boundary, F: "+str(rhoout1)+" | "+str(rhoout2)+" | diff "+str(float(rhoout1) - float(rhoout2))
+  print "---------------"
+  
+  y = 0.001/(abs(diffea)**2 + 1000*abs(float(rhoin1) - float(rhoin2))**2 + 1000*abs(float(rhoout1) - float(rhoout2))**2)
 
   print "Evaluate: ", y
   print "------------------------"

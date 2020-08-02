@@ -54,6 +54,7 @@ x0 = [2.54135105,
      -2.11301896,
       0.31236771,
      -2.20060466] # initial data
+
 b1 = np.array([
     [2.000000,4.200000],
     [0.400000,4.200000],
@@ -135,7 +136,7 @@ def evalOneMax(individual):
   with open(file_inp,'w') as f:
     print >> f, text
 
-  commands.getoutput("./gen_eam < EAM.input")
+  commands.getoutput("./Zhou04_EAM_2 < EAM.input")
   commands.getoutput(lammps_adress+" < in.lmp")
   commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
   commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
@@ -170,10 +171,26 @@ def evalOneMax(individual):
   print "diff/atom: ", diffea
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
-  y = 0.001/abs(diffea)
+  rhoin  = float(x[2])*0.85
+  rhoout = float(x[2])*1.15
+  print "---------------"
+  print "F boundary, r: "+str(rhoin)
+  print "F boundary, r: "+str(rhoout)
+  commands.getoutput("cp "+satom+"_Zhou04.eam.alloy"+" Xx_Zhou04.eam.alloy")
+  commands.getoutput("./plot")
+  rhoin1  = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoin)+"){print $2}}' | tail -2 | head -1")
+  rhoin2  = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoin)+"){print $2}}' | head -2 | tail -1")
+  rhoout1 = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoout)+"){print $2}}' | tail -2 | head -1")
+  rhoout2 = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoout)+"){print $2}}' | head -2 | tail -1")
+  print "F near boundary, F: "+str(rhoin1)+" | "+str(rhoin2)+" | diff "+str(float(rhoin1) - float(rhoin2))
+  print "F near boundary, F: "+str(rhoout1)+" | "+str(rhoout2)+" | diff "+str(float(rhoout1) - float(rhoout2))
+  print "---------------"
+
+  y = 0.001/(abs(diffea)**2 + 1000*abs(float(rhoin1) - float(rhoin2))**2 + 1000*abs(float(rhoout1) - float(rhoout2))**2)
 
   print "Evaluate: ", y
-  print "Parameters: ", individual
+  #print "Parameters: ", individual
+  print "Parameters: x0 = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+" ]"
   print "------------------------"
 
   return y
