@@ -1,7 +1,9 @@
 
 settings:
 1) sudo apt install -y python-scipy csh gfortran
-2) gfortran create.f -o gen_eam
+2) gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f 
+  (gfortran create.f -o gen_eam) (old version)
+3) gfortran -o plot plot.f
 
 Run:
 1) gedit in.lmp_temp 
@@ -12,6 +14,9 @@ Run:
   edit initial parameters (x0 = [...])
 6) python pre_fit.py
 
+plot result
+1) mv *_Zhou.eam.alloy Xx_Zhou.eam.alloy
+2) ./plot
 
 Restart:
 1) gedit in.lmp_temp
@@ -27,3 +32,5 @@ Add data:
 3) cd ..
 4) chmod +x setdata
 5) ./setdata
+
+"pre_fit_v2.py" changes rho of F boundary 1 (rhol).
