@@ -40,7 +40,7 @@ y_str = [0] # dummy data
 
 
 # fitting parameters
-x0 = [ 2.416542173371107,1.890394347081822,19.36961396723039,20.3831701827003,9.804907414204688,5.105141225915327,0.3648363092488867,0.7366085569110737,0.16890931067984846,0.3470173571328956,-2.669954946051694,-0.061332496055801676,0.18922826053434547,-2.3308711558400974,-2.674639877439265,0.20454508602427351,-0.14751303390141277,0.388977975071257,-2.67213365066403,0.15 ] # initial data
+x0 = [ 2.450049846681146,1.9095123601108013,19.27846937912267,20.693849159517335,9.90504084824483,5.122866319961794,0.36179632885927554,0.7467947440895605,0.16743849449354184,0.34743423425270836,-2.659898948364015,-0.06116580564805078,0.18885277977239806,-2.319806434489174,-2.679929878350681,0.0,0.2021035874076014,-0.14707184821938618,0.39528508991236533,-2.6772385559964684,-0.14707184821938618,0.70 ] # initial data
 
 count = 0
 #----------------------------------------------------------------------
@@ -67,11 +67,13 @@ def f(x):
   text = text.replace('Fn2',str(x[12]).replace("[","").replace("]",""))
   text = text.replace('Fn3',str(x[13]).replace("[","").replace("]",""))
   text = text.replace('F0',str(x[14]).replace("[","").replace("]",""))
-  text = text.replace('F2',str(x[15]).replace("[","").replace("]",""))
-  text = text.replace('F3',str(x[16]).replace("[","").replace("]",""))
-  text = text.replace('eta',str(x[17]).replace("[","").replace("]",""))
-  text = text.replace('Fep',str(x[18]).replace("[","").replace("]",""))
-  text = text.replace('rhol',str(x[19]).replace("[","").replace("]",""))
+  text = text.replace('F1',str(x[15]).replace("[","").replace("]",""))
+  text = text.replace('F2',str(x[16]).replace("[","").replace("]",""))
+  text = text.replace('F3',str(x[17]).replace("[","").replace("]",""))
+  text = text.replace('eta',str(x[18]).replace("[","").replace("]",""))
+  text = text.replace('Fep',str(x[19]).replace("[","").replace("]",""))
+  text = text.replace('F4',str(x[20]).replace("[","").replace("]",""))
+  text = text.replace('rhol',str(x[21]).replace("[","").replace("]",""))
   fi.close
 
   with open(file_inp,'w') as f:
@@ -108,26 +110,30 @@ def f(x):
 
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
  
-  rhoin  = float(x[2])*float(x[19])
+  rhoin  = float(x[2])*float(x[21])
   rhoout = float(x[2])*1.15
   print "---------------"
   print "F boundary 1, rho: "+str(rhoin)
-  print "F boundary 2, rho: "+str(rhoout)
+  print "F boundary 2, rho: "+str(x[2])
+  print "F boundary 3, rho: "+str(rhoout)
   commands.getoutput("cp "+satom+"_Zhou04.eam.alloy"+" Xx_Zhou04.eam.alloy")
   commands.getoutput("./plot")
   rhoin1  = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoin)+"){print $2}}' | tail -2 | head -1")
   rhoin2  = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoin)+"){print $2}}' | head -2 | tail -1")
+  rhoe1   = commands.getoutput("cat F.plt | awk '{if($1<"+str(x[2])+"){print $2}}' | tail -2 | head -1")
+  rhoe2   = commands.getoutput("cat F.plt | awk '{if($1>"+str(x[2])+"){print $2}}' | head -2 | tail -1")
   rhoout1 = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoout)+"){print $2}}' | tail -2 | head -1")
   rhoout2 = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoout)+"){print $2}}' | head -2 | tail -1")
-  print "F near boundary, F: "+str(rhoin1)+" | "+str(rhoin2)+" | diff "+str(float(rhoin1) - float(rhoin2))
-  print "F near boundary, F: "+str(rhoout1)+" | "+str(rhoout2)+" | diff "+str(float(rhoout1) - float(rhoout2))
+  print "F near boundary 1, F: "+str(rhoin1)+" | "+str(rhoin2)+" | diff "+str(float(rhoin1) - float(rhoin2))
+  print "F near boundary 2, F: "+str(rhoe1)+" | "+str(rhoe2)+" | diff "+str(float(rhoe1) - float(rhoe2))
+  print "F near boundary 3, F: "+str(rhoout1)+" | "+str(rhoout2)+" | diff "+str(float(rhoout1) - float(rhoout2))
   print "---------------"
 
-  y = abs(diffea)**2 + 1000*abs(float(rhoin1) - float(rhoin2))**2 + 1000*abs(float(rhoout1) - float(rhoout2))**2
+  y = abs(diffea)**2 + 1000*abs(float(rhoin1) - float(rhoin2))**2 + 1000*abs(float(rhoe1) - float(rhoe2))**2 + 1000*abs(float(rhoout1) - float(rhoout2))**2
 
   print "Evaluate: ", y
   #print "Parameters v2:", x
-  print "Parameters v2: x0 = "+"[ "+str(x[0])+","+str(x[1])+","+str(x[2])+","+str(x[3])+","+str(x[4])+","+str(x[5])+","+str(x[6])+","+str(x[7])+","+str(x[8])+","+str(x[9])+","+str(x[10])+","+str(x[11])+","+str(x[12])+","+str(x[13])+","+str(x[14])+","+str(x[15])+","+str(x[16])+","+str(x[17])+","+str(x[18])+","+str(x[19])+" ]"
+  print "Parameters v2: x0 = "+"[ "+str(x[0])+","+str(x[1])+","+str(x[2])+","+str(x[3])+","+str(x[4])+","+str(x[5])+","+str(x[6])+","+str(x[7])+","+str(x[8])+","+str(x[9])+","+str(x[10])+","+str(x[11])+","+str(x[12])+","+str(x[13])+","+str(x[14])+","+str(x[15])+","+str(x[16])+","+str(x[17])+","+str(x[18])+","+str(x[19])+","+str(x[20])+","+str(x[21])+" ]"
   print "------------------------"
 
   return y
