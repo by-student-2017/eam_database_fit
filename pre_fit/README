@@ -33,4 +33,4 @@ Add data:
 4) chmod +x setdata
 5) ./setdata
 
-"pre_fit_v2.py" changes rho of F boundary 1 (rhol).
+"pre_fit_v2.py" change more flexibly F function.

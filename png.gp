@@ -21,3 +21,8 @@ set output "z2r.png"
 set xlabel "r / Angstrom"
 set ylabel "Effective Charge Function, Z(r) / (Hartree*Bohr-radii)^0.5"
 plot "z2r.plt" u 1:2 w l t "z2r(r)"
+#
+set output "diff_energy.png"
+set xlabel "Step, N"
+set ylabel "Differential Energy, E - E(ref) / eV"
+ plot "energy.dat" u 1:2 w l t "E-E(ref)"

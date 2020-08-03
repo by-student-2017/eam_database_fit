@@ -34,47 +34,38 @@ print "Lammps MD: "+temp_K+" K"
 target = [0,0,0] # dummy data
 y_str = [0] # dummy data
 
+#----------------------------------------------------------------------
+print "read parameters from EAM_code.init"
+nline = commands.getoutput("grep -n "+str(satom)+" EAM_code.init | sed -e \"s/:.*//g\"")
+print "read line: "+nline
+check_satom = commands.getoutput("awk '{if(NR=="+str(nline)+"+0){print $1}}' EAM_code.init | head -1")
+print "fit element: "+check_satom
 # fitting parameters
-x0 = [2.54135105,
-      1.56440565,
-     21.31607638,
-     21.50974615,
-      7.73892498,
-      4.36819705,
-      0.39030193,
-      0.5515945,
-      0.31075621,
-      0.76135587,
-     -2.18416127,
-     -0.2654721,
-      1.09540177,
-     -0.82252579,
-     -2.20744692,
-      0.56542599,
-     -2.11301896,
-      0.31236771,
-     -2.20060466] # initial data
-
-b1 = np.array([
-    [2.000000,4.200000],
-    [0.400000,4.200000],
-    [5.700000,44.700000],
-    [5.700000,44.700000],
-    [5.700000,12.000000],
-    [3.000000,6.500000],
-    [0.100000,1.100000],
-    [0.200000,1.700000],
-    [0.100000,0.60],
-    [0.200000,1.20],
-    [-6.100000,-0.700000],
-    [-2.500000,-0.030000],
-    [-0.600000,1.9400000],
-    [-5.300000,-0.550000],
-    [-6.10,-0.70],
-    [0.480000,3.600000],
-    [-3.00000,0.930000],
-    [0.300000,1.740000],
-    [-6.100000,-0.66000]]) # boundary
+x0  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+1){print $1}}' EAM_code.init | head -1"))
+x1  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+2){print $1}}' EAM_code.init | head -1"))
+x2  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+3){print $1}}' EAM_code.init | head -1"))
+x3  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+4){print $1}}' EAM_code.init | head -1"))
+x4  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+5){print $1}}' EAM_code.init | head -1"))
+x5  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+6){print $1}}' EAM_code.init | head -1"))
+x6  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+7){print $1}}' EAM_code.init | head -1"))
+x7  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+8){print $1}}' EAM_code.init | head -1"))
+x8  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+9){print $1}}' EAM_code.init | head -1"))
+x9  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+10){print $1}}' EAM_code.init | head -1"))
+x10 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+11){print $1}}' EAM_code.init | head -1"))
+x11 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+12){print $1}}' EAM_code.init | head -1"))
+x12 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+13){print $1}}' EAM_code.init | head -1"))
+x13 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+14){print $1}}' EAM_code.init | head -1"))
+x14 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+15){print $1}}' EAM_code.init | head -1"))
+x15 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+16){print $1}}' EAM_code.init | head -1"))
+x16 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+17){print $1}}' EAM_code.init | head -1"))
+x17 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+18){print $1}}' EAM_code.init | head -1"))
+x18 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+19){print $1}}' EAM_code.init | head -1"))
+x19 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+20){print $1}}' EAM_code.init | head -1"))
+x20 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+23){print $1}}' EAM_code.init | head -1"))
+x21 = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+26){print $1}}' EAM_code.init | head -1"))
+#print "initial parameters: ",x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21
+x = [x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21]
+print "initial parameters: ",x
 
 count = 0
 #----------------------------------------------------------------------
@@ -83,13 +74,15 @@ creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 
-n_gene = 19 # number of parameters
+n_gene = 22 # number of parameters
 min_ind = numpy.ones(n_gene) * -1.0
 max_ind = numpy.ones(n_gene) *  1.0
 for i in range(n_gene):
-  min_ind[i] = b1[i][0]
-  max_ind[i] = b1[i][1]
-  #print min_ind[i], max_ind[i]
+  #min_ind[i] = b1[i][0]
+  #max_ind[i] = b1[i][1]
+  min_ind[i] = float(x[i]) - float(x[i])*0.1
+  max_ind[i] = float(x[i]) + float(x[i])*0.1
+  print "srarch area of paramter "+str(i)+": "+str(min_ind[i])+" | "+str(max_ind[i])
 #----------------------------------------------------------------------
 def create_ind_uniform(min_ind, max_ind):
   ind = []
@@ -127,10 +120,13 @@ def evalOneMax(individual):
   text = text.replace('Fn2',str(individual[12]).replace("[","").replace("]",""))
   text = text.replace('Fn3',str(individual[13]).replace("[","").replace("]",""))
   text = text.replace('F0',str(individual[14]).replace("[","").replace("]",""))
-  text = text.replace('F2',str(individual[15]).replace("[","").replace("]",""))
-  text = text.replace('F3',str(individual[16]).replace("[","").replace("]",""))
-  text = text.replace('eta',str(individual[17]).replace("[","").replace("]",""))
-  text = text.replace('Fep',str(individual[18]).replace("[","").replace("]",""))
+  text = text.replace('F1',str(individual[15]).replace("[","").replace("]",""))
+  text = text.replace('F2',str(individual[16]).replace("[","").replace("]",""))
+  text = text.replace('F3',str(individual[17]).replace("[","").replace("]",""))
+  text = text.replace('eta',str(individual[18]).replace("[","").replace("]",""))
+  text = text.replace('Fep',str(individual[19]).replace("[","").replace("]",""))
+  text = text.replace('F4',str(individual[20]).replace("[","").replace("]",""))
+  text = text.replace('rhol',str(individual[21]).replace("[","").replace("]",""))
   fi.close
 
   with open(file_inp,'w') as f:
@@ -171,26 +167,30 @@ def evalOneMax(individual):
   print "diff/atom: ", diffea
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
-  rhoin  = float(x[2])*0.85
-  rhoout = float(x[2])*1.15
+  rhoin  = float(individual[2])*float(individual[21])
+  rhoout = float(individual[2])*1.15
   print "---------------"
   print "F boundary 1, rho: "+str(rhoin)
-  print "F boundary 2, rho: "+str(rhoout)
+  print "F boundary 2, rho: "+str(individual[2])
+  print "F boundary 3, rho: "+str(rhoout)
   commands.getoutput("cp "+satom+"_Zhou04.eam.alloy"+" Xx_Zhou04.eam.alloy")
   commands.getoutput("./plot")
   rhoin1  = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoin)+"){print $2}}' | tail -2 | head -1")
   rhoin2  = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoin)+"){print $2}}' | head -2 | tail -1")
+  rhoe1   = commands.getoutput("cat F.plt | awk '{if($1<"+str(individual[2])+"){print $2}}' | tail -2 | head -1")
+  rhoe2   = commands.getoutput("cat F.plt | awk '{if($1>"+str(individual[2])+"){print $2}}' | head -2 | tail -1")
   rhoout1 = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoout)+"){print $2}}' | tail -2 | head -1")
   rhoout2 = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoout)+"){print $2}}' | head -2 | tail -1")
-  print "F near boundary, F: "+str(rhoin1)+" | "+str(rhoin2)+" | diff "+str(float(rhoin1) - float(rhoin2))
-  print "F near boundary, F: "+str(rhoout1)+" | "+str(rhoout2)+" | diff "+str(float(rhoout1) - float(rhoout2))
+  print "F near boundary 1, F: "+str(rhoin1)+" | "+str(rhoin2)+" | diff "+str(float(rhoin1) - float(rhoin2))
+  print "F near boundary 2, F: "+str(rhoe1)+" | "+str(rhoe2)+" | diff "+str(float(rhoe1) - float(rhoe2))
+  print "F near boundary 3, F: "+str(rhoout1)+" | "+str(rhoout2)+" | diff "+str(float(rhoout1) - float(rhoout2))
   print "---------------"
 
-  y = 0.001/(abs(diffea)**2 + 1000*abs(float(rhoin1) - float(rhoin2))**2 + 1000*abs(float(rhoout1) - float(rhoout2))**2)
+  y = 0.001/(abs(diffea)**2 + 1000*abs(float(rhoin1) - float(rhoin2))**2 + 1000*abs(float(rhoe1) - float(rhoe2))**2 + 1000*abs(float(rhoout1) - float(rhoout2))**2)
 
   print "Evaluate: ", y
   #print "Parameters: ", individual
-  print "Parameters: x0 = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+" ]"
+  print "Parameters: x0 = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+" ]"
   print "------------------------"
 
   return y

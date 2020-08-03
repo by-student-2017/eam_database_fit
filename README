@@ -26,41 +26,55 @@ fit parameters by genetic algorithm
 
 Steps:
 
-0) sudo apt install -y python-pip
+0) sudo apt install -y python-pip gnuplot
 1) gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
   (gfortran create.f -o gen_eam) (old version)
-2) pip install -U deap --user
-3) gedit data.in
-4) gedit EAM.input
-5) gedit EAM_code
-6) python ga.py
+2) gfortran -o plot plot.f
+3) pip install -U deap --user
+4) cd ./data
+  gedit data.in.Xx
+  cd ..
+5) gedit EAM.input
+6) gedit EAM_code.init
+7) python ga.py
+8) gnuplot png.gp
 
 
 fit parameters by baysian method
 
 Steps:
 
-0) sudo apt install -y python-pip
+0) sudo apt install -y python-pip gnuplot
 1) gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
   (gfortran create.f -o gen_eam) (old version)
-2) pip install bayesian-optimization==1.1.0
-3) gedit data.in
-4) gedit EAM.input
-5) gedit EAM_code
-6) python baysian.py
+2) gnuplot -o plot plot.f
+3) pip install bayesian-optimization==1.1.0
+4) cd ./data
+  gedit data.in.Xx
+  cd ..
+5) gedit EAM.input
+6) gedit EAM_code.init
+7) python baysian.py
+8) gnuplot png.gp
 
 
 fit parameters by bfgs method
 
 Steps:
 
-0) sudo apt install -y python-scipy
+0) sudo apt install -y python-scipy gnuplot
 1) gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
   (gfortran create.f -o gen_eam) (old version)
-2) gedit data.in
-3) gedit EAM.input
-4) gedit EAM_code
-5) python bfgs.py
+2) gfortran -o plot plot.f
+3) cd ./data
+  gedit data.in.Xx
+  cd ..
+5) gedit EAM.input
+6) gedit EAM_code.init
+7) python bfgs.py
+  (or python nm.py)
+  (or python powell.py)
+8) gnuplot png.gp
 
 Memo
 b1 = np.array([
