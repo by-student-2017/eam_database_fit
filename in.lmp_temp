@@ -11,13 +11,15 @@ units           metal
 atom_style      atomic
 dimension       3
 boundary        p p p
+box             tilt large
 read_data       data.in
 replicate       1 1 1
 
 # ----- Potential settings (EAM)----
 # -----(DYNAMO, eam_database)
 pair_style      eam/alloy
-pair_coeff      * * Xx.set Xx
+pair_coeff      * * Xx_Zhou04.eam.alloy Xx
+#pair_coeff      * * Xx.set Xx
 
 neighbor        0.3 bin
 neigh_modify    delay 0 every 1 check yes
