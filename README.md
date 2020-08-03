@@ -53,11 +53,6 @@ eam_database_fit
 4. git clone https://github.com/by-student-2017/eam_database_fit.git
 5. cd ~/eam_database_fit
 6. gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
-
-
-  (gfortran create.f -o gen_eam) (old version)
-
-
 7. gfortran -o plot plot.f
 
 
