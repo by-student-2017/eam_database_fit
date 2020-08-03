@@ -20,6 +20,7 @@ pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
 satom = commands.getoutput("grep \"atomtype\" EAM.input | sed -e \"s/.*=//\" -e \"s/'//g\"")
 
 commands.getoutput("chmod +x ./cfg2vasp/cfg2vasp")
+commands.getoutput("chmod +x ./vasp2cif/vasp2cif")
 commands.getoutput("chmod +x pwscf2force")
 commands.getoutput("chmod +x setinp")
 commands.getoutput("./setinp")
