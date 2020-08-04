@@ -169,6 +169,7 @@ def evalOneMax(individual):
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
   diffb  = commands.getoutput("cat diff.dat")
+  print "F boundary, diff: "+str(diffb)
   print "---------------"
 
   y = 0.001/(float(diffea)**2 + 1000*float(diffb)**2)

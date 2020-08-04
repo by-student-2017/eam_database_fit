@@ -132,10 +132,11 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
          Fr(i,it)=emb
 7     continue
       do 20 i=1,nrho
-         if (rho .lt. rhoin(it)) then
+         rhoF=(i-1)*drho
+         if (rhoF .lt. rhoin(it)) then
            embb11 = Fr(i,it)
            embb12 = Fr(i+1,it)
-         else if (rho .lt. rhoout(it)) then
+         else if (rhoF .lt. rhoout(it)) then
            embb21 = Fr(i,it) 
            embb22 = Fr(i+1,it)
          else

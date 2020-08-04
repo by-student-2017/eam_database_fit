@@ -151,6 +151,7 @@ def f(x):
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
   diffb  = commands.getoutput("cat diff.dat")
+  print "F boundary, diff: "+str(diffb)
   print "---------------"
 
   y = float(diffea)**2 + 1000*float(diffb)**2
