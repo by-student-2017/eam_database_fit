@@ -151,12 +151,15 @@ def f(x):
   rhoe2   = commands.getoutput("cat F.plt | awk '{if($1>"+str(x[2])+"){print $2}}' | head -2 | tail -1")
   rhoout1 = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoout)+"){print $2}}' | tail -2 | head -1")
   rhoout2 = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoout)+"){print $2}}' | head -2 | tail -1")
-  print "F near boundary 1, F: "+str(rhoin1)+" : "+str(rhoin2)+" : diff "+str(float(rhoin1) - float(rhoin2))
-  print "F near boundary 2, F: "+str(rhoe1)+" : "+str(rhoe2)+" : diff "+str(float(rhoe1) - float(rhoe2))
-  print "F near boundary 3, F: "+str(rhoout1)+" : "+str(rhoout2)+" : diff "+str(float(rhoout1) - float(rhoout2))
+  print "F near boundary 1, F: "+str(rhoin1)+" : "+str(rhoin2)
+  print "F near boundary 2, F: "+str(rhoe1)+" : "+str(rhoe2)
+  print "F near boundary 3, F: "+str(rhoout1)+" : "+str(rhoout2)
   print "---------------"
+  diffrhoin = float(rhoin1) - float(rhoin2)
+  diffrhoe = float(rhoe1) - float(rhoe2)
+  diffrhoout = float(rhoout1) - float(rhoout2)
 
-  y = abs(diffea)**2 + 1000*abs(float(rhoin1) - float(rhoin2))**2 + 1000*abs(float(rhoe1) - float(rhoe2))**2 + 1000*abs(float(rhoout1) - float(rhoout2))**2
+  y = abs(diffea)**2 + 1000*abs(diffrhoin)**2 + 1000*abs(diffrhoe)**2  + 1000*abs(diffrhoout)**2
 
   print "Evaluate: ", y
   #print "Parameters: ", x
