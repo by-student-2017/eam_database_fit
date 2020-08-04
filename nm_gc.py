@@ -154,9 +154,9 @@ def f(x):
   diffrhoin = float(rhoin1) - float(rhoin2)
   diffrhoe = float(rhoe1) - float(rhoe2)
   diffrhoout = float(rhoout1) - float(rhoout2)
-  print "F near boundary 1, F: "+str(rhoin1)+" : "+str(rhoin2)+" | diff "+str(diffrhoin)
-  print "F near boundary 2, F: "+str(rhoe1)+" : "+str(rhoe2)+" | diff "+str(diffrhoe)
-  print "F near boundary 3, F: "+str(rhoout1)+" : "+str(rhoout2)+" | diff "+str(diffrhoout)
+  print "F near boundary 1, F: "+str(rhoin1)+" : "+str(rhoin2)+" : diff "+str(diffrhoin)
+  print "F near boundary 2, F: "+str(rhoe1)+" : "+str(rhoe2)+" : diff "+str(diffrhoe)
+  print "F near boundary 3, F: "+str(rhoout1)+" : "+str(rhoout2)+" : diff "+str(diffrhoout)
   print "---------------"
 
   y = abs(diffea)**2 + 1000*abs(diffrhoin)**2 + 1000*abs(diffrhoe)**2  + 1000*abs(diffrhoout)**2
