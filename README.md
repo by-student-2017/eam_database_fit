@@ -95,7 +95,7 @@ eam_database_fit
 1. gnuplot png.gp
 
 
-# Google Colaboratory (failed)
+# Google Colaboratory
 ## Install (cif2cell-informal)
 	!apt update
 	!apt install -y git python python-setuptools python-dev
