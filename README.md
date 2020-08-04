@@ -139,21 +139,6 @@ eam_database_fit
 	os.environ['PATH'] = "/content/q-e-qe-6.4.1/bin:"+os.environ['PATH']
 
 
-## fit parameters by other methods
-	%cd /content/eam_database_fit
-	import os
-	os.environ["OMP_NUM_THREADS"] = "1,1"
-	os.environ["MKL_NUM_THREADS"] = "1"
-	!cp EAM.input_temp EAM.input
-	!sed -i 's/Xx/Cu/g' EAM.input
-	!sed -i 's/YYYY/300.0/' in.lmp_temp
-	!python2 nm_gc.py
-	
-	or !python2 powell_gc.py
-	
-	or !python2 bfgs_gc.py
-
-
 ## set fitting
 	!apt update
 	!apt install -y git python-pip python-scipy csh gfortran gnuplot
@@ -162,6 +147,22 @@ eam_database_fit
 	%cd /content/eam_database_fit
 	!gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
 	!gfortran -o plot plot.f
+
+
+## fit parameters by other methods
+	%cd /content/eam_database_fit
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	!cp EAM.input_temp EAM.input
+	!sed -i 's/Xx/Cu/g' EAM.input
+	!cp in.lmp_temp_v2 in.lmp_temp
+	!sed -i 's/YYYY/300.0/' in.lmp_temp
+	!python2 nm_gc.py
+	
+	or !python2 powell_gc.py
+	
+	or !python2 bfgs_gc.py
 
 
 ## fit parameters by genetic algorithm
