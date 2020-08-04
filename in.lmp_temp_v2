@@ -2,7 +2,7 @@
 clear
 
 # ----- condition settings -----
-variable        temp         index 1500.0 # K
+variable        temp         index YYYY # K
 
 timestep        1.0 # fs
 
