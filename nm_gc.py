@@ -145,19 +145,22 @@ def f(x):
   print "F boundary 3, rho: "+str(rhoout)
   commands.getoutput("cp "+satom+"_Zhou04.eam.alloy"+" Xx_Zhou04.eam.alloy")
   commands.getoutput("./plot")
-  rhoin1  = commands.getoutput("awk '{if($1<"+str(rhoin)+"){print $2}}' F.plt | tail -2 | head -1")
-  rhoin2  = commands.getoutput("awk '{if($1>"+str(rhoin)+"){print $2}}' F.plt | head -2 | tail -1")
-  rhoe1   = commands.getoutput("awk '{if($1<"+str(x[2])+"){print $2}}' F.plt | tail -2 | head -1")
-  rhoe2   = commands.getoutput("awk '{if($1>"+str(x[2])+"){print $2}}' F.plt | head -2 | tail -1")
-  rhoout1 = commands.getoutput("awk '{if($1<"+str(rhoout)+"){print $2}}' F.plt | tail -2 | head -1")
-  rhoout2 = commands.getoutput("awk '{if($1>"+str(rhoout)+"){print $2}}' F.plt | head -2 | tail -1")
-  print "F near boundary 1, F: "+str(rhoin1)+" : "+str(rhoin2)
-  print "F near boundary 2, F: "+str(rhoe1)+" : "+str(rhoe2)
-  print "F near boundary 3, F: "+str(rhoout1)+" : "+str(rhoout2)
-  print "---------------"
+  NR1 = commands.getoutput("awk '{if($1<"+str(rhoin)+"){print $2}}' F.plt | head -1")
+  NR2 = commands.getoutput("awk '{if($1<"+str(x[2])+"){print $2}}' F.plt | head -1")
+  NR3 = commands.getoutput("awk '{if($1<"+str(rhoout)+"){print $2}}' F.plt | head -1")
+  rhoin1  = commands.getoutput("awk '{if(NR=="+str(NR1)+"){printf "%12.5f",$2}}' F.plt")
+  rhoin2  = commands.getoutput("awk '{if(NR=="+str(NR1)+"){printf "%12.5f",$2}}' F.plt")
+  rhoe1   = commands.getoutput("awk '{if(NR=="+str(NR2)+"){printf "%12.5f",$2}}' F.plt")
+  rhoe2   = commands.getoutput("awk '{if(NR=="+str(NR2)+"){printf "%12.5f",$2}}' F.plt")
+  rhoout1 = commands.getoutput("awk '{if(NR=="+str(NR3)+"){printf "%12.5f",$2}}' F.plt")
+  rhoout2 = commands.getoutput("awk '{if(NR=="+str(NR3)+"){printf "%12.5f",$2}}' F.plt")
   diffrhoin = float(rhoin1) - float(rhoin2)
   diffrhoe = float(rhoe1) - float(rhoe2)
   diffrhoout = float(rhoout1) - float(rhoout2)
+  print "F near boundary 1, F: "+str(rhoin1)+" : "+str(rhoin2)+" : difference "+str(diffrhoin)
+  print "F near boundary 2, F: "+str(rhoe1)+" : "+str(rhoe2)+" : difference "+str(diffrhoe)
+  print "F near boundary 3, F: "+str(rhoout1)+" : "+str(rhoout2)+" : difference "+str(diffrhoout)
+  print "---------------"
 
   y = abs(diffea)**2 + 1000*abs(diffrhoin)**2 + 1000*abs(diffrhoe)**2  + 1000*abs(diffrhoout)**2
 
