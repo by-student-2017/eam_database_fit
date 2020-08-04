@@ -60,7 +60,8 @@ eam_database_fit
 1. cd ~/eam_database_fit
 2. cp EAM.input_temp EAM.input
 3. sed -i 's/Xx/Cu/g' EAM.input
-4. python nm.py
+4. sed -i 's/YYYY/300.0/' in.lmp_temp
+5. python nm.py
 
 
   (or python powell.py)
@@ -74,7 +75,8 @@ eam_database_fit
 2. pip install -U deap --user
 3. cp EAM.input_temp EAM.input
 4. sed -i 's/Xx/Cu/g' EAM.input
-5. python ga.py
+5. sed -i 's/YYYY/300.0/' in.lmp_temp
+6. python ga.py
 
 
 ## fit parameters by baysian method
@@ -82,7 +84,8 @@ eam_database_fit
 2. pip install bayesian-optimization==1.1.0
 3. cp EAM.input_temp EAM.input
 4. sed -i 's/Xx/Cu/g' EAM.input
-5. python baysian.py
+5. sed -i 's/YYYY/300.0/' in.lmp_temp
+6. python baysian.py
 
 
 ## plot F, rho or z2r
@@ -140,6 +143,7 @@ eam_database_fit
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp EAM.input_temp EAM.input
 	!sed -i 's/Xx/Cu/g' EAM.input
+	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 nm_gc.py
 	
 	or !python2 powell_gc.py
@@ -165,6 +169,7 @@ eam_database_fit
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp EAM.input_temp EAM.input
 	!sed -i 's/Xx/Cu/g' EAM.input
+	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 ga_gc.py
 
 
@@ -176,6 +181,7 @@ eam_database_fit
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp EAM.input_temp EAM.input
 	!sed -i 's/Xx/Cu/g' EAM.input
+	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 baysian_gc.py
 
 
