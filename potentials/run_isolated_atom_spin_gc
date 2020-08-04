@@ -67,7 +67,7 @@ K_POINTS automatic
 EOF
   #
   #pw.x < isolated_atom.in | tee isolated_atom.out
-  mpirun -np 2 --allow-run-as-root $HOME/q-e-qe-*/bin/pw.x < isolated_atom.in | tee isolated_atom.out
+  mpirun -np 2 --allow-run-as-root pw.x < isolated_atom.in | tee isolated_atom.out
   #
   set TOTEN_Ry = `grep "  total energy  " isolated_atom.out | tail -1 | sed 's/.*=//g' | sed 's/Ry//g'`
   set TOTEN = `echo "${TOTEN_Ry}*13.6058" | bc -l | awk '{printf "%15.10f",$0}'`
