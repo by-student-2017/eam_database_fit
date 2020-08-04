@@ -145,7 +145,7 @@ eam_database_fit
 	%cd /content
 	!git clone https://github.com/by-student-2017/eam_database_fit.git
 	%cd /content/eam_database_fit
-	!gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
+	!gfortran -o Zhou04_EAM_3 Zhou04_create_v3.f
 	!gfortran -o plot plot.f
 
 

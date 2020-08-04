@@ -13,9 +13,9 @@ cif2cell_adress = "cif2cell"
 
 commands.getoutput("setenv OMP_NUM_THREADS 1")
 num_core = commands.getoutput("grep 'core id' /proc/cpuinfo | sort -u | wc -l")
-pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
+#pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
 #pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
-#pwscf_adress = "mpirun -np 2 pw.x"
+pwscf_adress = "mpirun -np 2 pw.x"
 
 satom = commands.getoutput("grep \"atomtype\" EAM.input | sed -e \"s/.*=//\" -e \"s/'//g\"")
 
@@ -75,7 +75,7 @@ creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 
-n_gene = 22 # number of parameters, number of individual +1
+n_gene = 22 # number of parameters
 min_ind = numpy.ones(n_gene) * -1.0
 max_ind = numpy.ones(n_gene) *  1.0
 for i in range(n_gene):
@@ -133,7 +133,7 @@ def evalOneMax(individual):
   with open(file_inp,'w') as f:
     print >> f, text
 
-  commands.getoutput("./Zhou04_EAM_2 < EAM.input")
+  commands.getoutput("./Zhou04_EAM_3 < EAM.input")
   commands.getoutput(lammps_adress+" < in.lmp")
   commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
   commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
@@ -168,29 +168,10 @@ def evalOneMax(individual):
   print "diff/atom: ", diffea
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
-  rhoin  = float(individual[2])*float(individual[21])
-  rhoout = float(individual[2])*1.15
+  diffb  = commands.getoutput("cat diff.dat")
   print "---------------"
-  print "F boundary 1, rho: "+str(rhoin)
-  print "F boundary 2, rho: "+str(individual[2])
-  print "F boundary 3, rho: "+str(rhoout)
-  commands.getoutput("cp "+satom+"_Zhou04.eam.alloy"+" Xx_Zhou04.eam.alloy")
-  commands.getoutput("./plot")
-  rhoin1  = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoin)+"){print $2}}' | tail -2 | head -1")
-  rhoin2  = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoin)+"){print $2}}' | head -2 | tail -1")
-  rhoe1   = commands.getoutput("cat F.plt | awk '{if($1<"+str(individual[2])+"){print $2}}' | tail -2 | head -1")
-  rhoe2   = commands.getoutput("cat F.plt | awk '{if($1>"+str(individual[2])+"){print $2}}' | head -2 | tail -1")
-  rhoout1 = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoout)+"){print $2}}' | tail -2 | head -1")
-  rhoout2 = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoout)+"){print $2}}' | head -2 | tail -1")
-  print "F near boundary 1, F: "+str(rhoin1)+" : "+str(rhoin2)
-  print "F near boundary 2, F: "+str(rhoe1)+" : "+str(rhoe2)
-  print "F near boundary 3, F: "+str(rhoout1)+" : "+str(rhoout2)
-  print "---------------"
-  diffrhoin = float(rhoin1) - float(rhoin2)
-  diffrhoe = float(rhoe1) - float(rhoe2)
-  diffrhoout = float(rhoout1) - float(rhoout2)
 
-  y = 0.001/(abs(diffea)**2 + 1000*abs(diffrhoin)**2 + 1000*abs(diffrhoe)**2  + 1000*abs(diffrhoout)**2)
+  y = 0.001/(float(diffea)**2 + 1000*float(diffb)**2)
 
   print "Evaluate: ", y
   #print "Parameters: ", individual

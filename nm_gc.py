@@ -11,9 +11,9 @@ cif2cell_adress = "cif2cell"
 
 commands.getoutput("setenv OMP_NUM_THREADS 1")
 num_core = commands.getoutput("grep 'core id' /proc/cpuinfo | sort -u | wc -l")
-pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
+#pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
 #pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
-#pwscf_adress = "mpirun -np 2 pw.x"
+pwscf_adress = "mpirun -np 2 pw.x"
 
 satom = commands.getoutput("grep \"atomtype\" EAM.input | sed -e \"s/.*=//\" -e \"s/'//g\"")
 
@@ -102,7 +102,7 @@ def f(x):
   with open(file_inp,'w') as f:
     print >> f, text
 
-  commands.getoutput("./Zhou04_EAM_2 < EAM.input")
+  commands.getoutput("./Zhou04_EAM_3 < EAM.input")
   commands.getoutput(lammps_adress+" < in.lmp")
   commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
   commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
@@ -137,32 +137,10 @@ def f(x):
   print "diff/atom: ", diffea
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
-  rhoin  = float(x[2])*float(x[21])
-  rhoout = float(x[2])*1.15
-  print "---------------"
-  print "F boundary 1, rho: "+str(rhoin)
-  print "F boundary 2, rho: "+str(x[2])
-  print "F boundary 3, rho: "+str(rhoout)
-  commands.getoutput("cp "+satom+"_Zhou04.eam.alloy"+" Xx_Zhou04.eam.alloy")
-  commands.getoutput("./plot")
-  NR1 = commands.getoutput("awk '{if($1>"+str(rhoin)+"){print NR}}' F.plt | head -1")
-  NR2 = commands.getoutput("awk '{if($1>"+str(x[2])+"){print NR}}' F.plt | head -1")
-  NR3 = commands.getoutput("awk '{if($1>"+str(rhoout)+"){print NR}}' F.plt | head -1")
-  rhoin1  = commands.getoutput("awk '{if(NR=="+str(NR1)+"-2){print $2}}' F.plt")
-  rhoin2  = commands.getoutput("awk '{if(NR=="+str(NR1)+"+2){print $2}}' F.plt")
-  rhoe1   = commands.getoutput("awk '{if(NR=="+str(NR2)+"-2){print $2}}' F.plt")
-  rhoe2   = commands.getoutput("awk '{if(NR=="+str(NR2)+"+2){print $2}}' F.plt")
-  rhoout1 = commands.getoutput("awk '{if(NR=="+str(NR3)+"-2){print $2}}' F.plt")
-  rhoout2 = commands.getoutput("awk '{if(NR=="+str(NR3)+"+2){print $2}}' F.plt")
-  diffrhoin = float(rhoin1) - float(rhoin2)
-  diffrhoe = float(rhoe1) - float(rhoe2)
-  diffrhoout = float(rhoout1) - float(rhoout2)
-  print "F near boundary 1, F: "+str(rhoin1)+" : "+str(rhoin2)+" : difference "+str(diffrhoin)
-  print "F near boundary 2, F: "+str(rhoe1)+" : "+str(rhoe2)+" : difference "+str(diffrhoe)
-  print "F near boundary 3, F: "+str(rhoout1)+" : "+str(rhoout2)+" : difference "+str(diffrhoout)
+  diffb  = commands.getoutput("cat diff.dat")
   print "---------------"
 
-  y = abs(diffea)**2 + 1000*abs(diffrhoin)**2 + 1000*abs(diffrhoe)**2  + 1000*abs(diffrhoout)**2
+  y = float(diffea)**2 + 1000*float(diffb)**2
 
   print "Evaluate: ", y
   #print "Parameters: ", x
