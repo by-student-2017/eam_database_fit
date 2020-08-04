@@ -20,7 +20,7 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
      *   z2r(5000,16,16),blat(16),drho,dr,rc,outfile,outelem
       common /pass3/ ielement(16),ntypes,nrho,nr
       character*80 dump
-c      character*80 struc
+      character*80 struc
 c      struc='fcc'
 c      outfile = outfile(1:index(outfile,' ')-1)//'_Zhou04.eam.alloy'
 c      open(unit=1,file=outfile)
@@ -54,12 +54,14 @@ c        write(1,12)(Fr(j,i),j=1,nrho)
 c        write(1,12)(rhor(j,i),j=1,nr)
         write(2,*) "# atom ",i
         do 15 j=1,nrho
-          write(2,14) j*drho,Fr(j,i)
+          write(2,14) (j-1)*drho,Fr(j,i)
 15      continue
+        write(2,*) " "
         write(3,*) "# atom ",i
         do 16 j=1,nr
-          write(3,14) j*dr,rhor(j,i)
+          write(3,14) (j-1)*dr,rhor(j,i)
 16      continue
+        write(3,*) " "
 10    continue
 11    format(i5,2g15.5,a8)
 12    format(5e24.16)
@@ -68,8 +70,10 @@ c        write(1,12)(rhor(j,i),j=1,nr)
           read(1,12)(z2r(i,i1,i2),i=1,nr)
 c          write(1,12)(z2r(i,i1,i2),i=1,nr)
           write(4,*) "# atom,atom ",i1,",",i2
-          do 13 j=1,nr
-            write(4,14) j*dr,z2r(j,i1,i2)
+          do 20 j=1,nr
+            write(4,14) (j-1)*dr,z2r(j,i1,i2)
+20        continue
+          write(4,*) " "
 13    continue
 14    format(f15.10,' ',f15.10)
       close(1)

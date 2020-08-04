@@ -4,6 +4,8 @@ settings:
 2) gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f 
   (gfortran create.f -o gen_eam) (old version)
 3) gfortran -o plot plot.f
+  gfortran -o plot_alloy plot_alloy.f (input file name: Xx.eam.alloy)
+  gfortran -o plot_fs plot_fs.f (input file name: Xx.eam.fs)
 
 Run:
 1) gedit in.lmp_temp 

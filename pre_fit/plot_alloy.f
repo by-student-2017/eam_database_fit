@@ -16,15 +16,15 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
      *   Fm0(16),Fm1(16),Fm2(16),Fm3(16),Fm4(16),
      *   fnn(16),Fn(16),rhoin(16),rhoout(16),rhol(16),
      *   rhoh(16),rhos(16)
-      common /pass2/ amass(16),Fr(5000,16),rhor(5000,16),
-     *   z2r(5000,16,16),blat(16),drho,dr,rc,outfile,outelem
+      common /pass2/ amass(16),Fr(500000,16),rhor(500000,16),
+     *   z2r(500000,16,16),blat(16),drho,dr,rc,outfile,outelem
       common /pass3/ ielement(16),ntypes,nrho,nr
       character*80 dump
       character*80 struc
 c      struc='fcc'
 c      outfile = outfile(1:index(outfile,' ')-1)//'_Zhou04.eam.alloy'
 c      open(unit=1,file=outfile)
-      open(unit=1,file='Xx_Zhou04.eam.alloy')
+      open(unit=1,file='Xx.eam.alloy')
       open(unit=2,file='F.plt')
       open(unit=3,file='rho.plt')
       open(unit=4,file='z2r.plt')
@@ -38,19 +38,19 @@ c     *   'H. N. G. Wadley, Phys. Rev. B, 69, 144113(2004)'
 c      write(1,*) '# Generated from Zhou04_create_v2.f'
       read(1,*) dump
 c      write(1,*) '# Fixes precision issues with older version'
-      read(1,8) ntypes,outelem
+      read(1,*) ntypes,outelem
 8     format(i5,a24)
 c      write(1,8)ntypes,outelem
 c8     format(i5,' ',a24)
-      read(1,9) nrho,drho,nr,dr,rc
+      read(1,*) nrho,drho,nr,dr,rc
 c      write(1,9)nrho,drho,nr,dr,rc
 9     format(i5,e24.16,i5,2e24.16)
       do 10 i=1,ntypes
-        read(1,11)ielement(i),amass(i),blat(i),struc 
+        read(1,*)ielement(i),amass(i),blat(i),struc 
 c        write(1,11)ielement(i),amass(i),blat(i),struc
-        read(1,12)(Fr(j,i),j=1,nrho)
+        read(1,*)(Fr(j,i),j=1,nrho)
 c        write(1,12)(Fr(j,i),j=1,nrho)
-        read(1,12)(rhor(j,i),j=1,nr)
+        read(1,*)(rhor(j,i),j=1,nr)
 c        write(1,12)(rhor(j,i),j=1,nr)
         write(2,*) "# atom ",i
         do 15 j=1,nrho
@@ -67,7 +67,7 @@ c        write(1,12)(rhor(j,i),j=1,nr)
 12    format(5e24.16)
       do 13 i1=1,ntypes
         do 13 i2=1,i1
-          read(1,12)(z2r(i,i1,i2),i=1,nr)
+          read(1,*)(z2r(i,i1,i2),i=1,nr)
 c          write(1,12)(z2r(i,i1,i2),i=1,nr)
           write(4,*) "# atom,atom ",i1,",",i2
           do 20 j=1,nr
