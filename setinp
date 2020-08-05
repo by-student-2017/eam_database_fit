@@ -30,7 +30,7 @@ sed -i "s/mass/${mass}/g" EAM_code.tmp
 #sed -i "s/mass/${mass}/g" EAM_code_v2.tmp
 #
 #cp data.in.${str} data.in
-cp ./data/data.in.${str} data.in
+cp ./data/data.in.${satom} data.in
 #
 cp in.lmp_temp in.lmp
 sed -i "s/Xx/${satom}/g" in.lmp
