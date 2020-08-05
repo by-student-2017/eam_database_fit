@@ -3,7 +3,7 @@ eam_database_fit
 
 # Ubuntu 18.04 LTS
 ## Install (cif2cell-informal)
-1. sudo apt install -y git python python-setuptools python-dev
+1. sudo apt install -y git python python-setuptools python-dev gcc
 2. git clone https://github.com/by-student-2017/cif2cell-informal.git
 3. cd cif2cell-informal
 4. tar zxvf PyCifRW-3.3.tar.gz
@@ -98,7 +98,7 @@ eam_database_fit
 # Google Colaboratory
 ## Install (cif2cell-informal)
 	!apt update
-	!apt install -y git python python-setuptools python-dev
+	!apt install -y git python python-setuptools python-dev gcc
 	%cd /content
 	!git clone https://github.com/by-student-2017/cif2cell-informal.git
 	%cd cif2cell-informal
