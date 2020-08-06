@@ -174,7 +174,7 @@ def f(x):
   print "F boundary, diff: "+str(diffb)
   print "---------------"
 
-  y = float(diffea)**2 + 1000*float(diffb)**2 + 0.0000001*abs(diffp)**2
+  y = float(diffea)**2 + 1000*float(diffb)**2 + 0.0000002*abs(diffp)**2
 
   print "Evaluate: ", y
   #print "Parameters: ", x
