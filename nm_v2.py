@@ -1,4 +1,5 @@
 from scipy import optimize
+import numpy
 import numpy as np
 import commands
 import sys
