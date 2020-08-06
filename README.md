@@ -71,6 +71,12 @@ eam_database_fit
   (or python bfgs.py)
 
 
+  (or python nm_v2.py) (fit total energy and stress)
+
+
+  (or python nm_v3.py) (fit total energy, stress and every force)
+
+
 ## fit parameters by genetic algorithm
 1. cd ~/eam_database_fit
 2. pip install -U deap --user
@@ -163,6 +169,10 @@ eam_database_fit
 	or !python2 powell_gc.py
 	
 	or !python2 bfgs_gc.py
+	
+	(or !python nm_v2_gc.py) (fit total energy and stress)
+	
+	(or !python nm_v3_gc.py) (fit total energy, stress and every force)
 
 
 ## fit parameters by genetic algorithm
@@ -263,6 +273,12 @@ eam_database_fit
 
 
   (or python bfgs_debian.py)
+
+
+  (or python nm_v2_debian.py) (fit total energy and stress)
+
+
+  (or python nm_v3_debian.py) (fit total energy, stress and every force)
 
 
 ## fit parameters by genetic algorithm
