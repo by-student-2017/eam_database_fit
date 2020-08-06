@@ -39,7 +39,7 @@ thermo          1
 #dump            d1 all cfg 1 cfg/run.*.cfg mass type xs ys zs id type
 #dump_modify     d1 element Zn
 dump            dynaphopy all custom 1 trajectory.lammpstrj x y z vx vy vz fx fy fz
-#dump_modify     dynaphopy sort id
+dump_modify     dynaphopy sort id
 dump_modify     dynaphopy format line "%16.10f %16.10f %16.10f %16.10f %16.10f %16.10f %16.10f %16.10f %16.10f"
 #
 # ----- Equilibriation -----
