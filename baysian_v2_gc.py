@@ -216,12 +216,12 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
   pxyp = commands.getoutput("awk '{if($1==\"#S\"){print $5}}' config")
   pxzp = commands.getoutput("awk '{if($1==\"#S\"){print $6}}' config")
   pyzp = commands.getoutput("awk '{if($1==\"#S\"){print $7}}' config")
-  diffpxx = (float(pxxl) - float(pxxp))/float(pxxp)*100/6
-  diffpyy = (float(pyyl) - float(pyyp))/float(pyyp)*100/6   
-  diffpzz = (float(pzzl) - float(pzzp))/float(pzzp)*100/6   
-  diffpxy = (float(pxyl) - float(pxyp))/float(pxyp)*100/6   
-  diffpxz = (float(pxzl) - float(pxzp))/float(pxzp)*100/6   
-  diffpyz = (float(pyzl) - float(pyzp))/float(pyzp)*100/6   
+  diffpxx = (float(pxxl) - float(pxxp))/(float(pxxp)+0.00000010)*100.0/6.0
+  diffpyy = (float(pyyl) - float(pyyp))/(float(pyyp)+0.00000010)*100.0/6.0
+  diffpzz = (float(pzzl) - float(pzzp))/(float(pzzp)+0.00000010)*100.0/6.0
+  diffpxy = (float(pxyl) - float(pxyp))/(float(pxyp)+0.00000010)*100.0/6.0
+  diffpxz = (float(pxzl) - float(pxzp))/(float(pxzp)+0.00000010)*100.0/6.0
+  diffpyz = (float(pyzl) - float(pyzp))/(float(pyzp)+0.00000010)*100.0/6.0
   diffp = abs(diffpxx) + abs(diffpyy) + abs(diffpzz) + abs(diffpxy) + abs(diffpxz) + abs(diffpyz)
   print "lammps: "+str(pxxl)+", "+str(pyyl)+", "+str(pzzl)+", "+str(pxyl)+", "+str(pxzl)+", "+str(pyzl)+" [eV/A^3]"
   print "pwscf:  "+str(pxxp)+", "+str(pyyp)+", "+str(pzzp)+", "+str(pxyp)+", "+str(pxzp)+", "+str(pyzp)+" [eV/A^3]"
