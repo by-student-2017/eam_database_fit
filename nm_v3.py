@@ -125,7 +125,7 @@ def f(x):
   else:
     commands.getoutput(lammps_adress+" < in.lmp_fix")
 
-  # stress (pressure)
+  # stress = pressure
   pxxl = commands.getoutput("awk '{if($1==\"pxxl\"){printf \"%10.8f\",$3*7.4028083e-11}}' log.lammps")
   pyyl = commands.getoutput("awk '{if($1==\"pyyl\"){printf \"%10.8f\",$3*7.4028083e-11}}' log.lammps")
   pzzl = commands.getoutput("awk '{if($1==\"pzzl\"){printf \"%10.8f\",$3*7.4028083e-11}}' log.lammps")
