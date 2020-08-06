@@ -11,9 +11,9 @@ cif2cell_adress = "cif2cell"
 
 commands.getoutput("setenv OMP_NUM_THREADS 1")
 num_core = commands.getoutput("grep 'core id' /proc/cpuinfo | sort -u | wc -l")
-#pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
+pwscf_adress = "mpirun -np "+str(num_core)+" --allow-run-as-root pw.x"
 #pwscf_adress = "mpirun -np "+str(num_core)+" pw.x"
-pwscf_adress = "mpirun -np 2 pw.x"
+#pwscf_adress = "mpirun -np 2 pw.x"
 
 satom = commands.getoutput("grep \"atomtype\" EAM.input | sed -e \"s/.*=//\" -e \"s/'//g\"")
 
@@ -101,7 +101,7 @@ def f(x):
   with open(file_inp,'w') as f:
     print >> f, text
 
-  commands.getoutput("./Zhou04_EAM_2 < EAM.input")
+  commands.getoutput("./Zhou04_EAM_3 < EAM.input")
   if count > 2000 or count % int(200-count/10) == 1: 
     commands.getoutput(lammps_adress+" < in.lmp")
     commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
@@ -132,11 +132,11 @@ def f(x):
   pxzp = commands.getoutput("awk '{if($1==\"#S\"){print $6}}' config")
   pyzp = commands.getoutput("awk '{if($1==\"#S\"){print $7}}' config")
   diffpxx = (float(pxxl) - float(pxxp))/float(pxxp)*100/6
-  diffpyy = (float(pyyl) - float(pyyp))/float(pyyp)*100/6   
-  diffpzz = (float(pzzl) - float(pzzp))/float(pzzp)*100/6   
-  diffpxy = (float(pxyl) - float(pxyp))/float(pxyp)*100/6   
-  diffpxz = (float(pxzl) - float(pxzp))/float(pxzp)*100/6   
-  diffpyz = (float(pyzl) - float(pyzp))/float(pyzp)*100/6   
+  diffpyy = (float(pyyl) - float(pyyp))/float(pyyp)*100/6
+  diffpzz = (float(pzzl) - float(pzzp))/float(pzzp)*100/6
+  diffpxy = (float(pxyl) - float(pxyp))/float(pxyp)*100/6
+  diffpxz = (float(pxzl) - float(pxzp))/float(pxzp)*100/6
+  diffpyz = (float(pyzl) - float(pyzp))/float(pyzp)*100/6
   diffp = abs(diffpxx) + abs(diffpyy) + abs(diffpzz) + abs(diffpxy) + abs(diffpxz) + abs(diffpyz)
   print "lammps: "+str(pxxl)+", "+str(pyyl)+", "+str(pzzl)+", "+str(pxyl)+", "+str(pxzl)+", "+str(pyzl)+" [eV/A^3]"
   print "pwscf:  "+str(pxxp)+", "+str(pyyp)+", "+str(pzzp)+", "+str(pxyp)+", "+str(pxzp)+", "+str(pyzp)+" [eV/A^3]"
@@ -155,41 +155,24 @@ def f(x):
   #natom_get_data = "grep \"number of atoms/cell\" pw.out | awk '{printf \"%20.10f\",$5}'"
   #target[2] = commands.getoutput(natom_get_data) 
 
-  pxxl = commands.getoutput("mv data.in.restart data.in")
-
-  print "lammps: "+str(y_str[0])+" [eV]"
+  print "lammps: ", y_str[0]
 
   #pwe = float(target[0]) - float(target[1])*float(target[2])
   pwe = float(target[0]) - float(target[1])*float(natom)
-  print "PWscf:  "+str(pwe)+" [eV]"
+  print "PWscf:  ", pwe
 
   diffe = float(pwe) - float(y_str[0])
-  print "diff: "+str(diffe)+" [eV]"
+  print "diff: ", diffe
   #diffea = float(diffe)/float(target[2])
   diffea = float(diffe)/float(natom)
-  print "diff/atom: "+str(diffea)+" [eV]"
+  print "diff/atom: ", diffea
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
-  rhoin  = float(x[2])*float(x[21])
-  rhoout = float(x[2])*1.15
-  print "---------------"
-  print "F boundary 1, rho: "+str(rhoin)
-  print "F boundary 2, rho: "+str(x[2])
-  print "F boundary 3, rho: "+str(rhoout)
-  commands.getoutput("cp "+satom+"_Zhou04.eam.alloy"+" Xx_Zhou04.eam.alloy")
-  commands.getoutput("./plot")
-  rhoin1  = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoin)+"){print $2}}' | tail -2 | head -1")
-  rhoin2  = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoin)+"){print $2}}' | head -2 | tail -1")
-  rhoe1   = commands.getoutput("cat F.plt | awk '{if($1<"+str(x[2])+"){print $2}}' | tail -2 | head -1")
-  rhoe2   = commands.getoutput("cat F.plt | awk '{if($1>"+str(x[2])+"){print $2}}' | head -2 | tail -1")
-  rhoout1 = commands.getoutput("cat F.plt | awk '{if($1<"+str(rhoout)+"){print $2}}' | tail -2 | head -1")
-  rhoout2 = commands.getoutput("cat F.plt | awk '{if($1>"+str(rhoout)+"){print $2}}' | head -2 | tail -1")
-  print "near F boundary 1, F: "+str(rhoin1)+" | "+str(rhoin2)+" | diff "+str(float(rhoin1) - float(rhoin2))
-  print "near F boundary 2, F: "+str(rhoe1)+" | "+str(rhoe2)+" | diff "+str(float(rhoe1) - float(rhoe2))
-  print "near F boundary 3, F: "+str(rhoout1)+" | "+str(rhoout2)+" | diff "+str(float(rhoout1) - float(rhoout2))
+  diffb  = commands.getoutput("cat diff.dat")
+  print "F boundary, diff: "+str(diffb)
   print "---------------"
 
-  y = abs(diffea)**2 + 1000*abs(float(rhoin1) - float(rhoin2))**2 + 1000*abs(float(rhoe1) - float(rhoe2))**2 + 1000*abs(float(rhoout1) - float(rhoout2))**2 + 0.0001*abs(diffp)**2
+  y = float(diffea)**2 + 1000*float(diffb)**2 + 0.0001*abs(diffp)**2
 
   print "Evaluate: ", y
   #print "Parameters: ", x
