@@ -162,6 +162,6 @@ variable        e equal etotal
 # ----- Equilibriation -----
 #velocity        all create ${temp} 123456
 fix             f1 all nvt temp ${temp} ${temp} 100
-run             1
+run             0
 
 print           "Total Energy = $e [eV]"
