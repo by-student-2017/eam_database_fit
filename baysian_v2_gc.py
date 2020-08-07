@@ -228,34 +228,24 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
   print "P diff (%): "+str(diffp)
   print "---------------"
 
-  lammps_get_data = "grep \"Total Energy\" log.lammps | tail -1 | awk '{printf \"%20.10f\",$4}'"
-  y_str[0] = commands.getoutput(lammps_get_data)
+  lammps_get_data = "grep \"Total Energy\" log.lammps | tail -1 | awk '{printf \"%-20.10f\",$4}'"
+  lmpe = commands.getoutput(lammps_get_data)
 
-  pwscf_get_data = "grep \"!    total energy   \" pw.out | tail -1 | awk '{printf \"%20.10f\",$5*13.6058}'"
-  target[0] = commands.getoutput(pwscf_get_data)
+  pwe = commands.getoutput("awk '{if($1==\"#E\"){print $2}}' config")
+  pwe = float(pwe) * float(natom)
 
+  print "lammps: "+str(lmpe)+" [eV]"
 
-  potential_get_data = "grep "+str(satom)+" ./potentials/energy_data_for_isolated_atom_reference | head -1 | awk '{printf \"%20.10f\",$2}'"
-  target[1] = commands.getoutput(potential_get_data)
+  print "PWscf:  "+str(pwe)+" [eV]"
 
-  #natom_get_data = "grep \"number of atoms/cell\" pw.out | awk '{printf \"%20.10f\",$5}'"
-  #target[2] = commands.getoutput(natom_get_data) 
-
-  print "lammps: ", y_str[0]
-
-  #pwe = float(target[0]) - float(target[1])*float(target[2])
-  pwe = float(target[0]) - float(target[1])*float(natom)
-  print "PWscf:  ", pwe
-
-  diffe = float(pwe) - float(y_str[0])
-  print "diff: ", diffe
-  #diffea = float(diffe)/float(target[2])
+  diffe = float(pwe) - float(lmpe)
+  print "diff: "+str(diffe)+" [eV]"
   diffea = float(diffe)/float(natom)
-  print "diff/atom: ", diffea
+  print "diff/atom: "+str(diffea)+" [eV/atom]"
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
-  print "F boundary, diff: "+str(diffb)
-  diffb  = commands.getoutput("cat diff.dat")
 
+  diffb  = commands.getoutput("cat diff.dat")
+  print "F boundary, diff: "+str(diffb)
   print "---------------"
   
   y = 0.001/(float(diffea)**2 + 1000*float(diffb)**2 + 0.0000002*abs(diffp)**2)

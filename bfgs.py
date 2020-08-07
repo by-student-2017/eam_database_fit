@@ -32,7 +32,7 @@ print "Lammps MD: "+temp_K+" K"
 
 target = [0,0,0] # dummy data
 y_str = [0] # dummy data
-
+natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
 #----------------------------------------------------------------------
 print "read parameters from EAM_code.init"
 nline = commands.getoutput("grep -n "+str(satom)+" EAM_code.init | sed -e \"s/:.*//g\"")
@@ -147,6 +147,7 @@ def f(x):
   diffea = float(diffe)/float(target[2])
   print "diff/atom: ", diffea
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
+
 
   rhoin  = float(x[2])*float(x[21])
   rhoout = float(x[2])*1.15

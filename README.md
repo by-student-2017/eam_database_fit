@@ -54,6 +54,7 @@ eam_database_fit
 5. cd ~/eam_database_fit
 6. gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
 7. gfortran -o plot plot.f
+  (gfortran -o Zhou04_EAM_3 Zhou04_create_v3.f) (nm_v4.py) 
 
 
 ## fit parameters by other methods

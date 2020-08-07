@@ -219,9 +219,9 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
   diffea = float(diffe)/float(target[2])
   print "diff/atom: ", diffea
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
-  print "F boundary, diff: "+str(diffb)
+  
   diffb  = commands.getoutput("cat diff.dat")
-
+  print "F boundary, diff: "+str(diffb)
   print "---------------"
   
   y = 0.001/(float(diffea)**2 + 1000*float(diffb)**2)
