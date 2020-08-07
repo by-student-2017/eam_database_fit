@@ -77,6 +77,9 @@ eam_database_fit
   (or python nm_v3.py) (fit total energy, stress and every force)
 
 
+  (or python nm_v4.py) (fit total energy, stress, every force, every temp and every structure)
+
+
 ## fit parameters by genetic algorithm
 1. cd ~/eam_database_fit
 2. pip install -U deap --user
