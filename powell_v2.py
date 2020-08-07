@@ -146,29 +146,20 @@ def f(x):
   print "P diff (%): "+str(diffp)
   print "---------------"
 
-  lammps_get_data = "grep \"Total Energy\" log.lammps | tail -1 | awk '{printf \"%20.10f\",$4}'"
-  y_str[0] = commands.getoutput(lammps_get_data)
+  lammps_get_data = "grep \"Total Energy\" log.lammps | tail -1 | awk '{printf \"%-20.10f\",$4}'"
+  lmpe = commands.getoutput(lammps_get_data)
 
-  pwscf_get_data = "grep \"!    total energy   \" pw.out | tail -1 | awk '{printf \"%20.10f\",$5*13.6058}'"
-  target[0] = commands.getoutput(pwscf_get_data)
+  pwe = commands.getoutput("awk '{if($1==\"#E\"){print $2}}' config")
+  pwe = float(pwe) * float(natom)
 
-  potential_get_data = "grep "+str(satom)+" ./potentials/energy_data_for_isolated_atom_reference | head -1 | awk '{printf \"%20.10f\",$2}'"
-  target[1] = commands.getoutput(potential_get_data)
+  print "lammps: "+str(lmpe)+" [eV]"
 
-  #natom_get_data = "grep \"number of atoms/cell\" pw.out | awk '{printf \"%20.10f\",$5}'"
-  #target[2] = commands.getoutput(natom_get_data) 
+  print "PWscf:  "+str(pwe)+" [eV]"
 
-  print "lammps: ", y_str[0]
-
-  #pwe = float(target[0]) - float(target[1])*float(target[2])
-  pwe = float(target[0]) - float(target[1])*float(natom)
-  print "PWscf:  ", pwe
-
-  diffe = float(pwe) - float(y_str[0])
-  print "diff: ", diffe
-  #diffea = float(diffe)/float(target[2])
+  diffe = float(pwe) - float(lmpe)
+  print "diff: "+str(diffe)+" [eV]"
   diffea = float(diffe)/float(natom)
-  print "diff/atom: ", diffea
+  print "diff/atom: "+str(diffea)+" [eV/atom]"
   commands.getoutput("echo "+str(count)+" "+str(diffe)+" >> energy.dat")
 
   rhoin  = float(x[2])*float(x[21])
