@@ -43,10 +43,10 @@ for t in temp:
   commands.getoutput("sed -i 's/YYYY/"+str(t)+"/' in.lmp_"+str(t)+"K")
   commands.getoutput("cp data.in data.in_"+str(t)+"K")
 # if you would set other structures, e.g.,
-commands.getoutput("cp data.in data.in_77K")
-commands.getoutput("cp data.in data.in_273K")
-commands.getoutput("cp ./data/data.in.BCC data.in_1073K")
-commands.getoutput("cp ./data/data.in.HCP data.in_1578K")
+#commands.getoutput("cp data.in data.in_77K")
+#commands.getoutput("cp data.in data.in_273K")
+#commands.getoutput("cp ./data/data.in.BCC data.in_1073K")
+#commands.getoutput("cp ./data/data.in.HCP data.in_1578K")
 #----------------------------------------------------------------------
 print "read parameters from EAM_code.init"
 nline = commands.getoutput("grep -n "+str(satom)+" EAM_code.init | sed -e \"s/:.*//g\"")
@@ -159,12 +159,12 @@ def f(x):
     pxyp = commands.getoutput("awk '{if($1==\"#S\"){print $5}}' config_"+str(t)+"K")
     pxzp = commands.getoutput("awk '{if($1==\"#S\"){print $6}}' config_"+str(t)+"K")
     pyzp = commands.getoutput("awk '{if($1==\"#S\"){print $7}}' config_"+str(t)+"K")
-    diffpxx = (float(pxxl) - float(pxxp))/(float(pxxp)+0.00000010)*100.0/6.0
-    diffpyy = (float(pyyl) - float(pyyp))/(float(pyyp)+0.00000010)*100.0/6.0
-    diffpzz = (float(pzzl) - float(pzzp))/(float(pzzp)+0.00000010)*100.0/6.0
-    diffpxy = (float(pxyl) - float(pxyp))/(float(pxyp)+0.00000010)*100.0/6.0
-    diffpxz = (float(pxzl) - float(pxzp))/(float(pxzp)+0.00000010)*100.0/6.0
-    diffpyz = (float(pyzl) - float(pyzp))/(float(pyzp)+0.00000010)*100.0/6.0
+    diffpxx = (float(pxxl) - float(pxxp))/(float(pxxp)+0.000000101)*100.0/6.0
+    diffpyy = (float(pyyl) - float(pyyp))/(float(pyyp)+0.000000101)*100.0/6.0
+    diffpzz = (float(pzzl) - float(pzzp))/(float(pzzp)+0.000000101)*100.0/6.0
+    diffpxy = (float(pxyl) - float(pxyp))/(float(pxyp)+0.000000101)*100.0/6.0
+    diffpxz = (float(pxzl) - float(pxzp))/(float(pxzp)+0.000000101)*100.0/6.0
+    diffpyz = (float(pyzl) - float(pyzp))/(float(pyzp)+0.000000101)*100.0/6.0
     diffp = abs(diffpxx) + abs(diffpyy) + abs(diffpzz) + abs(diffpxy) + abs(diffpxz) + abs(diffpyz)
     print "lammps: "+str(pxxl)+", "+str(pyyl)+", "+str(pzzl)+", "+str(pxyl)+", "+str(pxzl)+", "+str(pyzl)+" [eV/A^3]"
     print "PWscf:  "+str(pxxp)+", "+str(pyyp)+", "+str(pzzp)+", "+str(pxyp)+", "+str(pxzp)+", "+str(pyzp)+" [eV/A^3]"
@@ -183,9 +183,9 @@ def f(x):
       fxp[i] = commands.getoutput("awk '{if(NR==11+"+str(i)+"){print $5}}' config_"+str(t)+"K")
       fyp[i] = commands.getoutput("awk '{if(NR==11+"+str(i)+"){print $6}}' config_"+str(t)+"K")
       fzp[i] = commands.getoutput("awk '{if(NR==11+"+str(i)+"){print $7}}' config_"+str(t)+"K")
-      difffx = (float(fxl[i]) - float(fxp[i]))/(float(fxp[i])+0.00000010)*100.0/3.0/float(natom)
-      difffy = (float(fyl[i]) - float(fyp[i]))/(float(fyp[i])+0.00000010)*100.0/3.0/float(natom)
-      difffz = (float(fzl[i]) - float(fzp[i]))/(float(fzp[i])+0.00000010)*100.0/3.0/float(natom)
+      difffx = (float(fxl[i]) - float(fxp[i]))/(float(fxp[i])+0.000000101)*100.0/3.0/float(natom)
+      difffy = (float(fyl[i]) - float(fyp[i]))/(float(fyp[i])+0.000000101)*100.0/3.0/float(natom)
+      difffz = (float(fzl[i]) - float(fzp[i]))/(float(fzp[i])+0.000000101)*100.0/3.0/float(natom)
       difff  = difff + abs(difffx) + abs(difffy) + abs(difffz)
     print "lammps: "+str(fxl[0])+" : "+str(fyl[0])+" : "+str(fzl[0])+" [eV/A]"
     print "PWscf: "+str(fxp[0])+" : "+str(fyp[0])+" : "+str(fzp[0])+" [eV/A]"
