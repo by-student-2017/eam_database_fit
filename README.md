@@ -54,7 +54,6 @@ eam_database_fit
 5. cd ~/eam_database_fit
 6. gfortran -o Zhou04_EAM_2 Zhou04_create_v2.f
 7. gfortran -o plot plot.f
-  (gfortran -o Zhou04_EAM_3 Zhou04_create_v3.f) (nm_v4.py) 
 
 
 ## fit parameters by other methods
@@ -177,6 +176,8 @@ eam_database_fit
 	(or !python nm_v2_gc.py) (fit total energy and stress)
 	
 	(or !python nm_v3_gc.py) (fit total energy, stress and every force)
+	
+	(or !python nm_v4_gc.py) (fit total energy, stress, every force, every temperature and every structure)
 
 
 ## fit parameters by genetic algorithm
@@ -283,6 +284,9 @@ eam_database_fit
 
 
   (or python nm_v3_debian.py) (fit total energy, stress and every force)
+
+
+  (or python nm_v4_debian.py) (fit total energy, stress, every force, every temperature and every structure)
 
 
 ## fit parameters by genetic algorithm
