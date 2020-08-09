@@ -35,7 +35,7 @@ y_str = [0] # dummy data
 
 #----------------------------------------------------------------------
 print "read parameters from EAM_code.init"
-nline = commands.getoutput("grep -n "+str(satom)+" EAM_code.init | sed -e \"s/:.*//g\"")
+nline = commands.getoutput("grep -n "+str(satom)+" EAM_code.init | head -1 | sed -e \"s/:.*//g\"")
 print "read line: "+nline
 check_satom = commands.getoutput("awk '{if(NR=="+str(nline)+"+0){print $1}}' EAM_code.init | head -1")
 print "fit element: "+check_satom
