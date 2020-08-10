@@ -19,7 +19,8 @@ plot "rho.plt" u 1:2 w l t "rho(r)"
 #
 set output "z2r.png"
 set xlabel "r / Angstrom"
-set ylabel "Effective Charge Function, Z(r) / (Hartree*Bohr-radii)^0.5"
+#set ylabel "Effective Charge Function, Z(r) / (Hartree*Bohr-radii)^0.5"
+set ylabel "Effective Charge Function, r*phi(r) / eV*Angstrom"
 plot "z2r.plt" u 1:2 w l t "z2r(r)"
 #
 set output "diff_energy.png"

@@ -17,11 +17,10 @@ set ylabel "Density Function, rho(r) / a.u."
 plot "rho.plt" u 1:2 w l t "rho(r)"
 #plot "rho.plt" u 1:2 w l t "{/Symbol r}(r)"
 #
-set output "z2r.png"
+set output "rphi.png"
 set xlabel "r / Angstrom"
-#set ylabel "Effective Charge Function, Z(r) / (Hartree*Bohr-radii)^0.5"
 set ylabel "Effective Charge Function, r*phi(r) / eV*Angstrom"
-plot "z2r.plt" u 1:2 w l t "z2r(r)"
+plot "rphi.plt" u 1:2 w l t "r*phi(r)"
 #
 set output "diff_energy.png"
 set xlabel "Step, N"

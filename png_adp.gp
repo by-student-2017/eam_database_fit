@@ -23,6 +23,18 @@ set xlabel "r / Angstrom"
 set ylabel "Effective Charge Function, r*phi(r) / eV*Angstrom"
 plot "z2r.plt" u 1:2 w l t "z2r(r)"
 #
+set output "u.png"
+set xlabel "r / Angstrom"
+#set ylabel "Density Function, rho(r) / a.u."
+#set ylabel "Density Function, {/Symbol r}(r) / a.u."
+plot "u.plt" u 1:2 w l t ""
+#
+set output "w.png"
+set xlabel "r / Angstrom"
+#set ylabel "Density Function, rho(r) / a.u."
+#set ylabel "Density Function, {/Symbol r}(r) / a.u."
+plot "w.plt" u 1:2 w l t " "
+#
 set output "diff_energy.png"
 set xlabel "Step, N"
 set ylabel "Differential Energy, E - E(ref) / eV"
