@@ -101,18 +101,23 @@ def f(x):
     print >> f, text
 
   commands.getoutput("./Zhou04_EAM_3 < EAM.input")
-  commands.getoutput(lammps_adress+" < in.lmp")
-  commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
-  commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
-  commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
-  commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
-  commands.getoutput(pwscf_adress+" < pw.scf.in")
-  commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.18 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
-  commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
-  commands.getoutput("./pwscf2force >> config_potfit")
-  commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps  -o data_fix.in")
-  commands.getoutput(lammps_adress+" < in.lmp_fix")
-  commands.getoutput("mv data.in.restart data.in")
+  if count > 3000 or count % int(600*2.718**(-count/600)+1) == 1: 
+    commands.getoutput(lammps_adress+" < in.lmp")
+    commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
+    commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
+    commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
+    commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
+    commands.getoutput(pwscf_adress+" < pw.scf.in")
+    commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.18 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
+    commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
+    commands.getoutput("./pwscf2force >> config_potfit")
+    commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps  -o data_fix.in")
+    commands.getoutput(lammps_adress+" < in.lmp_fix")
+    commands.getoutput("mv data.in.restart data.in")
+    #
+    commands.getoutput("./pwscf2force > config")
+  else:
+    commands.getoutput(lammps_adress+" < in.lmp_fix")
 
   lammps_get_data = "grep \"Total Energy\" log.lammps | tail -1 | awk '{printf \"%-20.10f\",$4}'"
   lmpe = commands.getoutput(lammps_get_data)
