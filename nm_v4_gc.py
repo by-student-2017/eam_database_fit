@@ -7,7 +7,6 @@ import sys
 file_tmp = 'EAM_code.tmp'
 file_inp = 'EAM_code'
 
-lammps_adress = "lmp"
 cif2cell_adress = "cif2cell"
 
 commands.getoutput("setenv OMP_NUM_THREADS 1")
