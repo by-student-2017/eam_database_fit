@@ -80,6 +80,40 @@ eam_database_fit
   (or python nm_v4.py) (fit total energy, stress, every force, every temp and every structure)
 
 
+## settings
+1. gedit nm_v4.py
+
+
+temp = [77,273,1073,1573]
+
+
+for t in temp:
+
+
+  commands.getoutput("cp in.lmp in.lmp_"+str(t)+"K")
+
+
+  commands.getoutput("sed -i 's/YYYY/"+str(t)+"/' in.lmp_"+str(t)+"K")
+
+
+  commands.getoutput("cp data.in data.in_"+str(t)+"K")
+
+
+#if you would set other structures, e.g.,
+
+
+#commands.getoutput("cp data.in data.in_77K")
+
+
+#commands.getoutput("cp data.in data.in_273K")
+
+
+#commands.getoutput("cp ./data/data.in.BCC data.in_1073K")
+
+
+#commands.getoutput("cp ./data/data.in.HCP data.in_1578K")
+
+
 ## fit parameters by genetic algorithm
 1. cd ~/eam_database_fit
 2. pip install -U deap --user
