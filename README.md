@@ -80,7 +80,7 @@ eam_database_fit
   (or python nm_v4.py) (fit total energy, stress, every force, every temp and every structure)
 
 
-## settings
+## rewrite area
 1. gedit nm_v4.py
 
 
