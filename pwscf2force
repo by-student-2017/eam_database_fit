@@ -51,9 +51,10 @@ foreach atom (${element})
     set num_atom = `awk -v psl=${positions_start_line} -v na=${num_atoms} '(psl<NR && NR<=psl+na){printf "%s \n",$0}' tmp.out | grep -c " ${atom} "`
   endif
   foreach upf_name (${upf_list})
+    set AE_ISO = 0.0
     set AE_ISO = `awk -v atom=${atom} -v na=${num_atom} -v upf=${upf_name} '{if($1==atom && $4==upf){printf "%15.10f",$2*na}}' ./potentials/energy_data_for_isolated_atom_reference`
+    set TE_ISO = `echo "${TE_ISO} ${AE_ISO}" | awk '{printf "%15.10f",$1+$2}'`
   end
-  set TE_ISO = `echo "${TE_ISO} ${AE_ISO}" | awk '{printf "%15.10f",$1+$2}'`
 end
 set coh_eng = `echo "${ETOT_eV} ${TE_ISO} ${num_atoms}" | awk '{printf "%15.10f",($1-$2)/$3}'`
 echo "#E ${coh_eng}"
