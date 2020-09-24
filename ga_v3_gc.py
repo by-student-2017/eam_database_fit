@@ -88,7 +88,7 @@ for i in range(n_gene):
   #max_ind[i] = b1[i][1]
   min_ind[i] = float(x[i]) - float(x[i])*0.1
   max_ind[i] = float(x[i]) + float(x[i])*0.1
-  print "srarch area of paramter "+str(i)+": "+str(min_ind[i])+" | "+str(max_ind[i])
+  print "search area of paramter "+str(i)+": "+str(min_ind[i])+" | "+str(max_ind[i])
 #----------------------------------------------------------------------
 def create_ind_uniform(min_ind, max_ind):
   ind = []
