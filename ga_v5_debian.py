@@ -257,7 +257,7 @@ def evalOneMax(individual):
 
     for itw in range(ntemp+1):
       if t == temp[itw]:
-        wt = weig[i]
+        wt = weig[itw]
 
     tdiffea = tdiffea + float(diffea)*float(wt)
     tdiffp  = tdiffp  + float(diffp)*float(wt)
