@@ -56,6 +56,19 @@ eam_database_fit
 7. gfortran -o plot plot.f
 
 
+## fit parameters by Nelder-Mead (NM) methods
+1. cd ~/eam_database_fit
+2. cp EAM.input_temp EAM.input
+3. sed -i 's/Xx/Cu/g' EAM.input
+4. cp in.lmp_temp_v2 in.lmp_temp
+5. python nm_v5_debian.py)
+  (fit total energy, stress, every force, every temperature and every structure)
+
+
+## rewrite area (for nm_v5_debian.py)
+1. gedit stract.dat
+
+
 ## fit parameters by other methods
 1. cd ~/eam_database_fit
 2. cp EAM.input_temp EAM.input
@@ -297,6 +310,15 @@ for t in temp:
 5. cd ~/eam_database_fit
 6. gfortran -o Zhou04_EAM_3 Zhou04_create_v3.f
 7. gfortran -o plot plot.f
+
+
+## fit parameters by other methods
+1. cd ~/eam_database_fit
+2. cp EAM.input_temp EAM.input
+3. sed -i 's/Xx/Cu/g' EAM.input
+4. cp in.lmp_temp_v2 in.lmp_temp
+5. python nm_v5_debian.py
+  (fit total energy, stress, every force, every temperature and every structure)
 
 
 ## fit parameters by other methods
