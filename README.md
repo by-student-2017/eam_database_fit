@@ -56,12 +56,13 @@ eam_database_fit
 7. gfortran -o plot plot.f
 
 
-## fit parameters by Nelder-Mead (NM) methods
+## fit parameters by Nelder-Mead (NM) method
 1. cd ~/eam_database_fit
 2. cp EAM.input_temp EAM.input
 3. sed -i 's/Xx/Cu/g' EAM.input
 4. cp in.lmp_temp_v2 in.lmp_temp
-5. python nm_v5_debian.py)
+5. python nm_v5_debian.py
+  or python nm_v4_debian.py
   (fit total energy, stress, every force, every temperature and every structure)
 
 
@@ -88,9 +89,6 @@ eam_database_fit
 
 
   (or python nm_v3.py) (fit total energy, stress and every force)
-
-
-  (or python nm_v4.py) (fit total energy, stress, every force, every temp and every structure)
 
 
 ## rewrite area
@@ -205,6 +203,20 @@ for t in temp:
 	!gfortran -o plot plot.f
 
 
+## fit parameters by Nelder-Mead (NM) method
+	%cd /content/eam_database_fit
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	!cp EAM.input_temp EAM.input
+	!sed -i 's/Xx/Cu/g' EAM.input
+	!cp in.lmp_temp_v2 in.lmp_temp
+	!python2 nm_v5_gc.py
+
+
+	(or !python nm_v4_gc.py) (fit total energy, stress, every force, every temperature and every structure)
+
+
 ## fit parameters by other methods
 	%cd /content/eam_database_fit
 	import os
@@ -223,8 +235,6 @@ for t in temp:
 	(or !python nm_v2_gc.py) (fit total energy and stress)
 	
 	(or !python nm_v3_gc.py) (fit total energy, stress and every force)
-	
-	(or !python nm_v4_gc.py) (fit total energy, stress, every force, every temperature and every structure)
 
 
 ## fit parameters by genetic algorithm
@@ -312,12 +322,14 @@ for t in temp:
 7. gfortran -o plot plot.f
 
 
-## fit parameters by other methods
+## fit parameters by Nelder-Mead (NM) method
 1. cd ~/eam_database_fit
 2. cp EAM.input_temp EAM.input
 3. sed -i 's/Xx/Cu/g' EAM.input
 4. cp in.lmp_temp_v2 in.lmp_temp
 5. python nm_v5_debian.py
+  (fit total energy, stress, every force, every temperature and every structure)
+  or python nm_v4_debian.py
   (fit total energy, stress, every force, every temperature and every structure)
 
 
@@ -340,9 +352,6 @@ for t in temp:
 
 
   (or python nm_v3_debian.py) (fit total energy, stress and every force)
-
-
-  (or python nm_v4_debian.py) (fit total energy, stress, every force, every temperature and every structure)
 
 
 ## fit parameters by genetic algorithm
