@@ -171,37 +171,26 @@ def evalOneMax(individual):
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
-      error_flag = ""
-      error_flag = commands.getoutput("grep ERROR log.lammps")
-      if error_flag == "":
-        commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
-        commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
-        commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
-        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
-        commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
-        commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
-        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.20 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
-        commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
-        commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
-        commands.getoutput("./pwscf2force >> config_potfit_"+str(satom))
-        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps -o data_fix.in_"+str(t)+"K")
-        commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
-        commands.getoutput(lammps_adress+" < in.lmp_fix")
-        commands.getoutput("mv data.in.restart data.in_"+str(t)+"K")
-        #
-        commands.getoutput("./pwscf2force > config_"+str(t)+"K")
-      else:
-        y = 999999.9999
-        return y
+      commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
+      commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
+      commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
+      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
+      commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
+      commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
+      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.20 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
+      commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
+      commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
+      commands.getoutput("./pwscf2force >> config_potfit_"+str(satom))
+      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps -o data_fix.in_"+str(t)+"K")
+      commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
+      commands.getoutput(lammps_adress+" < in.lmp_fix")
+      commands.getoutput("mv data.in.restart data.in_"+str(t)+"K")
+      #
+      commands.getoutput("./pwscf2force > config_"+str(t)+"K")
     else:
       commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data_fix.in")
       commands.getoutput(lammps_adress+" < in.lmp_fix")
-      error_flag = ""
-      error_flag = commands.getoutput("grep ERROR log.lammps")
-      if error_flag != "":
-        y = 999999.9999
-        return y
     print "number of atoms: "+str(natom)
 
     # stress = pressure

@@ -102,50 +102,51 @@ max_ind = numpy.ones(n_gene) *  1.0
   #min_ind[i] = float(x[i]) - float(x[i])*0.1
   #max_ind[i] = float(x[i]) + float(x[i])*0.1
   #print "srarch area: "+min_ind[i]+"|"+max_ind[i]
-min_ind[0] = float(x0) - float(x0)*0.3
-max_ind[0] = float(x0) + float(x0)*0.3
-min_ind[1] = float(x1) - float(x1)*0.3
-max_ind[1] = float(x1) + float(x1)*0.3
-min_ind[2] = float(x2) - float(x2)*0.3
-max_ind[2] = float(x2) + float(x2)*0.3
-min_ind[3] = float(x3) - float(x3)*0.3
-max_ind[3] = float(x3) + float(x3)*0.3
-min_ind[4] = float(x4) - float(x4)*0.3
-max_ind[4] = float(x4) + float(x4)*0.3
-min_ind[5] = float(x5) - float(x5)*0.3
-max_ind[5] = float(x5) + float(x5)*0.3
-min_ind[6] = float(x6) - float(x6)*0.3
-max_ind[6] = float(x6) + float(x6)*0.3
-min_ind[7] = float(x7) - float(x7)*0.3
-max_ind[7] = float(x7) + float(x7)*0.3
-min_ind[8] = float(x8) - float(x8)*0.3
-max_ind[8] = float(x8) + float(x8)*0.3
-min_ind[9] = float(x9) - float(x9)*0.3
-max_ind[9] = float(x9) + float(x9)*0.3
-min_ind[10] = float(x10) - float(x10)*0.3
-max_ind[10] = float(x10) + float(x10)*0.3
-min_ind[11] = float(x11) - float(x11)*0.3
-max_ind[11] = float(x11) + float(x11)*0.3
-min_ind[12] = float(x12) - float(x12)*0.3
-max_ind[12] = float(x12) + float(x12)*0.3
-min_ind[13] = float(x13) - float(x13)*0.3
-max_ind[13] = float(x13) + float(x13)*0.3
-min_ind[14] = float(x14) - float(x14)*0.3
-max_ind[14] = float(x14) + float(x14)*0.3
-min_ind[15] = float(x15) - float(x15)*0.3
-max_ind[15] = float(x15) + float(x15)*0.3
-min_ind[16] = float(x16) - float(x16)*0.3
-max_ind[16] = float(x16) + float(x16)*0.3
-min_ind[17] = float(x17) - float(x17)*0.3
-max_ind[17] = float(x17) + float(x17)*0.3
-min_ind[18] = float(x18) - float(x18)*0.3
-max_ind[18] = float(x18) + float(x18)*0.3
-min_ind[19] = float(x19) - float(x19)*0.3
-max_ind[19] = float(x19) + float(x19)*0.3
-min_ind[20] = float(x20) - float(x20)*0.3
-max_ind[20] = float(x20) + float(x20)*0.3
-min_ind[21] = float(x21) - float(x21)*0.3
-max_ind[21] = float(x21) + float(x21)*0.3
+lim = 0.1
+min_ind[0] = float(x0) - float(x0)*lim
+max_ind[0] = float(x0) + float(x0)*lim
+min_ind[1] = float(x1) - float(x1)*lim
+max_ind[1] = float(x1) + float(x1)*lim
+min_ind[2] = float(x2) - float(x2)*lim
+max_ind[2] = float(x2) + float(x2)*lim
+min_ind[3] = float(x3) - float(x3)*lim
+max_ind[3] = float(x3) + float(x3)*lim
+min_ind[4] = float(x4) - float(x4)*lim
+max_ind[4] = float(x4) + float(x4)*lim
+min_ind[5] = float(x5) - float(x5)*lim
+max_ind[5] = float(x5) + float(x5)*lim
+min_ind[6] = float(x6) - float(x6)*lim
+max_ind[6] = float(x6) + float(x6)*lim
+min_ind[7] = float(x7) - float(x7)*lim
+max_ind[7] = float(x7) + float(x7)*lim
+min_ind[8] = float(x8) - float(x8)*lim
+max_ind[8] = float(x8) + float(x8)*lim
+min_ind[9] = float(x9) - float(x9)*lim
+max_ind[9] = float(x9) + float(x9)*lim
+min_ind[10] = float(x10) - float(x10)*lim
+max_ind[10] = float(x10) + float(x10)*lim
+min_ind[11] = float(x11) - float(x11)*lim
+max_ind[11] = float(x11) + float(x11)*lim
+min_ind[12] = float(x12) - float(x12)*lim
+max_ind[12] = float(x12) + float(x12)*lim
+min_ind[13] = float(x13) - float(x13)*lim
+max_ind[13] = float(x13) + float(x13)*lim
+min_ind[14] = float(x14) - float(x14)*lim
+max_ind[14] = float(x14) + float(x14)*lim
+min_ind[15] = float(x15) - float(x15)*lim
+max_ind[15] = float(x15) + float(x15)*lim
+min_ind[16] = float(x16) - float(x16)*lim
+max_ind[16] = float(x16) + float(x16)*lim
+min_ind[17] = float(x17) - float(x17)*lim
+max_ind[17] = float(x17) + float(x17)*lim
+min_ind[18] = float(x18) - float(x18)*lim
+max_ind[18] = float(x18) + float(x18)*lim
+min_ind[19] = float(x19) - float(x19)*lim
+max_ind[19] = float(x19) + float(x19)*lim
+min_ind[20] = float(x20) - float(x20)*lim
+max_ind[20] = float(x20) + float(x20)*lim
+min_ind[21] = float(x21) - float(x21)*lim
+max_ind[21] = float(x21) + float(x21)*lim
 #----------------------------------------------------------------------
 
 pbounds = {
@@ -224,37 +225,26 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
-      error_flag = ""
-      error_flag = commands.getoutput("grep ERROR log.lammps")
-      if error_flag == "":
-        commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
-        commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
-        commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
-        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
-        commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
-        commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
-        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.20 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
-        commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
-        commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
-        commands.getoutput("./pwscf2force >> config_potfit_"+str(satom))
-        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps -o data_fix.in_"+str(t)+"K")
-        commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
-        commands.getoutput(lammps_adress+" < in.lmp_fix")
-        commands.getoutput("mv data.in.restart data.in_"+str(t)+"K")
-        #
-        commands.getoutput("./pwscf2force > config_"+str(t)+"K")
-      else:
-        y = 0.001/999999.9999
-        return y
+      commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
+      commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
+      commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
+      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
+      commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
+      commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
+      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.20 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
+      commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
+      commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
+      commands.getoutput("./pwscf2force >> config_potfit_"+str(satom))
+      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps -o data_fix.in_"+str(t)+"K")
+      commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
+      commands.getoutput(lammps_adress+" < in.lmp_fix")
+      commands.getoutput("mv data.in.restart data.in_"+str(t)+"K")
+      #
+      commands.getoutput("./pwscf2force > config_"+str(t)+"K")
     else:
       commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data_fix.in")
       commands.getoutput(lammps_adress+" < in.lmp_fix")
-      error_flag = ""
-      error_flag = commands.getoutput("grep ERROR log.lammps")
-      if error_flag != "":
-        y = 0.001/999999.9999
-        return y
     print "number of atoms: "+str(natom)
 
     # stress = pressure
