@@ -107,8 +107,8 @@ max_ind = numpy.ones(n_gene) *  1.0
 for i in range(n_gene):
   #min_ind[i] = b1[i][0]
   #max_ind[i] = b1[i][1]
-  min_ind[i] = float(x[i]) - float(x[i])*0.1
-  max_ind[i] = float(x[i]) + float(x[i])*0.1
+  min_ind[i] = float(x[i]) - float(x[i])*0.5
+  max_ind[i] = float(x[i]) + float(x[i])*0.5
   print "search area of paramter "+str(i)+": "+str(min_ind[i])+" | "+str(max_ind[i])
 #----------------------------------------------------------------------
 def create_ind_uniform(min_ind, max_ind):
@@ -167,30 +167,41 @@ def evalOneMax(individual):
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if count > 12000 or count % int(6000*2.718**(-count/6000)+1) == 1: 
+    if count > 9000 or count % int(3000*2.718**(-count/3000)+1) == 1: 
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
-      commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
-      commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
-      commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
-      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
-      commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
-      commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
-      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.20 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
-      commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
-      commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
-      commands.getoutput("./pwscf2force >> config_potfit_"+str(satom))
-      commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps -o data_fix.in_"+str(t)+"K")
-      commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
-      commands.getoutput(lammps_adress+" < in.lmp_fix")
-      commands.getoutput("mv data.in.restart data.in_"+str(t)+"K")
-    #
-      commands.getoutput("./pwscf2force > config_"+str(t)+"K")
+      error_flag = ""
+      error_flag = commands.getoutput("grep ERROR log.lammps")
+      if error_flag == "":
+        commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
+        commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
+        commands.getoutput("python ./vasp2cif/vasp2cif.py run.50.vasp")
+        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.48 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
+        commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
+        commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
+        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr=\"./potentials\" --setup-all --k-resolution=0.20 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=scf -o pw.in") 
+        commands.getoutput("sed -i 's/\'pw\'/\'pw_"+str(t)+"K\'/g' pw.scf.in")
+        commands.getoutput(pwscf_adress+" < pw.scf.in > pw.out")
+        commands.getoutput("./pwscf2force >> config_potfit_"+str(satom))
+        commands.getoutput(cif2cell_adress+" run.50.vasp.cif --no-reduce -p lammps -o data_fix.in_"+str(t)+"K")
+        commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
+        commands.getoutput(lammps_adress+" < in.lmp_fix")
+        commands.getoutput("mv data.in.restart data.in_"+str(t)+"K")
+        #
+        commands.getoutput("./pwscf2force > config_"+str(t)+"K")
+      else:
+        y = 999999.9999
+        return y
     else:
       commands.getoutput("cp data_fix.in_"+str(t)+"K data_fix.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data_fix.in")
       commands.getoutput(lammps_adress+" < in.lmp_fix")
+      error_flag = ""
+      error_flag = commands.getoutput("grep ERROR log.lammps")
+      if error_flag != "":
+        y = 999999.9999
+        return y
     print "number of atoms: "+str(natom)
 
     # stress = pressure
