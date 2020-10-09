@@ -184,7 +184,7 @@ def evalOneMax(individual):
   print "Parameters: x0 = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+" ]"
   print "------------------------"
 
-  return y
+  return y,
 #----------------------------------------------------------------------
 def cxTwoPointCopy(ind1, ind2):
   size = len(ind1)
