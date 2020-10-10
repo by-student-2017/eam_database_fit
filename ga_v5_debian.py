@@ -96,7 +96,7 @@ print "initial parameters: ",x
 
 count = 0
 #----------------------------------------------------------------------
-creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+creator.create("FitnessMax", base.Fitness, weights=(-1.0,))
 creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
@@ -167,7 +167,7 @@ def evalOneMax(individual):
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if (count % 3000) == 1: 
+    if (count % 9000) == 1: 
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
@@ -310,7 +310,7 @@ def main():
   stats.register("std", numpy.std)
   stats.register("min", numpy.min)
   stats.register("max", numpy.max)
-  algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=50000, stats=stats, halloffame=hof)
+  algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=500, stats=stats, halloffame=hof)
   return pop, stats, hof
 #----------------------------------------------------------------------
 if (__name__ == "__main__"):
