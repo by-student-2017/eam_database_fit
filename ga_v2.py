@@ -133,7 +133,7 @@ def evalOneMax(individual):
     print >> f, text
 
   commands.getoutput("./Zhou04_EAM_2 < EAM.input")
-  if count > 3000 or count % int(600*2.718**(-count/600)+1) == 1: 
+  if (count % 3000) == 1: 
     commands.getoutput(lammps_adress+" < in.lmp")
     commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
     commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")
