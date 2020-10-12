@@ -246,6 +246,30 @@ for t in temp:
 	!cp EAM.input_temp EAM.input
 	!sed -i 's/Xx/Cu/g' EAM.input
 	!cp in.lmp_temp_v2 in.lmp_temp
+	!python2 ga_v6_gc.py
+
+
+## fit parameters by baysian method
+	!pip2 install bayesian-optimization==1.1.0
+	%cd /content/eam_database_fit
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	!cp EAM.input_temp EAM.input
+	!sed -i 's/Xx/Cu/g' EAM.input
+	!cp in.lmp_temp_v2 in.lmp_temp
+	!python2 baysian_v6_gc.py
+
+
+## fit parameters by genetic algorithm
+	!pip2 install -U deap --user
+	%cd /content/eam_database_fit
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	!cp EAM.input_temp EAM.input
+	!sed -i 's/Xx/Cu/g' EAM.input
+	!cp in.lmp_temp_v2 in.lmp_temp
 	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 ga_gc.py
 
