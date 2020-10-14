@@ -60,6 +60,7 @@ for i in range(ntemp+1):
 print "temperature: ",temp
 print "structure  : ",stru
 print "weight     : ",weig
+dim = len(temp)
 #----------------------------------------------------------------------
 print "read parameters from EAM_code.init"
 nline = commands.getoutput("grep -n "+str(satom)+" EAM_code.init | head -1 | sed -e \"s/:.*//g\"")
@@ -137,7 +138,7 @@ def f(x):
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if count > 5000 or count % int(4000*2.718**(-count/4000)+1) == 1: 
+    if count > 5000 or count % int((float(dim)*1000)*2.718**(-count/(float(dim)*1000))+1) == 1: 
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
