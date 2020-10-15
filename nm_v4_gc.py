@@ -46,6 +46,7 @@ for t in temp:
 #commands.getoutput("cp data.in data.in_273K")
 #commands.getoutput("cp ./data/data.in.BCC data.in_1073K")
 #commands.getoutput("cp ./data/data.in.HCP data.in_1578K")
+dim = len(temp)
 #----------------------------------------------------------------------
 print "read parameters from EAM_code.init"
 nline = commands.getoutput("grep -n "+str(satom)+" EAM_code.init | head -1 | sed -e \"s/:.*//g\"")
@@ -123,7 +124,7 @@ def f(x):
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if count > 5000 or count % int(1000*2.718**(-count/1000)+1) == 1: 
+    if count > 5000 or count % int((float(dim)*1000)*2.718**(-count/(float(dim)*1000))+1) == 1: 
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
