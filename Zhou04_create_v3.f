@@ -142,7 +142,7 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
          else
          endif
 20    continue
-      diff = diff + (embb11 - embb12) + (embb21 - embb22)
+      diff = diff + abs(embb11 - embb12) + abs(embb21 - embb22)
 6     continue
       open(unit=50,file='diff.dat',form='FORMATTED',status='OLD')
       write(50,*) diff
