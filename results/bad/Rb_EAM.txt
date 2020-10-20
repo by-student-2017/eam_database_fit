@@ -1,0 +1,155 @@
+results
+----------------------------------------------------------------------------------------
+
+4400
+---------------
+Temperature: 77 [K]
+number of atoms: 2
+lammps: -0.00000020, -0.00000020, -0.00000020, -0.00000000, 0.00000000, 0.00000000 [eV/A^3]
+PWscf:  0.00000002, 0.00000003, 0.00000002, -0.00000000, 0.00000000, -0.00000001 [eV/A^3]
+P diff (%): 91.6996489516
+---------------
+lammps: -0.00578004 : 0.00093386 : 0.00535468 [eV/A]
+PWscf: -0.05042261 : 0.01160492 : 0.04798855 [eV/A]
+force diff (%): 89.7771533301
+---------------
+lammps: -1.1798534603        [eV]
+PWscf:  -1.1866947466 [eV]
+diff: -0.0068412863 [eV]
+diff/atom: -0.00342064315 [eV/atom]
+---------------
+Temperature: 273 [K]
+number of atoms: 2
+lammps: -0.00000019, -0.00000020, -0.00000019, -0.00000000, -0.00000001, 0.00000000 [eV/A^3]
+PWscf:  0.00000003, 0.00000007, 0.00000004, -0.00000001, 0.00000001, -0.00000003 [eV/A^3]
+P diff (%): 93.3691309416
+---------------
+lammps: 0.00094447 : -0.00069508 : -0.00170481 [eV/A]
+PWscf: -0.09875312 : 0.02299618 : 0.09425601 [eV/A]
+force diff (%): 101.929228571
+---------------
+lammps: -1.1790312905        [eV]
+PWscf:  -1.167945274 [eV]
+diff: 0.0110860165 [eV]
+diff/atom: 0.00554300825 [eV/atom]
+---------------
+Temperature: 1073 [K]
+number of atoms: 2
+lammps: -0.00000017, -0.00000019, -0.00000017, 0.00000000, -0.00000004, -0.00000000 [eV/A^3]
+PWscf:  0.00000007, 0.00000024, 0.00000009, -0.00000003, 0.00000003, -0.00000012 [eV/A^3]
+P diff (%): 188.307303565
+---------------
+lammps: 0.01975985 : 4.068e-05 : -0.02077468 [eV/A]
+PWscf: -0.20635957 : 0.05275717 : 0.20048795 [eV/A]
+force diff (%): 106.620132519
+---------------
+lammps: -1.1860191280        [eV]
+PWscf:  -1.086789126 [eV]
+diff: 0.099230002 [eV]
+diff/atom: 0.049615001 [eV/atom]
+---------------
+Temperature: 1573 [K]
+number of atoms: 2
+lammps: -0.00000017, -0.00000020, -0.00000017, 0.00000000, -0.00000004, -0.00000001 [eV/A^3]
+PWscf:  0.00000009, 0.00000035, 0.00000011, -0.00000005, 0.00000005, -0.00000017 [eV/A^3]
+P diff (%): 130.050703071
+---------------
+lammps: 0.0232821 : -0.00133431 : -0.02399617 [eV/A]
+PWscf: -0.25673231 : 0.07118142 : 0.25059072 [eV/A]
+force diff (%): 106.839663407
+---------------
+lammps: -1.1912904502        [eV]
+PWscf:  -1.0332264928 [eV]
+diff: 0.1580639574 [eV]
+diff/atom: 0.0790319787 [eV/atom]
+F boundary, diff:    1.5287420388088169E-004
+---------------
+Evaluate:  0.231971329595
+Parameters: x0 = [ 2.6875224140609726,0.4210600306728046,9.784722368820837,9.485328714393367,8.605484843978752,3.5772432484874797,0.15824779216285983,0.15323268008347865,0.5930720584124027,0.9214306015594929,-0.9256891245513057,-0.050062636619551876,0.17924309478183947,-0.14780447702521846,-0.9285055318977001,-4.0275079930496205e-05,0.14299918918474983,-0.25997022747121484,0.5063332569570692,-0.9295241705029571,-0.23999447024328818,1.1552176276717994 ]
+------------------------
+Rb
+2.6875224140609726
+0.4210600306728046
+9.784722368820837
+9.485328714393367
+8.605484843978752
+3.5772432484874797
+0.15824779216285983
+0.15323268008347865
+0.5930720584124027
+0.9214306015594929
+-0.9256891245513057
+-0.050062636619551876
+0.17924309478183947
+-0.14780447702521846
+-0.9285055318977001
+-4.0275079930496205e-05
+0.14299918918474983
+-0.25997022747121484
+0.5063332569570692
+-0.9295241705029571
+37
+85.4678
+-0.23999447024328818
+3.5772432484874797
+0.9214306015594929
+1.1552176276717994
+1.15
+
+
+command
+----------------------------------------------------------------------------------------
+!apt update
+!apt install -y git python python-setuptools python-dev gcc
+%cd /content
+!git clone https://github.com/by-student-2017/cif2cell-informal.git
+%cd cif2cell-informal
+!tar zxvf PyCifRW-3.3.tar.gz
+%cd PyCifRW-3.3
+!python2 setup.py install
+%cd /content/cif2cell-informal
+!python2 setup.py install
+
+!apt update
+!apt install -y gcc g++ build-essential gfortran libopenblas-dev libfftw3-dev libopenmpi-dev wget
+%cd /content
+!wget https://lammps.sandia.gov/tars/lammps-stable.tar.gz
+!tar zxvf lammps-stable.tar.gz
+%cd lammps-3Mar20
+!mkdir build
+%cd build 
+!cmake -D BUILD_MPI=on -D PKG_USER-MEAMC=on -D PKG_MANYBODY=on -D PKG_MC=on ../cmake
+!cmake --build .
+import os
+os.environ['PATH'] = "/content/lammps-3Mar20/build:"+os.environ['PATH']
+
+!apt update
+!apt install -y gcc g++ build-essential gfortran libopenblas-dev libfftw3-dev libopenmpi-dev wget
+%cd /content
+!wget https://github.com/QEF/q-e/archive/qe-6.4.1.tar.gz
+!tar zxvf qe-6.4.1.tar.gz
+%cd q-e-qe-6.4.1
+!wget https://github.com/QEF/q-e/releases/download/qe-6.4.1/backports-6.4.1.diff
+!patch -p1 --merge < backports-6.4.1.diff
+!./configure
+!make pw
+import os
+os.environ['PATH'] = "/content/q-e-qe-6.4.1/bin:"+os.environ['PATH']
+
+!apt update
+!apt install -y git python-pip python-scipy csh gfortran gnuplot
+%cd /content
+!git clone https://github.com/by-student-2017/eam_database_fit.git
+%cd /content/eam_database_fit
+!gfortran -o Zhou04_EAM_3 Zhou04_create_v3.f
+!gfortran -o plot plot.f
+
+%cd /content/eam_database_fit
+import os
+os.environ["OMP_NUM_THREADS"] = "1,1"
+os.environ["MKL_NUM_THREADS"] = "1"
+!cp EAM.input_temp EAM.input
+!sed -i 's/Xx/Rb/g' EAM.input
+!cp in.lmp_temp_v2 in.lmp_temp
+!python2 nm_v4_gc.py
+!cat EAM_code
