@@ -133,16 +133,20 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 7     continue
       do 20 i=1,nrho
          rhoF=(i-1)*drho
-         if (rhoF .lt. rhoin(it)) then
-           embb11 = Fr(i,it)
-           embb12 = Fr(i+1,it)
-         else if (rhoF .lt. rhoout(it)) then
-           embb21 = Fr(i,it) 
-           embb22 = Fr(i+1,it)
-         else
+         if ( (rhoF .ge. rhoin(it)) .and.
+     *        (rhoF .lt. rhoin(it)+drho) ) then
+           call embed0(it,rhoF,emb)
+           embb11 = emb
+           embb12 = Fr(i,it)
+         endif
+         if ( (rhoF .ge. rhoout(it)) .and. 
+     *        (rhoF .lt. rhoout(it)+drho) ) then
+           call embed0(it,rhoF,emb)
+           embb21 = emb
+           embb22 = Fr(i,it)
          endif
 20    continue
-      diff = diff + abs(embb11 - embb12) + abs(embb21 - embb22)
+      diff = abs(embb11 - embb12) + abs(embb21 - embb22)
 6     continue
       open(unit=50,file='diff.dat',form='FORMATTED',status='OLD')
       write(50,*) diff
@@ -236,9 +240,9 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
       return
       end
 ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-c This subroutine calculates the embedding energy.                c
+c This subroutine calculates the embedding energy for boundary.   c
 ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-      subroutine embed1(it,rho,emb)
+      subroutine embed0(it,rho,emb)
       implicit real*8 (a-h,o-z)
       implicit integer*8 (i-m)
       common /pass1/ re(16),fe(16),rhoe(16),alpha(16),
