@@ -44,11 +44,11 @@ ntemp = int((len(struct_list)-1)/3 - 1)
 temp = []
 stru = []
 weig = []
-if float(struct_list[3*ntemp+1]) <= 1073.0 :
-  ntemp = ntemp + 1
-  struct_list.append(1273.0)
-  struct_list.append("L")
-  struct_list.append(1.0)
+#if float(struct_list[3*ntemp+1]) <= 1073.0 :
+#  ntemp = ntemp + 1
+#  struct_list.append(1273.0)
+#  struct_list.append("L")
+#  struct_list.append(1.0)
 for i in range(ntemp+1):
   temp.append(float(struct_list[3*i+1]))
   stru.append(struct_list[3*i+2])
