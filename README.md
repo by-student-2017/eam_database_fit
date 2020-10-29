@@ -212,6 +212,7 @@ for t in temp:
 	!sed -i 's/Xx/Cu/g' EAM.input
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 nm_v5_gc.py
+	!cat EAM_code
 
 
 	(or !python nm_v4_gc.py) (fit total energy, stress, every force, every temperature and every structure)
@@ -227,6 +228,7 @@ for t in temp:
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 nm_gc.py
+	!cat EAM_code
 	
 	or !python2 powell_gc.py
 	
@@ -247,6 +249,7 @@ for t in temp:
 	!sed -i 's/Xx/Cu/g' EAM.input
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 ga_v6_gc.py
+	!cat EAM_code
 
 
 ## fit parameters by baysian method
@@ -259,6 +262,7 @@ for t in temp:
 	!sed -i 's/Xx/Cu/g' EAM.input
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!python2 baysian_v6_gc.py
+	!cat EAM_code
 
 
 ## fit parameters by genetic algorithm
@@ -272,6 +276,7 @@ for t in temp:
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 ga_gc.py
+	!cat EAM_code
 
 
 ## fit parameters by baysian method
@@ -285,6 +290,7 @@ for t in temp:
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 baysian_gc.py
+	!cat EAM_code
 
 
 ## plot F, rho or z2r
