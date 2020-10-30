@@ -170,7 +170,7 @@ def evalOneMax(individual):
   print "F boundary, diff: "+str(diffb)
   print "---------------"
 
-  y = 0.001/(float(diffea)**2 + 1000*float(diffb)**2)
+  y = (float(diffea)**2 + 1000*float(diffb)**2)
 
   print "Evaluate: ", y
   #print "Parameters: ", individual

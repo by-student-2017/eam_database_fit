@@ -162,7 +162,7 @@ def evalOneMax(individual):
 
   commands.getoutput("./Zhou04_EAM_3 < EAM.input")
   diffb  = commands.getoutput("cat diff.dat")
-  if diffb == "nan" or abs(float(diffb)) >= 0.5:
+  if diffb == "nan" or abs(float(diffb)) >= 0.15/(1+float(count)/900):
     y = 999999.99999
     if count == 1:
       count -= 1
@@ -329,7 +329,7 @@ def evalOneMax(individual):
   print "F boundary, diff: "+str(diffb)
   print "---------------"
 
-  y = 0.001/(float(tdiffea)**2 + 1000*float(diffb)**2 + 0.0000002*abs(tdiffp)**2 + 0.0000010*abs(tdifff)**2)
+  y = (float(tdiffea)**2 + 1000*float(diffb)**2 + 0.0000002*abs(tdiffp)**2 + 0.0000010*abs(tdifff)**2)
 
   print "Evaluate: ", y
   #print "Parameters: ", individual
