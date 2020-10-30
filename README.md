@@ -17,8 +17,8 @@ eam_database_fit
 1. cd ~
 2. sudo apt update
 3. sudo apt install -y gcc g++ build-essential gfortran libopenblas-dev libfftw3-dev libopenmpi-dev wget
-4. wget https://lammps.sandia.gov/tars/lammps-stable.tar.gz
-5. tar zxvf lammps-stable.tar.gz
+4. wget https://lammps.sandia.gov/tars/lammps-3Mar20.tar.gz
+5. tar zxvf lammps-3Mar20.tar.gz
 6. cd lammps-3Mar20
 7. mkdir build ; cd build 
 8. cmake -D BUILD_MPI=on -D PKG_USER-MEAMC=on -D PKG_MANYBODY=on -D PKG_MC=on ../cmake
@@ -167,8 +167,8 @@ for t in temp:
 	!apt update
 	!apt install -y gcc g++ build-essential gfortran libopenblas-dev libfftw3-dev libopenmpi-dev wget
 	%cd /content
-	!wget https://lammps.sandia.gov/tars/lammps-stable.tar.gz
-	!tar zxvf lammps-stable.tar.gz
+	!wget https://lammps.sandia.gov/tars/lammps-3Mar20.tar.gz
+	!tar zxvf lammps-3Mar20.tar.gz
 	%cd lammps-3Mar20
 	!mkdir build
 	%cd build 
@@ -313,8 +313,8 @@ for t in temp:
 1. cd ~
 2. sudo apt update
 3. sudo apt install -y gcc g++ build-essential gfortran libopenblas-dev libfftw3-dev libopenmpi-dev wget
-4. wget https://lammps.sandia.gov/tars/lammps-stable.tar.gz
-5. tar zxvf lammps-stable.tar.gz
+4. wget https://lammps.sandia.gov/tars/lammps-3Mar20.tar.gz
+5. tar zxvf lammps-3Mar20.tar.gz
 6. cd lammps-3Mar20
 7. mkdir build ; cd build 
 8. cmake -D BUILD_MPI=on -D PKG_USER-MEAMC=on -D PKG_MANYBODY=on -D PKG_MC=on ../cmake
