@@ -96,7 +96,6 @@ Dy
 0.8726562806161893
 1.15
 
-
 command
 ----------------------------------------------------------------------------------------
 !apt update
@@ -113,8 +112,8 @@ command
 !apt update
 !apt install -y gcc g++ build-essential gfortran libopenblas-dev libfftw3-dev libopenmpi-dev wget
 %cd /content
-!wget https://lammps.sandia.gov/tars/lammps-stable.tar.gz
-!tar zxvf lammps-stable.tar.gz
+!wget https://lammps.sandia.gov/tars/lammps-3Mar20.tar.gz
+!tar zxvf lammps-3Mar20.tar.gz
 %cd lammps-3Mar20
 !mkdir build
 %cd build 

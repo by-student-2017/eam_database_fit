@@ -96,7 +96,6 @@ Gd
 0.8154721356021772
 1.15
 
-
 command
 ----------------------------------------------------------------------------------------
 !apt update
@@ -113,8 +112,8 @@ command
 !apt update
 !apt install -y gcc g++ build-essential gfortran libopenblas-dev libfftw3-dev libopenmpi-dev wget
 %cd /content
-!wget https://lammps.sandia.gov/tars/lammps-stable.tar.gz
-!tar zxvf lammps-stable.tar.gz
+!wget https://lammps.sandia.gov/tars/lammps-3Mar20.tar.gz
+!tar zxvf lammps-3Mar20.tar.gz
 %cd lammps-3Mar20
 !mkdir build
 %cd build 
@@ -149,7 +148,7 @@ import os
 os.environ["OMP_NUM_THREADS"] = "1,1"
 os.environ["MKL_NUM_THREADS"] = "1"
 !cp EAM.input_temp EAM.input
-!sed -i 's/Xx/Cd/g' EAM.input
+!sed -i 's/Xx/Gd/g' EAM.input
 !cp in.lmp_temp_v2 in.lmp_temp
 !python2 nm_v4_gc.py
 !cat EAM_code
