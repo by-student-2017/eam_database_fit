@@ -169,7 +169,7 @@ def f(x):
   with open(file_inp,'w') as f:
     print >> f, text
 
-  commands.getoutput("./Zhou04_EAM_v31 < EAM.input")
+  commands.getoutput("./Zhou04_EAM_v32 < EAM.input")
 
   tdiffea = 0.0
   tdiffp  = 0.0
