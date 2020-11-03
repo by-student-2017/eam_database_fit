@@ -309,7 +309,7 @@ os.environ["MKL_NUM_THREADS"] = "1"
 !sed -i 's/Xx/Li/g' EAM.input
 !cp in.lmp_temp_v2 in.lmp_temp
 !python2 nm_v31_gc.py
-!cat EAM_code
+!cat EAM_code_v3
 
 
 ## plot F, rho or z2r
