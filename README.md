@@ -297,7 +297,7 @@ for t in temp:
 %cd /content/eam_database_fit
 !cp ./EAM_fit_v3/EAM_code_v3.init ./
 !cp ./EAM_fit_v3/EAM_code_v3.temp ./
-!cp ./EAM_fit_v3/nm_v31_debian.py ./
+!cp ./EAM_fit_v3/nm_v31_gc.py ./
 !cp ./EAM_fit_v3/Zhou04_create_v31.f ./
 !cp ./EAM_fit_v3/setinp ./
 !cp ./EAM_fit_v3/struct.dat ./
