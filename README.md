@@ -293,6 +293,23 @@ for t in temp:
 	!cat EAM_code
 
 
+## fit parameters by NM method
+%cd /content/eam_database_fit
+!cp ./EAM_v3/EAM_code_v3.init ./
+!cp ./EAM_v3/EAM_code_v3.temp ./
+!cp ./EAM_v3/nm_v31_debian.py ./
+!cp ./EAM_v3/Zhou04_create_v31.f ./
+!gfortran -o Zhou04_EAM_v31 Zhou04_create_v31.f
+import os
+os.environ["OMP_NUM_THREADS"] = "1,1"
+os.environ["MKL_NUM_THREADS"] = "1"
+!cp EAM.input_temp EAM.input
+!sed -i 's/Xx/Li/g' EAM.input
+!cp in.lmp_temp_v2 in.lmp_temp
+!python2 nm_v31_debian.py
+!cat EAM_code
+
+
 ## plot F, rho or z2r
 	!gnuplot png.gp
 
