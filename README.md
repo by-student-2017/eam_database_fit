@@ -295,10 +295,11 @@ for t in temp:
 
 ## fit parameters by NM method
 %cd /content/eam_database_fit
-!cp ./EAM_v3/EAM_code_v3.init ./
-!cp ./EAM_v3/EAM_code_v3.temp ./
-!cp ./EAM_v3/nm_v31_debian.py ./
-!cp ./EAM_v3/Zhou04_create_v31.f ./
+!cp ./EAM_fit_v3/EAM_code_v3.init ./
+!cp ./EAM_fit_v3/EAM_code_v3.temp ./
+!cp ./EAM_fit_v3/nm_v31_debian.py ./
+!cp ./EAM_fit_v3/Zhou04_create_v31.f ./
+!cp ./EAM_fit_v3/struct.dat ./
 !gfortran -o Zhou04_EAM_v31 Zhou04_create_v31.f
 import os
 os.environ["OMP_NUM_THREADS"] = "1,1"
