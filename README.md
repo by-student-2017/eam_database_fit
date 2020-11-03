@@ -308,7 +308,7 @@ os.environ["MKL_NUM_THREADS"] = "1"
 !cp EAM.input_temp EAM.input
 !sed -i 's/Xx/Li/g' EAM.input
 !cp in.lmp_temp_v2 in.lmp_temp
-!python2 nm_v31_debian.py
+!python2 nm_v31_gc.py
 !cat EAM_code
 
 
