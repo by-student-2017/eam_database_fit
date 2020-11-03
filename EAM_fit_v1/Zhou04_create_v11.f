@@ -76,7 +76,6 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
          read(10,*) Fn3(ntypes)
          read(10,*) ielement(ntypes)
          read(10,*) amass(ntypes)
-         read(10,*) Fm4(ntypes)
          read(10,*) beta1(ntypes)
          read(10,*) ramda1(ntypes)
          read(10,*) rhol(ntypes)
