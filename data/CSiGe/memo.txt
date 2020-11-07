@@ -1,0 +1,4 @@
+cif2cell C.cif --no-reduce -p pwscf --pwscf-pseudo-PSLibrary-libdr="./potentials" --setup-all --k-resolution=0.20 --pwscf-force=yes --pwscf-stress=yes --pwscf-run-type=vc-relax --pwscf-k-point-even=no -o pw.in
+
+export OMP_NUM_THREADS=1
+mpirun -np 2 pw.x < pw.vc-relax.in | tee pw.vc-relax.out

@@ -1,0 +1,43 @@
+&CONTROL
+  calculation  = 'vc-relax' ,
+  tstress = .true. ,
+  tprnfor = .true. ,
+  prefix  = 'pw' ,
+  outdir  = './work/' ,
+  pseudo_dir = './potentials' ,
+/
+&SYSTEM
+  ibrav = 0
+  A =    3.54892
+  nat = 2
+  ntyp = 1
+  ecutwfc  =  45.0 ,
+  ecutrho  = 210.0 ,
+  occupations = 'smearing' ,
+  degauss  = 0.02 ,
+  smearing = 'mp',
+  nspin = 2 ,
+  starting_magnetization(1) = 1 ,
+  tot_magnetization = -1 ,
+/
+&ELECTRONS
+  mixing_beta = 0.7 ,
+/
+&IONS
+  ion_dynamics = 'bfgs' ,
+/
+&CELL
+  cell_dynamics='bfgs',
+/
+CELL_PARAMETERS {alat}
+  1.000000000000000   0.000000000000000   0.000000000000000 
+ -0.500000000000000   0.866025403784439   0.000000000000000 
+  0.000000000000000   0.000000000000000   1.616944609432623 
+ATOMIC_SPECIES
+  Tl  204.38350  Tl.pbe-dn-kjpaw_psl.1.0.0.UPF 
+ATOMIC_POSITIONS {crystal}
+  Tl   0.666666666666667   0.333333333333333   0.250000000000000 
+  Tl   0.333333333333333   0.666666666666667   0.750000000000000 
+K_POINTS automatic
+  10 10 4  1 1 1
+
