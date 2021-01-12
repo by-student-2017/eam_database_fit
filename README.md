@@ -145,6 +145,15 @@ for t in temp:
 7. python baysian.py
 
 
+## fit parameters by Particle Swarm Optimization (PSO)
+1. cd ~/eam_database_fit
+2. pip2 install fst-pso==1.7.5
+3. cp EAM.input_temp EAM.input
+4. sed -i 's/Xx/Cu/g' EAM.input
+5. gedit struct.dat
+6. python fstpso_v6_debian.py
+
+
 ## plot F, rho or z2r
 1. gnuplot png.gp
 
