@@ -147,20 +147,21 @@ for t in temp:
 
 ## fit parameters by Particle Swarm Optimization (PSO)
 1. cd ~/eam_database_fit
-2. pip2 install fst-pso==1.7.5
-3. cp EAM.input_temp EAM.input
-4. sed -i 's/Xx/Cu/g' EAM.input
-5. gedit struct.dat
-6. python fstpso_v6_debian.py
-
-
-## fit parameters by Particle Swarm Optimization (PSO)
-1. cd ~/eam_database_fit
 2. pip2 uninstall pyswarm==0.6
 3. cp EAM.input_temp EAM.input
 4. sed -i 's/Xx/Cu/g' EAM.input
 5. gedit struct.dat
 6. python pyswarm_v6_debian.py
+
+
+## fit parameters by Particle Swarm Optimization (PSO)
+1. cd ~/eam_database_fit
+2. pip2 install miniful
+3. pip2 install fst-pso==1.7.5
+4. cp EAM.input_temp EAM.input
+5. sed -i 's/Xx/Cu/g' EAM.input
+6. gedit struct.dat
+7. python fstpso_v6_debian.py
 
 
 ## plot F, rho or z2r
