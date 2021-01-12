@@ -1,6 +1,7 @@
 import random
 #from deap import creator, base, tools, algorithms
-from fstpso import FuzzyPSO
+#from fstpso import FuzzyPSO
+from pyswarm import pso
 import numpy
 import numpy as np
 import commands
@@ -328,17 +329,43 @@ def example_fitness( individual ):
 
   return y
 #----------------------------------------------------------------------
-if (__name__ == "__main__"):
-  #dims = 22
-  FP = FuzzyPSO()
-  #FP.set_search_space( [[-3.0, 25.0]]*dims )
-  FP.set_search_space(min_max_ind)
-  FP.set_fitness(example_fitness)
-  #FSTPSO.set_swarm_size(100)
-  #bestpos, bestf = FSTPSO.solve_with_fstpso(max_iter=1000)
-  result =  FP.solve_with_fstpso(max_iter=10000)
-  print "------------------------"
-  print "Best solution:", result[0]
-  print "Whose fitness is:", result[1]
+##PySwarm
+print ('*'*65)
+print "'Example minimization of 4th-order banana function (no constraints)'"
+xopt1, fopt1 = pso(example_fitness, min_ind, max_ind)
+print "'The optimum is at:'"
+print "'    {}'.format(xopt1)"
+print "'Optimal function value:'"
+print "'    myfunc: {}'.format(fopt1)"
+#----------------------------------------------------------------------
+##PySwarm
+#print ('*'*65)
+#print "'Example minimization of 4th-order banana function (with constraint)'"
+#def mycon(x):
+#    x1 = x[0]
+#    x2 = x[1]
+#    return [-(x1 + 0.25)**2 + 0.75*x2]
+#lb = min_ind
+#ub = max_ind
+#xopt2, fopt2 = pso(example_fitness, lb, ub, f_ieqcons=mycon)
+#print "'The optimum is at:'"
+#print "'    {}'.format(xopt2)"
+#print "'Optimal function value:'"
+#print "'    myfunc: {}'.format(fopt2)"
+#print "'    mycon : {}'.format(mycon(xopt2))"
+#----------------------------------------------------------------------
+##FST-PSO
+#if (__name__ == "__main__"):
+#  #dims = 22
+#  FP = FuzzyPSO()
+#  #FP.set_search_space( [[-3.0, 25.0]]*dims )
+#  FP.set_search_space(min_max_ind)
+#  FP.set_fitness(example_fitness)
+#  #FSTPSO.set_swarm_size(100)
+#  #bestpos, bestf = FSTPSO.solve_with_fstpso(max_iter=1000)
+#  result =  FP.solve_with_fstpso(max_iter=10000)
+#  print "------------------------"
+#  print "Best solution:", result[0]
+#  print "Whose fitness is:", result[1]
 #----------------------------------------------------------------------
 
