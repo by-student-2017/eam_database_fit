@@ -149,14 +149,11 @@ def example_fitness( individual ):
   commands.getoutput("./Zhou04_EAM_3 < EAM.input")
   diffb  = commands.getoutput("cat diff.dat")
   if diffb == "nan" or abs(float(diffb)) >= 0.15/(1+float(count)/900):
-    y = 999999.99999
+    y = 99999.99999 + sum(map(lambda x: x**2, individual))
     if count == 1:
       count -= 1
     print "skip this potential, because of bad boundary."
-    #return y
-    #return sum(map(lambda y: y, individual))
-    loss = sum(map(lambda y: y, individual))
-    return loss
+    return y
   
   tdiffea = 0.0
   tdiffp  = 0.0
@@ -230,13 +227,15 @@ def example_fitness( individual ):
       pxyl = commands.getoutput("awk '{if($1==\"pxyl\"){printf \"%10.8f\",$3*7.4028083e-11}}' log.lammps")
       pxzl = commands.getoutput("awk '{if($1==\"pxzl\"){printf \"%10.8f\",$3*7.4028083e-11}}' log.lammps")
       pyzl = commands.getoutput("awk '{if($1==\"pyzl\"){printf \"%10.8f\",$3*7.4028083e-11}}' log.lammps")
+      adddata = 0.0
       if abs(float(pxxl)) <= 0.000000001 and abs(float(pyyl)) <= 0.000000001 and abs(float(pzzl)) <= 0.000000001 and abs(float(pxyl)) <= 0.000000001 and abs(float(pxzl)) <= 0.000000001 and abs(float(pyzl)) <= 0.000000001:
-        pxxl = "99999999.99999"
-        pyyl = "99999999.99999"
-        pzzl = "99999999.99999"
-        pxyl = "99999999.99999"
-        pxzl = "99999999.99999"
-        pyzl = "99999999.99999"
+        pxxl = "99999.99999"
+        pyyl = "99999.99999"
+        pzzl = "99999.99999"
+        pxyl = "99999.99999"
+        pxzl = "99999.99999"
+        pyzl = "99999.99999"
+        adddata = sum(map(lambda x: x**2, individual))
       pxxp = commands.getoutput("awk '{if($1==\"#S\"){print $2}}' config_"+str(t)+"K")
       pyyp = commands.getoutput("awk '{if($1==\"#S\"){print $3}}' config_"+str(t)+"K")
       pzzp = commands.getoutput("awk '{if($1==\"#S\"){print $4}}' config_"+str(t)+"K")
@@ -249,7 +248,7 @@ def example_fitness( individual ):
       diffpxy = (float(pxyl) - float(pxyp))/(float(pxyp)+0.000000101)*100.0/6.0
       diffpxz = (float(pxzl) - float(pxzp))/(float(pxzp)+0.000000101)*100.0/6.0
       diffpyz = (float(pyzl) - float(pyzp))/(float(pyzp)+0.000000101)*100.0/6.0
-      diffp = abs(diffpxx) + abs(diffpyy) + abs(diffpzz) + abs(diffpxy) + abs(diffpxz) + abs(diffpyz)
+      diffp = abs(diffpxx) + abs(diffpyy) + abs(diffpzz) + abs(diffpxy) + abs(diffpxz) + abs(diffpyz) + adddata
       print "lammps: "+str(pxxl)+", "+str(pyyl)+", "+str(pzzl)+", "+str(pxyl)+", "+str(pxzl)+", "+str(pyzl)+" [eV/A^3]"
       print "PWscf:  "+str(pxxp)+", "+str(pyyp)+", "+str(pzzp)+", "+str(pxyp)+", "+str(pxzp)+", "+str(pyzp)+" [eV/A^3]"
       print "P diff (%): "+str(diffp)
@@ -265,9 +264,10 @@ def example_fitness( individual ):
         fyl[i] = commands.getoutput("awk '{if(NR==10+"+str(i)+"){printf \"%10.8f\",$8}}' trajectory.lammpstrj")
         fzl[i] = commands.getoutput("awk '{if(NR==10+"+str(i)+"){printf \"%10.8f\",$9}}' trajectory.lammpstrj")
         if fxl[i] == 0.0 and fyl[i] == 0.0 and fzl[i] == 0.0:
-          fxl[i] = 99999999.99999
-          fyl[i] = 99999999.99999
-          fzl[i] = 99999999.99999
+          adddata = sum(map(lambda x: x**2, individual))
+          fxl[i] = 99999.99999 + adddata
+          fyl[i] = 99999.99999 + adddata
+          fzl[i] = 99999.99999 + adddata
         fxp[i] = commands.getoutput("awk '{if(NR==11+"+str(i)+"){print $5}}' config_"+str(t)+"K")
         fyp[i] = commands.getoutput("awk '{if(NR==11+"+str(i)+"){print $6}}' config_"+str(t)+"K")
         fzp[i] = commands.getoutput("awk '{if(NR==11+"+str(i)+"){print $7}}' config_"+str(t)+"K")
@@ -283,7 +283,7 @@ def example_fitness( individual ):
       lammps_get_data = "grep \"Total Energy\" log.lammps | tail -1 | awk '{printf \"%-20.10f\",$4}'"
       lmpe = commands.getoutput(lammps_get_data)
       if float(lmpe) == 0.0:
-        lmpe = "99999999.99999"
+        lmpe = "99999.99999"
 
       pwe = commands.getoutput("awk '{if($1==\"#E\"){print $2}}' config_"+str(t)+"K")
       pwe = float(pwe) * float(natom)
@@ -307,14 +307,15 @@ def example_fitness( individual ):
       tdifff  = tdifff  + float(difff)*float(wt)
 
     else:
-      tdiffea = 99999999.99999
-      tdiffp  = 99999999.99999
-      tdifff  = 99999999.99999
+      adddata = sum(map(lambda x: x**2, individual))
+      tdiffea = 99999.99999 + adddata
+      tdiffp  = 99999.99999 + adddata
+      tdifff  = 99999.99999 + adddata
 
   if error_flag1 != "" and error_flag2 == "" and error_flag3 == "":
     diffb  = commands.getoutput("cat diff.dat")
   else:
-    diffb = 99999999.99999
+    diffb = 99999.99999 + sum(map(lambda x: x**2, individual))
   print "F boundary, diff: "+str(diffb)
   print "---------------"
 
@@ -325,11 +326,7 @@ def example_fitness( individual ):
   print "Parameters: x0 = "+"[ "+str(individual[0])+","+str(individual[1])+","+str(individual[2])+","+str(individual[3])+","+str(individual[4])+","+str(individual[5])+","+str(individual[6])+","+str(individual[7])+","+str(individual[8])+","+str(individual[9])+","+str(individual[10])+","+str(individual[11])+","+str(individual[12])+","+str(individual[13])+","+str(individual[14])+","+str(individual[15])+","+str(individual[16])+","+str(individual[17])+","+str(individual[18])+","+str(individual[19])+","+str(individual[20])+","+str(individual[21])+" ]"
   print "------------------------"
 
-  #return y
-  #return sum(map(lambda y: y, individual))
-  loss = sum(map(lambda y: y, individual))
-  print "Loss: ", loss
-  return loss
+  return y
 #----------------------------------------------------------------------
 if (__name__ == "__main__"):
   #dims = 22
