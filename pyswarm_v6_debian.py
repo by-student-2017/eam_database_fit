@@ -332,7 +332,13 @@ def example_fitness( individual ):
 ##PySwarm
 print ('*'*65)
 print "'Example minimization of 4th-order banana function (no constraints)'"
-xopt1, fopt1 = pso(example_fitness, min_ind, max_ind)
+#xopt1, fopt1 = pso(example_fitness, min_ind, max_ind)
+xopt1, fopt1 = pso(example_fitness, min_ind, max_ind,maxiter=10000)
+#xopt1, fopt1 = pso(example_fitness, min_ind, max_ind, ieqcons=[],
+#                   f_ieqcons=None, args=(), kwargs={},
+#                   swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100,
+#                   minstep=1e-8, minfunc=1e-8, debug=False)
+# https://pythonhosted.org/pyswarm/
 print "'The optimum is at:'"
 print "'    {}'.format(xopt1)"
 print "'Optimal function value:'"
