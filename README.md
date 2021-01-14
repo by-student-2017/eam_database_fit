@@ -333,7 +333,7 @@ for t in temp:
 	os.environ["MKL_NUM_THREADS"] = "1"
 	!cp EAM.input_temp EAM.input
 	!sed -i 's/Xx/Cu/g' EAM.input
-	!python2 pyswarm_v6_gc.py
+	!python2 fstpso_v6_gc.py
 	!cat EAM_code
 
 

@@ -331,22 +331,22 @@ def example_fitness( individual ):
 #----------------------------------------------------------------------
 ##PySwarm
 print ('*'*65)
-print "'Example minimization of 4th-order banana function (no constraints)'"
+print ('Example minimization of 4th-order banana function (no constraints)')
 #xopt1, fopt1 = pso(example_fitness, min_ind, max_ind)
-xopt1, fopt1 = pso(example_fitness, min_ind, max_ind,maxiter=50000)
+xopt1, fopt1 = pso(example_fitness, min_ind, max_ind,maxiter=500000)
 #xopt1, fopt1 = pso(example_fitness, min_ind, max_ind, ieqcons=[],
 #                   f_ieqcons=None, args=(), kwargs={},
 #                   swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100,
 #                   minstep=1e-8, minfunc=1e-8, debug=False)
 # https://pythonhosted.org/pyswarm/
-print "'The optimum is at:'"
-print "'    {}'.format(xopt1)"
-print "'Optimal function value:'"
-print "'    myfunc: {}'.format(fopt1)"
+print ('The optimum is at:')
+print ('    {}'.format(xopt1))
+print ('Optimal function value:')
+print ('    myfunc: {}'.format(fopt1))
 #----------------------------------------------------------------------
 ##PySwarm
 #print ('*'*65)
-#print "'Example minimization of 4th-order banana function (with constraint)'"
+#print ('Example minimization of 4th-order banana function (with constraint)')
 #def mycon(x):
 #    x1 = x[0]
 #    x2 = x[1]
@@ -354,11 +354,11 @@ print "'    myfunc: {}'.format(fopt1)"
 #lb = min_ind
 #ub = max_ind
 #xopt2, fopt2 = pso(example_fitness, lb, ub, f_ieqcons=mycon)
-#print "'The optimum is at:'"
-#print "'    {}'.format(xopt2)"
-#print "'Optimal function value:'"
-#print "'    myfunc: {}'.format(fopt2)"
-#print "'    mycon : {}'.format(mycon(xopt2))"
+#print ('The optimum is at:')
+#print ('    {}'.format(xopt2))
+#print ('Optimal function value:')
+#print ('    myfunc: {}'.format(fopt2))
+#print ('    mycon : {}'.format(mycon(xopt2)))
 #----------------------------------------------------------------------
 ##FST-PSO
 #if (__name__ == "__main__"):
