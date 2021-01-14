@@ -333,7 +333,7 @@ def example_fitness( individual ):
 print ('*'*65)
 print ('Example minimization of 4th-order banana function (no constraints)')
 #xopt1, fopt1 = pso(example_fitness, min_ind, max_ind)
-xopt1, fopt1 = pso(example_fitness, min_ind, max_ind,maxiter=500000)
+xopt1, fopt1 = pso(example_fitness, min_ind, max_ind, maxiter=200)
 #xopt1, fopt1 = pso(example_fitness, min_ind, max_ind, ieqcons=[],
 #                   f_ieqcons=None, args=(), kwargs={},
 #                   swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100,
@@ -353,7 +353,7 @@ print ('    myfunc: {}'.format(fopt1))
 #    return [-(x1 + 0.25)**2 + 0.75*x2]
 #lb = min_ind
 #ub = max_ind
-#xopt2, fopt2 = pso(example_fitness, lb, ub, f_ieqcons=mycon)
+#xopt2, fopt2 = pso(example_fitness, lb, ub, f_ieqcons=mycon, maxiter=200)
 #print ('The optimum is at:')
 #print ('    {}'.format(xopt2))
 #print ('Optimal function value:')

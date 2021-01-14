@@ -335,7 +335,7 @@ if (__name__ == "__main__"):
   FP.set_search_space(min_max_ind)
   FP.set_fitness(example_fitness)
   #FSTPSO.set_swarm_size(100)
-  #bestpos, bestf = FSTPSO.solve_with_fstpso(max_iter=500000)
+  #bestpos, bestf = FSTPSO.solve_with_fstpso(max_iter=1000)
   result =  FP.solve_with_fstpso(max_iter=10000)
   print "------------------------"
   print "Best solution:", result[0]
