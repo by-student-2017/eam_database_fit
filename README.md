@@ -147,7 +147,7 @@ for t in temp:
 
 ## fit parameters by Particle Swarm Optimization (PSO)
 1. cd ~/eam_database_fit
-2. pip2 uninstall pyswarm==0.6
+2. pip2 install pyswarm==0.6
 3. cp EAM.input_temp EAM.input
 4. sed -i 's/Xx/Cu/g' EAM.input
 5. gedit struct.dat
@@ -309,6 +309,30 @@ for t in temp:
 	!cp in.lmp_temp_v2 in.lmp_temp
 	!sed -i 's/YYYY/300.0/' in.lmp_temp
 	!python2 baysian_gc.py
+	!cat EAM_code
+
+
+## fit parameters by Particle Swarm Optimization (PSO)
+	!pip2 install pyswarm==0.6
+	%cd /content/eam_database_fit
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	!cp EAM.input_temp EAM.input
+	!sed -i 's/Xx/Cu/g' EAM.input
+	!python2 pyswarm_v6_gc.py
+	!cat EAM_code
+
+
+## fit parameters by Particle Swarm Optimization (PSO)
+	!pip2 install fst-pso==1.7.5
+	%cd /content/eam_database_fit
+	import os
+	os.environ["OMP_NUM_THREADS"] = "1,1"
+	os.environ["MKL_NUM_THREADS"] = "1"
+	!cp EAM.input_temp EAM.input
+	!sed -i 's/Xx/Cu/g' EAM.input
+	!python2 pyswarm_v6_gc.py
 	!cat EAM_code
 
 
