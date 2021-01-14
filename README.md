@@ -325,6 +325,7 @@ for t in temp:
 
 
 ## fit parameters by Particle Swarm Optimization (PSO)
+	!pip2 install miniful
 	!pip2 install fst-pso==1.7.5
 	%cd /content/eam_database_fit
 	import os
