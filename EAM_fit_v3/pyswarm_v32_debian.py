@@ -65,10 +65,10 @@ print "temperature: ",temp
 print "structure  : ",stru
 print "weight     : ",weig
 #----------------------------------------------------------------------
-print "read parameters from EAM_code.init"
-nline = commands.getoutput("grep -n "+str(satom)+" EAM_code.init | head -1 | sed -e \"s/:.*//g\"")
+print "read parameters from EAM_code_v32.init"
+nline = commands.getoutput("grep -n "+str(satom)+" EAM_code_v32.init | head -1 | sed -e \"s/:.*//g\"")
 print "read line: "+nline
-check_satom = commands.getoutput("awk '{if(NR=="+str(nline)+"+0){print $1}}' EAM_code.init | head -1")
+check_satom = commands.getoutput("awk '{if(NR=="+str(nline)+"+0){print $1}}' EAM_code_v32.init | head -1")
 print "fit element: "+check_satom
 # fitting parameters
 x0  = float(commands.getoutput("awk '{if(NR=="+str(nline)+"+1){print $1}}' EAM_code_v32.init | head -1"))
