@@ -25,6 +25,7 @@ satom = commands.getoutput("grep \"atomtype\" EAM.input | sed -e \"s/.*=//\" -e 
 
 commands.getoutput("chmod +x ./cfg2vasp/cfg2vasp")
 commands.getoutput("chmod +x pwscf2force")
+commands.getoutput("cp in.lmp_temp_v2 in.lmp_temp")
 commands.getoutput("chmod +x setinp")
 commands.getoutput("./setinp")
 commands.getoutput("chmod +x ./data2cfg/lmp_data2cfg")
