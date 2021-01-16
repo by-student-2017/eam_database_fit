@@ -167,7 +167,7 @@ def example_fitness( individual ):
   commands.getoutput("./Zhou04_EAM_v31 < EAM.input")
   diffb  = commands.getoutput("cat diff.dat")
   if diffb == "nan" or abs(float(diffb)) >= 0.15/(1+float(count)/900):
-    y = 99999.99999 + sum(map(lambda x: x**2, individual))
+    y = 99999.99999 + random.random()
     if count == 1:
       count -= 1
     print "skip this potential, because of bad boundary."
@@ -253,7 +253,7 @@ def example_fitness( individual ):
         pxyl = "99999.99999"
         pxzl = "99999.99999"
         pyzl = "99999.99999"
-        adddata = sum(map(lambda x: x**2, individual))
+        adddata = random.random()
       pxxp = commands.getoutput("awk '{if($1==\"#S\"){print $2}}' config_"+str(t)+"K")
       pyyp = commands.getoutput("awk '{if($1==\"#S\"){print $3}}' config_"+str(t)+"K")
       pzzp = commands.getoutput("awk '{if($1==\"#S\"){print $4}}' config_"+str(t)+"K")
@@ -282,7 +282,7 @@ def example_fitness( individual ):
         fyl[i] = commands.getoutput("awk '{if(NR==10+"+str(i)+"){printf \"%10.8f\",$8}}' trajectory.lammpstrj")
         fzl[i] = commands.getoutput("awk '{if(NR==10+"+str(i)+"){printf \"%10.8f\",$9}}' trajectory.lammpstrj")
         if fxl[i] == 0.0 and fyl[i] == 0.0 and fzl[i] == 0.0:
-          adddata = sum(map(lambda x: x**2, individual))
+          adddata = random.random()
           fxl[i] = 99999.99999 + adddata
           fyl[i] = 99999.99999 + adddata
           fzl[i] = 99999.99999 + adddata
@@ -325,7 +325,7 @@ def example_fitness( individual ):
       tdifff  = tdifff  + float(difff)*float(wt)
 
     else:
-      adddata = sum(map(lambda x: x**2, individual))
+      adddata = random.random()
       tdiffea = 99999.99999 + adddata
       tdiffp  = 99999.99999 + adddata
       tdifff  = 99999.99999 + adddata
@@ -333,7 +333,7 @@ def example_fitness( individual ):
   if error_flag1 != "" and error_flag2 == "" and error_flag3 == "":
     diffb  = commands.getoutput("cat diff.dat")
   else:
-    diffb = 99999.99999 + sum(map(lambda x: x**2, individual))
+    diffb = 99999.99999 + random.random()
   print "F boundary, diff: "+str(diffb)
   print "---------------"
 
