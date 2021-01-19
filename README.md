@@ -63,7 +63,7 @@ eam_database_fit
 4. cp in.lmp_temp_v2 in.lmp_temp
 5. python nm_v5_debian.py
   or python nm_v4_debian.py
-  (fit total energy, stress, every force, every temperature and every structure)
+  (fit total energy, every force, every temperature and every structure)
 
 
 ## rewrite area (for nm_v5_debian.py)
@@ -85,10 +85,10 @@ eam_database_fit
   (or python bfgs.py)
 
 
-  (or python nm_v2.py) (fit total energy and stress)
+  (or python nm_v2.py) (fit total energy)
 
 
-  (or python nm_v3.py) (fit total energy, stress and every force)
+  (or python nm_v3.py) (fit total energy and every force)
 
 
 ## rewrite area
@@ -234,7 +234,7 @@ for t in temp:
 	!cat EAM_code
 
 
-	(or !python nm_v4_gc.py) (fit total energy, stress, every force, every temperature and every structure)
+	(or !python nm_v4_gc.py) (fit total energy, every force, every temperature and every structure)
 
 
 ## fit parameters by other methods
@@ -253,9 +253,9 @@ for t in temp:
 	
 	or !python2 bfgs_gc.py
 	
-	(or !python nm_v2_gc.py) (fit total energy and stress)
+	(or !python nm_v2_gc.py) (fit total energy)
 	
-	(or !python nm_v3_gc.py) (fit total energy, stress and every force)
+	(or !python nm_v3_gc.py) (fit total energy and every force)
 
 
 ## fit parameters by genetic algorithm
