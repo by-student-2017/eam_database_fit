@@ -109,7 +109,7 @@ def f(x):
     print >> f, text
 
   commands.getoutput("./Zhou04_EAM_3 < EAM.input")
-  if count > 5000 or count % int(2000*2.718**(-count/2000)+1) == 1: 
+  if count > 5000 or count % int(5000*2.718**(-count/5000)+1) == 1: 
     commands.getoutput(lammps_adress+" < in.lmp")
     commands.getoutput("cp ./cfg/run.50.cfg run.50.cfg")
     commands.getoutput("./cfg2vasp/cfg2vasp run.50.cfg")

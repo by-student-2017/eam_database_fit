@@ -206,7 +206,7 @@ def descripter(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if count > 3000 or count % int(600*2.718**(-count/600)+1) == 1: 
+    if count > 5000 or count % int(5000*2.718**(-count/5000)+1) == 1: 
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
