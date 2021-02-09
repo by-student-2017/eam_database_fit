@@ -1,78 +1,78 @@
 | atom | K | struct | weight | K | struct | weight ...
-H  298 H  1.0
+H   77 H  1.0 298 H  1.0
 Li  77 Li 1.0 298 Li 1.0
-Be 298 Be 1.0
-B  298 B  1.0
-C  15  C  1.0
-N  15  N  1.0
-O  15  O  1.0
-F  298 F  1.0
-Na 298 Na 1.0
-Mg 298 Mg 1.0
-Al 298 Al 1.0
-Si 298 Si 1.0
-P  298 P  1.0
-S  15  S  1.0
-Cl 15  Cl 1.0
-K  298 K  1.0
-Ca 298 Ca 1.0
-Sc 298 Sc 1.0
-Ti 298 Ti 1.0
-V  298 V  1.0
-Cr 298 Cr 1.0
-Mn 298 Mn 1.0
-Fe 298 Fe 1.0
-Co 298 Co 1.0
-Ni 298 Ni 1.0
-Cu 298 Cu 1.0
-Zn 298 Zn 1.0
-Ga 298 Ga 1.0
-Ge 298 Ge 1.0
-As 298 As 1.0
-Se 298 Se 1.0
-Br 298 Br 1.0
-Rb 298 Rb 1.0
+Be  77 Be 1.0 298 Be 1.0
+B   77 B  1.0 298 B  1.0
+C   77 C  1.0 298 C  1.0
+N   77 N  1.0 298 N  1.0
+O   77 O  1.0 298 O  1.0
+F   77 F  1.0 298 F  1.0
+Na  77 Na 1.0 298 Na 1.0
+Mg  77 Mg 1.0 298 Mg 1.0
+Al  77 Al 1.0 298 Al 1.0
+Si  77 Si 1.0 298 Si 1.0
+P   77 P  1.0 298 P  1.0
+S   77 S  1.0 298 S  1.0
+Cl  77 Cl 1.0 298 Cl 1.0
+K   77K  1.0 298 K  1.0
+Ca  77 Ca 1.0 298 Ca 1.0
+Sc  77 Sc 1.0 298 Sc 1.0
+Ti  77 Ti 1.0 298 Ti 1.0
+V   77 V  1.0 298 V  1.0
+Cr  77 Cr 1.0 298 Cr 1.0
+Mn  77 Mn 1.0 298 Mn 1.0
+Fe  77 Fe 1.0 298 Fe 1.0
+Co  77 Co 1.0 298 Co 1.0
+Ni  77 Ni 1.0 298 Ni 1.0
+Cu  77 Cu 1.0 298 Cu 1.0
+Zn  77 Zn 1.0 298 Zn 1.0
+Ga  77 Ga 1.0 298 Ga 1.0
+Ge  77 Ge 1.0 298 Ge 1.0
+As  77 As 1.0 298 As 1.0
+Se  77 Se 1.0 298 Se 1.0
+Br  77 Br 1.0 298 Br 1.0
+Rb  77 Rb 1.0 298 Rb 1.0
 Sr  77 Sr 1.0 298 Sr 1.0
-Y  298 Y  1.0
-Zr 298 Zr 1.0
-Nb 298 Nb 1.0
-Mo 298 Mo 1.0
-Tc 298 Tc 1.0
+Y   77 Y  1.0 298 Y  1.0
+Zr  77 Zr 1.0 298 Zr 1.0
+Nb  77 Nb 1.0 298 Nb 1.0
+Mo  77 Mo 1.0 298 Mo 1.0
+Tc  77 Tc 1.0 298 Tc 1.0
 Ru  77 Ru 1.0 298 Ru 1.0
-Rh 298 Rh 1.0
-Pd 298 Pd 1.0
-Ag 298 Ag 1.0
-Cd 298 Cd 1.0
-In 298 In 1.0
-Sn 298 Sn 1.0
-Sb 298 Sb 1.0
-Te 298 Te 1.0
-Cs 298 Cs 1.0
-Ba 298 Ba 1.0
-La 298 La 1.0
-Ce 298 La 1.0
-Pr 298 La 1.0
-Nd 298 La 1.0
-Pm 298 La 1.0
-Sm 298 La 1.0
-Eu 298 La 1.0
-Gd 298 La 1.0
-Tb 298 La 1.0
-Dy 298 La 1.0
-Ho 298 La 1.0
-Er 298 La 1.0
-Tm 298 La 1.0
-Yb 298 La 1.0
-Lu 298 La 1.0
-Hf 298 Hf 1.0
-Ta 298 Ta 1.0
-W  298 W  1.0
-Re 298 Re 1.0
-Os 298 Os 1.0
-Ir 298 Ir 1.0
-Pt 298 Pt 1.0
-Au 298 Au 1.0
-Hg 15  Hg 1.0
-Tl 298 Tl 1.0
-Pb 298 Pb 1.0
-Bi 298 Bi 1.0
+Rh  77 Rh 1.0 298 Rh 1.0
+Pd  77 Pd 1.0 298 Pd 1.0
+Ag  77 Ag 1.0 298 Ag 1.0
+Cd  77 Cd 1.0 298 Cd 1.0
+In  77 In 1.0 298 In 1.0
+Sn  77 Sn 1.0 298 Sn 1.0
+Sb  77 Sb 1.0 298 Sb 1.0
+Te  77 Te 1.0 298 Te 1.0
+Cs  77 Cs 1.0 298 Cs 1.0
+Ba  77 Ba 1.0 298 Ba 1.0
+La  77 La 1.0 298 La 1.0
+Ce  77 La 1.0 298 La 1.0
+Pr  77 La 1.0 298 La 1.0
+Nd  77 La 1.0 298 La 1.0
+Pm  77 La 1.0 298 La 1.0
+Sm  77 La 1.0 298 La 1.0
+Eu  77 La 1.0 298 La 1.0
+Gd  77 La 1.0 298 La 1.0
+Tb  77 La 1.0 298 La 1.0
+Dy  77 La 1.0 298 La 1.0
+Ho  77 La 1.0 298 La 1.0
+Er  77 La 1.0 298 La 1.0
+Tm  77 La 1.0 298 La 1.0
+Yb  77 La 1.0 298 La 1.0
+Lu  77 La 1.0 298 La 1.0
+Hf  77 Hf 1.0 298 Hf 1.0
+Ta  77 Ta 1.0 298 Ta 1.0
+W   77 W  1.0 298 W  1.0
+Re  77 Re 1.0 298 Re 1.0
+Os  77 Os 1.0 298 Os 1.0
+Ir  77 Ir 1.0 298 Ir 1.0
+Pt  77 Pt 1.0 298 Pt 1.0
+Au  77 Au 1.0 298 Au 1.0
+Hg  77 Hg 1.0 15  Hg 1.0
+Tl  77 Tl 1.0 298 Tl 1.0
+Pb  77 Pb 1.0 298 Pb 1.0
+Bi  77 Bi 1.0 298 Bi 1.0
