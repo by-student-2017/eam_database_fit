@@ -334,7 +334,8 @@ def example_fitness( individual ):
 #----------------------------------------------------------------------
 ##PySwarm
 print ('*'*65)
-print ('Example minimization of 4th-order banana function (no constraints)')
+#print ('Example minimization of 4th-order banana function (no constraints)')
+print ('Example minimization (no constraints)')
 #xopt1, fopt1 = pso(example_fitness, min_ind, max_ind)
 xopt1, fopt1 = pso(example_fitness, min_ind, max_ind, maxiter=1000)
 #xopt1, fopt1 = pso(example_fitness, min_ind, max_ind, ieqcons=[],
