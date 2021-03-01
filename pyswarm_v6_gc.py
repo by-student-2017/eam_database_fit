@@ -64,6 +64,7 @@ for i in range(ntemp+1):
 print "temperature: ",temp
 print "structure  : ",stru
 print "weight     : ",weig
+dim = len(temp)
 #----------------------------------------------------------------------
 print "read parameters from EAM_code.init"
 nline = commands.getoutput("grep -n "+str(satom)+" EAM_code.init | head -1 | sed -e \"s/:.*//g\"")
