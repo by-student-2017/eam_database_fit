@@ -106,8 +106,8 @@ min_max_ind = []
 for i in range(n_gene):
   #min_ind[i] = b1[i][0]
   #max_ind[i] = b1[i][1]
-  min_ind[i] = float(x[i]) - float(abs(x[i]))*0.5
-  max_ind[i] = float(x[i]) + float(abs(x[i]))*0.5 + 0.000001
+  min_ind[i] = float(x[i]) - float(abs(x[i]))*0.3
+  max_ind[i] = float(x[i]) + float(abs(x[i]))*0.3 + 0.000001
   #print "search area of paramter "+str(i)+": "+str(min_ind[i])+" | "+str(max_ind[i])
   min_max_ind.append([min_ind[i],max_ind[i]])
 print "search area of paramter ", min_max_ind
@@ -162,7 +162,7 @@ def example_fitness( individual ):
   for t in temp:
     print "---------------"
     print "Temperature: "+str(t)+" [K]"
-    if (count % 9000) == 1: 
+    if count > 5000 or count % int((float(dim)*1500)*2.718**(-count/(float(dim)*1500))+1) == 1: 
       commands.getoutput("mv data.in_"+str(t)+"K data.in")
       natom = commands.getoutput("awk '{if($2==\"atoms\"){print $1}}' data.in")
       commands.getoutput(lammps_adress+" < in.lmp_"+str(t)+"K")
