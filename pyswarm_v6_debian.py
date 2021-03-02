@@ -337,7 +337,7 @@ print ('*'*65)
 #print ('Example minimization of 4th-order banana function (no constraints)')
 print ('Example minimization (no constraints)')
 #xopt1, fopt1 = pso(example_fitness, min_ind, max_ind)
-xopt1, fopt1 = pso(example_fitness, min_ind, max_ind,maxiter=500)
+xopt1, fopt1 = pso(example_fitness, min_ind, max_ind,maxiter=200)
 #xopt1, fopt1 = pso(example_fitness, min_ind, max_ind, ieqcons=[],
 #                   f_ieqcons=None, args=(), kwargs={},
 #                   swarmsize=100, omega=0.5, phip=0.5, phig=0.5, maxiter=100,
